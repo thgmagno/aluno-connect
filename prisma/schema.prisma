@@ -1,0 +1,106 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Student {
+  id            String          @id @default(uuid())
+  name          String
+  email         String          @unique
+  password      String?
+  birthdate     DateTime
+  firstAccess   Boolean         @default(true)
+  Request       Request[]
+  Frequency     Frequency[]
+  StudentParent StudentParent[]
+  StudentClass  StudentClass[]
+}
+
+model Frequency {
+  id        String   @id @default(uuid())
+  date      DateTime
+  status    Boolean
+  studentId String
+
+  studentID Student @relation(fields: [studentId], references: [id])
+}
+
+model Request {
+  id            String        @id @default(uuid())
+  studentId     String
+  date          DateTime
+  status        StatusRequest
+  justification String
+  imageURL      String?
+
+  studentID Student @relation(fields: [studentId], references: [id])
+}
+
+model Instructor {
+  id              String            @id @default(uuid())
+  name            String
+  email           String            @unique
+  password        String?
+  firstAccess     Boolean           @default(true)
+  InstructorClass InstructorClass[]
+}
+
+model Parent {
+  id            String          @id @default(uuid())
+  name          String
+  email         String          @unique
+  password      String?
+  firstAccess   Boolean         @default(true)
+  StudentParent StudentParent[]
+}
+
+model Administrator {
+  id       String @id @default(uuid())
+  name     String
+  email    String @unique
+  password String
+}
+
+model Class {
+  id              String            @id @default(uuid())
+  couse_name      String
+  StudentClass    StudentClass[]
+  InstructorClass InstructorClass[]
+}
+
+model StudentParent {
+  id        Int    @id @default(autoincrement())
+  studentId String
+  parentId  String
+
+  studentID Student @relation(fields: [studentId], references: [id])
+  parentID  Parent  @relation(fields: [parentId], references: [id])
+}
+
+model StudentClass {
+  id        Int    @id @default(autoincrement())
+  studentId String
+  classId   String
+
+  studentID Student @relation(fields: [studentId], references: [id])
+  classID   Class   @relation(fields: [classId], references: [id])
+}
+
+model InstructorClass {
+  id           Int    @id @default(autoincrement())
+  instructorId String
+  classId      String
+
+  instructorID Instructor @relation(fields: [instructorId], references: [id])
+  classID      Class      @relation(fields: [classId], references: [id])
+}
+
+enum StatusRequest {
+  PENDING
+  APPROVED
+  REJECTED
+}
