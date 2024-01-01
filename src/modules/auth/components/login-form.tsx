@@ -13,25 +13,55 @@ import Link from 'next/link'
 import { Input } from '@/components/ui/input'
 import BtnPromise from '@/modules/common/components/btn-promise'
 import { Button } from '@/components/ui/button'
+import {
+  authenticateAdministrator,
+  authenticateInstructor,
+  authenticateParent,
+  authenticateStudent,
+} from '../actions/auth-actions'
+import toast from 'react-hot-toast'
+
+type UserType = 'instructor' | 'student' | 'parent' | 'administrator'
 
 export default function LoginForm() {
+  const formSubmit = async (formData: FormData) => {
+    const userType: UserType = formData.get('userType') as UserType
+    if (!userType) return toast.error('Preencha todos os campos.')
+
+    const authenticationFunctions = {
+      instructor: authenticateInstructor,
+      student: authenticateStudent,
+      parent: authenticateParent,
+      administrator: authenticateAdministrator,
+    }
+
+    const res = await authenticationFunctions[userType](formData)
+
+    if (res) {
+      const { success, error } = res
+      success && toast.success(success)
+      error && toast.error(error)
+    }
+  }
+
   return (
     <Card className="w-[350px]">
       <CardHeader>
         <CardTitle>Aluno Connect</CardTitle>
         <CardDescription>Faça login para continuar.</CardDescription>
       </CardHeader>
-      <CardContent>
-        <form>
-          <div className="mb-6 flex justify-between">
+      <form action={formSubmit}>
+        <CardContent>
+          <div className="mb-6 grid grid-cols-2">
             <div className="flex flex-col items-center space-y-1.5">
               <Label htmlFor="instructor" className="text-sm">
                 Instrutor
               </Label>
               <Input
                 type="radio"
-                name="userType"
                 id="instructor"
+                name="userType"
+                value="instructor"
                 className="h-5 w-5"
               />
             </div>
@@ -41,19 +71,33 @@ export default function LoginForm() {
               </Label>
               <Input
                 type="radio"
-                name="userType"
                 id="student"
+                name="userType"
+                value="student"
                 className="h-5 w-5"
               />
             </div>
-            <div className="flex flex-col items-center space-y-1.5">
+            <div className="mt-2 flex flex-col items-center space-y-1.5">
               <Label htmlFor="parent" className="text-sm">
                 Responsável
               </Label>
               <Input
                 type="radio"
-                name="userType"
                 id="parent"
+                name="userType"
+                value="parent"
+                className="h-5 w-5"
+              />
+            </div>
+            <div className="mt-2 flex flex-col items-center space-y-1.5">
+              <Label htmlFor="administrator" className="text-sm">
+                Administrador
+              </Label>
+              <Input
+                type="radio"
+                id="administrator"
+                name="userType"
+                value="administrator"
                 className="h-5 w-5"
               />
             </div>
@@ -62,21 +106,21 @@ export default function LoginForm() {
           <div className="grid w-full items-center gap-4">
             <div className="flex flex-col space-y-1.5">
               <Label htmlFor="email">E-mail</Label>
-              <Input id="email" placeholder="Digite o seu e-mail" />
+              <Input name="email" placeholder="Digite o seu e-mail" />
             </div>
             <div className="flex flex-col space-y-1.5">
               <Label htmlFor="password">Senha</Label>
-              <Input id="password" placeholder="Digite a sua senha" />
+              <Input name="password" placeholder="Digite a sua senha" />
             </div>
           </div>
-        </form>
-      </CardContent>
-      <CardFooter className="flex justify-between">
-        <Link href="primeiro-acesso">
-          <Button variant={'outline'}>Primeiro acesso?</Button>
-        </Link>
-        <BtnPromise title="Entrar" />
-      </CardFooter>
+        </CardContent>
+        <CardFooter className="flex justify-between">
+          <Link href="primeiro-acesso">
+            <Button variant={'outline'}>Primeiro acesso?</Button>
+          </Link>
+          <BtnPromise title="Entrar" />
+        </CardFooter>
+      </form>
     </Card>
   )
 }
