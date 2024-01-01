@@ -116,7 +116,9 @@ export default function LoginForm() {
         </CardContent>
         <CardFooter className="flex justify-between">
           <Link href="primeiro-acesso">
-            <Button variant={'outline'}>Primeiro acesso?</Button>
+            <Button type="button" variant={'outline'}>
+              Primeiro acesso?
+            </Button>
           </Link>
           <BtnPromise title="Entrar" />
         </CardFooter>

@@ -47,7 +47,9 @@ export default function SetPasswordForm() {
           href="primeiro-acesso"
           className="text-sm text-sky-600 transition-all duration-300 hover:font-semibold"
         >
-          <Button variant={'outline'}>Voltar</Button>
+          <Button type="button" variant={'outline'}>
+            Voltar
+          </Button>
         </Link>
         <BtnPromise title="Salvar" />
       </CardFooter>

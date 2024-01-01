@@ -36,7 +36,9 @@ export default function FirstAccessForm() {
           href="entrar"
           className="text-sm text-sky-600 transition-all duration-300 hover:font-semibold"
         >
-          <Button variant={'outline'}>Voltar</Button>
+          <Button type="button" variant={'outline'}>
+            Voltar
+          </Button>
         </Link>
         <BtnPromise title="Avançar" />
       </CardFooter>
