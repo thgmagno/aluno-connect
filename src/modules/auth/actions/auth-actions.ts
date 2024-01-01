@@ -34,7 +34,7 @@ export async function authenticateInstructor(formData: FormData) {
 
     if (!user) {
       return {
-        error: 'E-mail não encontrado, tente novamente.',
+        error: 'Cadastro de Instrutor não encontrado. Tente novamente.',
       }
     }
 
@@ -83,7 +83,8 @@ export async function authenticateStudent(formData: FormData) {
       },
     })
 
-    if (!user) return { error: 'E-mail não encontrado, tente novamente.' }
+    if (!user)
+      return { error: 'Cadastro de Estudante não encontrado. Tente novamente.' }
 
     if (!user.password)
       return {
@@ -129,7 +130,10 @@ export async function authenticateParent(formData: FormData) {
       },
     })
 
-    if (!user) return { error: 'E-mail não encontrado, tente novamente.' }
+    if (!user)
+      return {
+        error: 'Cadastro de Responsável não encontrado. Tente novamente.',
+      }
 
     if (!user.password)
       return {
@@ -177,7 +181,7 @@ export async function authenticateAdministrator(formData: FormData) {
 
     if (!user) {
       return {
-        error: 'E-mail não encontrado, tente novamente.',
+        error: 'Cadastro de Administrador não encontrado. Tente novamente.',
       }
     }
 
