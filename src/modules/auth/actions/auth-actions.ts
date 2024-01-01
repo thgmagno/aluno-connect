@@ -8,6 +8,7 @@ import {
   studentLoginSchema,
 } from '@/lib/types'
 import * as bcrypt from 'bcrypt'
+import AuthService from '../services/auth-service'
 
 export async function authenticateInstructor(formData: FormData) {
   const parsed = instructorLoginSchema.safeParse({
@@ -52,7 +53,13 @@ export async function authenticateInstructor(formData: FormData) {
 
     if (!isMatchPassword) return { error: 'Senha incorreta, tente novamente.' }
 
-    // TODO: Criar token que armazena a sessão do usuário
+    const payload = {
+      sub: user.id,
+      name: user.name,
+      profile: 'instructor',
+    }
+
+    await AuthService.createSessionToken({ payload })
 
     return { success: 'Bem-vindo ao Aluno Connect.' }
   } catch (e) {
@@ -99,7 +106,13 @@ export async function authenticateStudent(formData: FormData) {
 
     if (!isMatchPassword) return { error: 'Senha incorreta, tente novamente.' }
 
-    // TODO: Criar token que armazena a sessão do usuário
+    const payload = {
+      sub: user.id,
+      name: user.name,
+      profile: 'student',
+    }
+
+    await AuthService.createSessionToken({ payload })
 
     return { success: 'Bem-vindo ao Aluno Connect.' }
   } catch (e) {
@@ -148,7 +161,13 @@ export async function authenticateParent(formData: FormData) {
 
     if (!isMatchPassword) return { error: 'Senha incorreta, tente novamente.' }
 
-    // TODO: Criar token que armazena a sessão do usuário
+    const payload = {
+      sub: user.id,
+      name: user.name,
+      profile: 'parent',
+    }
+
+    await AuthService.createSessionToken({ payload })
 
     return { success: 'Bem-vindo ao Aluno Connect.' }
   } catch (e) {
@@ -192,7 +211,13 @@ export async function authenticateAdministrator(formData: FormData) {
 
     if (!isMatchPassword) return { error: 'Senha incorreta, tente novamente.' }
 
-    // TODO: Criar token que armazena a sessão do usuário
+    const payload = {
+      sub: user.id,
+      name: user.name,
+      profile: 'administrator',
+    }
+
+    await AuthService.createSessionToken({ payload })
 
     return { success: 'Bem-vindo ao Aluno Connect.' }
   } catch (e) {
