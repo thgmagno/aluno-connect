@@ -12,6 +12,7 @@ import { Label } from '@/components/ui/label'
 import Link from 'next/link'
 import { Input } from '@/components/ui/input'
 import BtnPromise from '@/modules/common/components/btn-promise'
+import { Button } from '@/components/ui/button'
 
 export default function LoginForm() {
   return (
@@ -71,11 +72,8 @@ export default function LoginForm() {
         </form>
       </CardContent>
       <CardFooter className="flex justify-between">
-        <Link
-          href="primeiro-acesso"
-          className="text-sm text-sky-600 transition-all duration-300 hover:font-semibold"
-        >
-          Primeiro acesso?
+        <Link href="primeiro-acesso">
+          <Button variant={'outline'}>Primeiro acesso?</Button>
         </Link>
         <BtnPromise title="Entrar" />
       </CardFooter>
