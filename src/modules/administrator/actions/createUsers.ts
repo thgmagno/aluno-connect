@@ -1,8 +1,8 @@
 import prisma from '@/lib/prisma'
 import {
-  instructorSchemaValidation,
-  parentSchemaValidation,
-  studentSchemaValidation,
+  instructorRegistrationSchema,
+  parentRegistrationSchema,
+  studentRegistrationSchema,
 } from '@/lib/types'
 
 type createUsersType = {
@@ -12,7 +12,7 @@ type createUsersType = {
 }
 
 async function createInstructorAccount(formData: FormData) {
-  const parsed = instructorSchemaValidation.safeParse({
+  const parsed = instructorRegistrationSchema.safeParse({
     name: formData.get('name'),
     email: formData.get('email'),
   })
@@ -52,7 +52,7 @@ async function createInstructorAccount(formData: FormData) {
   }
 }
 async function createStudentAccount(formData: FormData) {
-  const parsed = studentSchemaValidation.safeParse({
+  const parsed = studentRegistrationSchema.safeParse({
     name: formData.get('name'),
     email: formData.get('email'),
     birthdate: formData.get('birthdate'),
@@ -94,7 +94,7 @@ async function createStudentAccount(formData: FormData) {
   }
 }
 async function createParentAccount(formData: FormData) {
-  const parsed = parentSchemaValidation.safeParse({
+  const parsed = parentRegistrationSchema.safeParse({
     name: formData.get('name'),
     email: formData.get('email'),
   })
