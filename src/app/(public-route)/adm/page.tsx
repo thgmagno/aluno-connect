@@ -1,4 +1,4 @@
-import AdmLoginForm from '@/modules/auth/components/adm-login-form'
+import AdmLoginForm from '@/modules/administrator/components/adm-login-form'
 
 export default function AdmLogin() {
   return (

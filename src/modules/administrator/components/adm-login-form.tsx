@@ -1,6 +1,5 @@
 'use client'
 
-import { Button } from '@/components/ui/button'
 import {
   Card,
   CardHeader,
@@ -11,14 +10,16 @@ import {
 } from '@/components/ui/card'
 import { Label } from '@/components/ui/label'
 import { Input } from '@/components/ui/input'
-import { authenticateAdministrator } from '../actions/auth-actions'
+import toast from 'react-hot-toast'
+import { authenticateAdministrator } from '@/modules/auth/actions/auth-actions'
+import BtnPromise from '@/modules/common/components/btn-promise'
 
 export default function AdmLoginForm() {
   const formSubmit = async (formData: FormData) => {
     const res = await authenticateAdministrator(formData)
-    if (res) {
-      alert(res.success || res.error)
-    }
+
+    res.success && toast.success(res.success)
+    res.error && toast.error(res.error)
   }
 
   return (
@@ -41,9 +42,7 @@ export default function AdmLoginForm() {
           </div>
         </CardContent>
         <CardFooter className="flex justify-end">
-          <Button type="submit" className="bg-emerald-700 hover:bg-emerald-800">
-            Entrar
-          </Button>
+          <BtnPromise title="Entrar" />
         </CardFooter>
       </form>
     </Card>

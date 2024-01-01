@@ -1,3 +1,5 @@
+'use client'
+
 import { Button } from '@/components/ui/button'
 import {
   Card,
@@ -9,6 +11,7 @@ import {
 } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import BtnPromise from '@/modules/common/components/btn-promise'
 import Link from 'next/link'
 
 export default function FirstAccessForm() {
@@ -35,7 +38,7 @@ export default function FirstAccessForm() {
         >
           <Button variant={'outline'}>Voltar</Button>
         </Link>
-        <Button className="bg-emerald-700 hover:bg-emerald-800">Avançar</Button>
+        <BtnPromise title="Avançar" />
       </CardFooter>
     </Card>
   )

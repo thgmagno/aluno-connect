@@ -1,4 +1,5 @@
-import { Button } from '@/components/ui/button'
+'use client'
+
 import {
   Card,
   CardHeader,
@@ -10,6 +11,7 @@ import {
 import { Label } from '@/components/ui/label'
 import Link from 'next/link'
 import { Input } from '@/components/ui/input'
+import BtnPromise from '@/modules/common/components/btn-promise'
 
 export default function LoginForm() {
   return (
@@ -75,7 +77,7 @@ export default function LoginForm() {
         >
           Primeiro acesso?
         </Link>
-        <Button className="bg-emerald-700 hover:bg-emerald-800">Entrar</Button>
+        <BtnPromise title="Entrar" />
       </CardFooter>
     </Card>
   )
