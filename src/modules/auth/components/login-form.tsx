@@ -24,6 +24,7 @@ import toast from 'react-hot-toast'
 type UserType = 'instructor' | 'student' | 'parent' | 'administrator'
 
 export default function LoginForm() {
+  // TODO: Adicionar botao de visualizar a senha
   const formSubmit = async (formData: FormData) => {
     const userType: UserType = formData.get('userType') as UserType
     if (!userType) return toast.error('Preencha todos os campos.')
@@ -106,11 +107,11 @@ export default function LoginForm() {
           <div className="grid w-full items-center gap-4">
             <div className="flex flex-col space-y-1.5">
               <Label htmlFor="email">E-mail</Label>
-              <Input name="email" placeholder="Digite o seu e-mail" />
+              <Input type="email" name="email" placeholder="Digite o seu e-mail" />
             </div>
             <div className="flex flex-col space-y-1.5">
               <Label htmlFor="password">Senha</Label>
-              <Input name="password" placeholder="Digite a sua senha" />
+              <Input type="password" name="password" placeholder="Digite a sua senha" />
             </div>
           </div>
         </CardContent>
