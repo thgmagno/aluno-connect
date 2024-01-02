@@ -107,11 +107,19 @@ export default function LoginForm() {
           <div className="grid w-full items-center gap-4">
             <div className="flex flex-col space-y-1.5">
               <Label htmlFor="email">E-mail</Label>
-              <Input type="email" name="email" placeholder="Digite o seu e-mail" />
+              <Input
+                type="email"
+                name="email"
+                placeholder="Digite o seu e-mail"
+              />
             </div>
             <div className="flex flex-col space-y-1.5">
               <Label htmlFor="password">Senha</Label>
-              <Input type="password" name="password" placeholder="Digite a sua senha" />
+              <Input
+                type="password"
+                name="password"
+                placeholder="Digite a sua senha"
+              />
             </div>
           </div>
         </CardContent>
