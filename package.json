@@ -4,10 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "prisma generate && npm run format && next build",
+    "build": "prisma generate && npm run lint --fix && next build",
     "start": "next start",
     "lint": "next lint",
-    "format": "prettier --write 'src/**/*.tsx'"
   },
   "dependencies": {
     "@prisma/client": "^5.7.1",
