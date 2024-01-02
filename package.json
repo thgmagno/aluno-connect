@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "prisma generate && npm run lint --fix && next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "next lint"
   },
   "dependencies": {
     "@prisma/client": "^5.7.1",
