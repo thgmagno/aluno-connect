@@ -12,6 +12,7 @@ import {
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import BtnPromise from '@/modules/common/components/btn-promise'
+import { EyeOff, Eye } from 'lucide-react'
 import Link from 'next/link'
 import { useState } from 'react'
 
@@ -33,7 +34,7 @@ export default function SetPasswordForm() {
               <Label htmlFor="">E-mail</Label>
               <Input type="text" value={'[e-mail do usuário]'} disabled />
             </div>
-            <div className="flex flex-col space-y-1.5">
+            <div className="relative flex flex-col space-y-1.5">
               <Label htmlFor="password">Senha</Label>
               <Input
                 type={visible ? 'text' : 'password'}
@@ -44,16 +45,16 @@ export default function SetPasswordForm() {
                 type={visible ? 'text' : 'password'}
                 placeholder="Confirme a senha"
               />
+              <Button
+                type="button"
+                variant={'link'}
+                className="absolute right-2 top-3.5 mt-2 p-2 text-zinc-500"
+                onClick={() => setVisible(!visible)}
+              >
+                {visible ? <Eye /> : <EyeOff />}
+              </Button>
             </div>
           </div>
-          <Button
-            type="button"
-            variant={'link'}
-            className="mt-2 p-2 text-zinc-600"
-            onClick={() => setVisible(!visible)}
-          >
-            {visible ? 'Esconder senha' : 'Visualizar senha'}
-          </Button>
         </form>
       </CardContent>
       <CardFooter className="flex justify-between">

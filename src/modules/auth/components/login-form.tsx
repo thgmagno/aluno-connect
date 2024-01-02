@@ -21,6 +21,7 @@ import {
 } from '../actions/auth-actions'
 import toast from 'react-hot-toast'
 import { useState } from 'react'
+import { Eye, EyeOff } from 'lucide-react'
 
 type UserType = 'instructor' | 'student' | 'parent' | 'administrator'
 
@@ -115,7 +116,7 @@ export default function LoginForm() {
                 className="text-base"
               />
             </div>
-            <div className="flex flex-col space-y-1.5">
+            <div className="relative flex flex-col space-y-1.5">
               <Label htmlFor="password">Senha</Label>
               <Input
                 type={visible ? 'text' : 'password'}
@@ -123,16 +124,16 @@ export default function LoginForm() {
                 placeholder="Digite a sua senha"
                 className="text-base"
               />
+              <Button
+                type="button"
+                variant={'link'}
+                className="absolute right-2 top-3.5 mt-2 p-2 text-zinc-500"
+                onClick={() => setVisible(!visible)}
+              >
+                {visible ? <Eye /> : <EyeOff />}
+              </Button>
             </div>
           </div>
-          <Button
-            type="button"
-            variant={'link'}
-            className="mt-2 p-2 text-zinc-600"
-            onClick={() => setVisible(!visible)}
-          >
-            {visible ? 'Esconder senha' : 'Visualizar senha'}
-          </Button>
         </CardContent>
         <CardFooter className="flex justify-between">
           <Link href="primeiro-acesso">
