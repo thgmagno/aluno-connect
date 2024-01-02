@@ -20,11 +20,12 @@ import {
   authenticateStudent,
 } from '../actions/auth-actions'
 import toast from 'react-hot-toast'
+import { useState } from 'react'
 
 type UserType = 'instructor' | 'student' | 'parent' | 'administrator'
 
 export default function LoginForm() {
-  // TODO: Adicionar botao de visualizar a senha
+  const [visible, setVisible] = useState(false)
   const formSubmit = async (formData: FormData) => {
     const userType: UserType = formData.get('userType') as UserType
     if (!userType) return toast.error('Preencha todos os campos.')
@@ -111,17 +112,27 @@ export default function LoginForm() {
                 type="email"
                 name="email"
                 placeholder="Digite o seu e-mail"
+                className="text-base"
               />
             </div>
             <div className="flex flex-col space-y-1.5">
               <Label htmlFor="password">Senha</Label>
               <Input
-                type="password"
+                type={visible ? 'text' : 'password'}
                 name="password"
                 placeholder="Digite a sua senha"
+                className="text-base"
               />
             </div>
           </div>
+          <Button
+            type="button"
+            variant={'link'}
+            className="mt-2 p-2 text-zinc-600"
+            onClick={() => setVisible(!visible)}
+          >
+            {visible ? 'Esconder senha' : 'Visualizar senha'}
+          </Button>
         </CardContent>
         <CardFooter className="flex justify-between">
           <Link href="primeiro-acesso">

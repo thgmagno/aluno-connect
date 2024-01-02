@@ -13,8 +13,11 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import BtnPromise from '@/modules/common/components/btn-promise'
 import Link from 'next/link'
+import { useState } from 'react'
 
 export default function SetPasswordForm() {
+  const [visible, setVisible] = useState(false)
+
   return (
     <Card className="w-[350px]">
       <CardHeader>
@@ -33,13 +36,24 @@ export default function SetPasswordForm() {
             <div className="flex flex-col space-y-1.5">
               <Label htmlFor="password">Senha</Label>
               <Input
-                type="password"
+                type={visible ? 'text' : 'password'}
                 id="password"
                 placeholder="Informe uma senha segura"
               />
-              <Input type="password" placeholder="Confirme a senha" />
+              <Input
+                type={visible ? 'text' : 'password'}
+                placeholder="Confirme a senha"
+              />
             </div>
           </div>
+          <Button
+            type="button"
+            variant={'link'}
+            className="mt-2 p-2 text-zinc-600"
+            onClick={() => setVisible(!visible)}
+          >
+            {visible ? 'Esconder senha' : 'Visualizar senha'}
+          </Button>
         </form>
       </CardContent>
       <CardFooter className="flex justify-between">
