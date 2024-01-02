@@ -71,6 +71,6 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground bg-gradient-to-tr from-green-900 to-emerald-900;
+    @apply bg-background text-foreground bg-gradient-to-tr from-sky-950 to-teal-950;
   }
 }

@@ -18,7 +18,7 @@ export default function BtnPromise({ title }: { title: string }) {
       className={`w-20 ${
         pending
           ? 'animate-pulse cursor-not-allowed'
-          : 'bg-emerald-700 text-zinc-100 hover:bg-emerald-800'
+          : 'bg-teal-700 text-zinc-50 hover:bg-teal-800'
       }`}
     >
       {pending ? spinner : title}

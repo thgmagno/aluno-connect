@@ -20,7 +20,7 @@ export default async function UserAvatar() {
     )
 
   return (
-    <div className="top-0 z-10 flex w-full justify-between bg-emerald-950 p-2 shadow-md md:px-6">
+    <div className="top-0 z-10 flex w-full justify-between bg-neutral-950 p-3 shadow-md md:px-6">
       <div className="flex cursor-default items-center gap-2">
         {icon}
         <span className="font-semibold text-zinc-300">{name as string}</span>
