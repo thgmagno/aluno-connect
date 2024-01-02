@@ -5,7 +5,7 @@ import Link from 'next/link'
 export default function AdmHome() {
   return (
     <CardContent>
-      <Link href="novo-usuario">
+      <Link href="alunos">
         <Button variant={'outline'}>Adicionar novo usuário</Button>
       </Link>
     </CardContent>
