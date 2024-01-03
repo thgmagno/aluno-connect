@@ -1,5 +1,6 @@
 import AdmHome from '@/modules/administrator/components/adm-home'
 import AuthService from '@/modules/auth/services/auth-service'
+import ContentMain from '@/modules/common/components/content-main'
 import { cookies } from 'next/headers'
 
 export default async function Home() {
@@ -14,9 +15,5 @@ export default async function Home() {
   // const isParent = profile === 'parent'
   const isAdmin = profile === 'administrator'
 
-  return (
-    <main className="flex min-h-screen flex-col items-center p-10">
-      {isAdmin && <AdmHome />}
-    </main>
-  )
+  return <ContentMain>{isAdmin && <AdmHome />}</ContentMain>
 }
