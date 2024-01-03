@@ -2,12 +2,12 @@
 
 import { Button } from '@/components/ui/button'
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
-import BtnGoBack from '@/modules/common/components/btn-go-back'
 import ContentMain from '@/modules/common/components/content-main'
 import { Label } from '@/components/ui/label'
 import { Input } from '@/components/ui/input'
 import { createStudentAccount } from '@/modules/administrator/actions/create'
 import toast from 'react-hot-toast'
+import NavigationBar from '@/modules/common/components/navigation-bar'
 
 export default function StudentNew() {
   const handleSubmit = async (formData: FormData) => {
@@ -19,7 +19,7 @@ export default function StudentNew() {
 
   return (
     <ContentMain>
-      <BtnGoBack href="/alunos" />
+      <NavigationBar goBack="/alunos" />
       <Card className="mt-5">
         <CardHeader>
           <CardTitle>Cadastrar aluno</CardTitle>

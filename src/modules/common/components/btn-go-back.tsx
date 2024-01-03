@@ -3,12 +3,9 @@ import Link from 'next/link'
 
 export default function BtnGoBack({ href }: { href: string }) {
   return (
-    <Link
-      href={href}
-      className="mb-5 mr-auto flex gap-1.5 font-semibold text-zinc-100"
-    >
+    <Link href={href} className="flex gap-1.5 font-semibold text-zinc-100">
       <Undo2 />
-      Voltar
+      <span className="hidden md:flex">Voltar</span>
     </Link>
   )
 }

@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button'
 import prisma from '@/lib/prisma'
-import BtnGoBack from '@/modules/common/components/btn-go-back'
 import ContentMain from '@/modules/common/components/content-main'
+import NavigationBar from '@/modules/common/components/navigation-bar'
 import Link from 'next/link'
 
 export default async function StudentList() {
@@ -11,18 +11,7 @@ export default async function StudentList() {
 
   return (
     <ContentMain>
-      <BtnGoBack href="/" />
-      <header className="mb-4 flex w-full items-center justify-between md:w-[42%]">
-        <h1 className="col-span-2 mb-5 mt-5 font-semibold text-muted md:mt-0">
-          Lista de alunos
-        </h1>
-        <Link
-          href={'/alunos/novo'}
-          className="col-span-2 mb-5 mt-5 font-semibold text-muted md:mt-0"
-        >
-          <Button variant={'secondary'}>Cadastrar</Button>
-        </Link>
-      </header>
+      <NavigationBar goBack="/" register="/alunos/novo" />
       <div className="flex flex-col">
         <ul className="col-auto">
           {students.map((student) => (
