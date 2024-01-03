@@ -5,7 +5,7 @@ export default function BtnGoBack({ href }: { href: string }) {
   return (
     <Link
       href={href}
-      className="mr-auto flex gap-1.5 font-semibold text-zinc-100"
+      className="mb-5 mr-auto flex gap-1.5 font-semibold text-zinc-100"
     >
       <Undo2 />
       Voltar

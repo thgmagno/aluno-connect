@@ -17,7 +17,6 @@ export const instructorLoginSchema = z.object({
 export const studentRegistrationSchema = z.object({
   name: z.string().min(1, 'O nome é obrigatório'),
   email: z.string().email('Formato de e-mail inválido'),
-  password: z.string().min(4, 'A senha precisa ter pelo menos 4 caracteres'),
   birthdate: z.date(),
 })
 

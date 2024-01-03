@@ -5,13 +5,7 @@ import {
   studentRegistrationSchema,
 } from '@/lib/types'
 
-type createUsersType = {
-  instructorAccount: (formData: FormData) => void
-  studentAccount: (formData: FormData) => void
-  parentAccount: (formData: FormData) => void
-}
-
-async function instructorAccount(formData: FormData) {
+export async function createInstructorAccount(formData: FormData) {
   const parsed = instructorRegistrationSchema.safeParse({
     name: formData.get('name'),
     email: formData.get('email'),
@@ -51,11 +45,14 @@ async function instructorAccount(formData: FormData) {
     }
   }
 }
-async function studentAccount(formData: FormData) {
+export async function createStudentAccount(formData: FormData) {
+  const birthdate = new Date(formData.get('birthdate') as string)
+  if (!birthdate.getDate()) return { error: 'Preencha todos os campos' }
+
   const parsed = studentRegistrationSchema.safeParse({
     name: formData.get('name'),
     email: formData.get('email'),
-    birthdate: formData.get('birthdate'),
+    birthdate,
   })
 
   if (!parsed.success) {
@@ -89,11 +86,11 @@ async function studentAccount(formData: FormData) {
           'Este e-mail já existe em nossa base de dados. Tente com outro diferente.',
       }
     } else {
-      return { error: 'Não foi possível concluir o cadastro.' }
+      return { error: 'Não foi possível concluir o cadastro.' + e }
     }
   }
 }
-async function parentAccount(formData: FormData) {
+export async function createParentAccount(formData: FormData) {
   const parsed = parentRegistrationSchema.safeParse({
     name: formData.get('name'),
     email: formData.get('email'),
@@ -133,11 +130,3 @@ async function parentAccount(formData: FormData) {
     }
   }
 }
-
-const CreateActions: createUsersType = {
-  instructorAccount,
-  studentAccount,
-  parentAccount,
-}
-
-export default CreateActions

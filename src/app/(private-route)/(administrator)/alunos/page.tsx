@@ -12,9 +12,17 @@ export default async function StudentList() {
   return (
     <ContentMain>
       <BtnGoBack href="/" />
-      <h1 className="col-span-2 mb-5 mt-5 font-semibold text-muted md:mt-0">
-        Lista de alunos
-      </h1>
+      <header className="mb-4 flex w-full items-center justify-between md:w-[42%]">
+        <h1 className="col-span-2 mb-5 mt-5 font-semibold text-muted md:mt-0">
+          Lista de alunos
+        </h1>
+        <Link
+          href={'/alunos/novo'}
+          className="col-span-2 mb-5 mt-5 font-semibold text-muted md:mt-0"
+        >
+          <Button variant={'secondary'}>Cadastrar</Button>
+        </Link>
+      </header>
       <div className="flex flex-col">
         <ul className="col-auto">
           {students.map((student) => (

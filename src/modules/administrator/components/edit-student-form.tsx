@@ -4,8 +4,9 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import DeleteForm from '@/modules/common/components/delete-form'
 import { updateStudentAccount } from '../actions/update'
+import toast from 'react-hot-toast'
+import { useRouter } from 'next/navigation'
 
 export default async function EditStudentForm({
   id,
@@ -16,13 +17,22 @@ export default async function EditStudentForm({
   name: string
   email: string
 }) {
+  const router = useRouter()
+
+  const handleSubmit = async (formData: FormData) => {
+    const res = await updateStudentAccount(formData)
+
+    res.success && toast.success(res.success) && router.replace('/alunos')
+    res.error && toast.error(res.error)
+  }
+
   return (
     <Card>
       <CardHeader>
         <CardTitle>Editar aluno</CardTitle>
       </CardHeader>
       <form
-        action={updateStudentAccount}
+        action={handleSubmit}
         className="mt-5 flex w-[300px] flex-col gap-2 p-2 sm:w-[400px] md:w-[500px]"
       >
         <CardContent>
@@ -51,12 +61,6 @@ export default async function EditStudentForm({
                 Turma(s):
               </Label>
               <Input type="text" name="class" />
-            </div>
-            <div className="mt-6 flex items-center justify-between">
-              <Label htmlFor="class" className="mb-2">
-                Apagar registro do aluno:
-              </Label>
-              <DeleteForm id={id} name="Implementar" />
             </div>
           </div>
         </CardContent>
