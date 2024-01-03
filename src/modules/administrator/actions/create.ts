@@ -6,12 +6,12 @@ import {
 } from '@/lib/types'
 
 type createUsersType = {
-  createInstructorAccount: (formData: FormData) => void
-  createStudentAccount: (formData: FormData) => void
-  createParentAccount: (formData: FormData) => void
+  instructorAccount: (formData: FormData) => void
+  studentAccount: (formData: FormData) => void
+  parentAccount: (formData: FormData) => void
 }
 
-async function createInstructorAccount(formData: FormData) {
+async function instructorAccount(formData: FormData) {
   const parsed = instructorRegistrationSchema.safeParse({
     name: formData.get('name'),
     email: formData.get('email'),
@@ -51,7 +51,7 @@ async function createInstructorAccount(formData: FormData) {
     }
   }
 }
-async function createStudentAccount(formData: FormData) {
+async function studentAccount(formData: FormData) {
   const parsed = studentRegistrationSchema.safeParse({
     name: formData.get('name'),
     email: formData.get('email'),
@@ -93,7 +93,7 @@ async function createStudentAccount(formData: FormData) {
     }
   }
 }
-async function createParentAccount(formData: FormData) {
+async function parentAccount(formData: FormData) {
   const parsed = parentRegistrationSchema.safeParse({
     name: formData.get('name'),
     email: formData.get('email'),
@@ -134,10 +134,10 @@ async function createParentAccount(formData: FormData) {
   }
 }
 
-const createUsers: createUsersType = {
-  createInstructorAccount,
-  createStudentAccount,
-  createParentAccount,
+const CreateActions: createUsersType = {
+  instructorAccount,
+  studentAccount,
+  parentAccount,
 }
 
-export default createUsers
+export default CreateActions
