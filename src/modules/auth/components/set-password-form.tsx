@@ -66,7 +66,7 @@ export default function SetPasswordForm() {
             Voltar
           </Button>
         </Link>
-        <BtnPromise title="Salvar" />
+        <BtnPromise title="Salvar" color="teal" />
       </CardFooter>
     </Card>
   )

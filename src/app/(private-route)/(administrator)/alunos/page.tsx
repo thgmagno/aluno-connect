@@ -1,15 +1,13 @@
+import { Button } from '@/components/ui/button'
+import prisma from '@/lib/prisma'
 import BtnGoBack from '@/modules/common/components/btn-go-back'
 import ContentMain from '@/modules/common/components/content-main'
-import DeleteForm from '@/modules/common/components/delete-form'
-import postgres from 'postgres'
-
-// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-const sql = postgres(process.env.DATABASE_URL || process.env.POSTGRES_URL!, {
-  ssl: 'allow',
-})
+import Link from 'next/link'
 
 export default async function StudentList() {
-  const students = await sql`SELECT * FROM "Student" ORDER BY name`
+  const students = await prisma.student.findMany({
+    orderBy: { name: 'asc' },
+  })
 
   return (
     <ContentMain>
@@ -20,9 +18,14 @@ export default async function StudentList() {
       <div className="flex flex-col">
         <ul className="col-auto">
           {students.map((student) => (
-            <li key={student.id}>
+            <li
+              key={student.id}
+              className="mb-3 flex w-[300px] items-center justify-between rounded-md bg-zinc-100 p-2 sm:w-[400px] md:w-[500px]"
+            >
               {student.name}
-              <DeleteForm id={student.id} name={student.name} />
+              <Link href={`alunos/${student.id}`}>
+                <Button>Editar</Button>
+              </Link>
             </li>
           ))}
         </ul>

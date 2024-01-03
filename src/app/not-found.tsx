@@ -8,7 +8,7 @@ export default function NotFound() {
         <Frown strokeWidth={1.5} className="mr-3" size={32} />
         <div className="flex flex-col">
           <h1 className="text-lg font-semibold">Página não encontrada.</h1>
-          <Link href="entrar" className="text-sky-600 underline">
+          <Link href="/entrar" className="text-sky-600 underline">
             Voltar para área segura
           </Link>
         </div>

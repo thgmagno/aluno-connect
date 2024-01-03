@@ -42,7 +42,7 @@ export default function AdmLoginForm() {
           </div>
         </CardContent>
         <CardFooter className="flex justify-end">
-          <BtnPromise title="Entrar" />
+          <BtnPromise title="Entrar" color="teal" />
         </CardFooter>
       </form>
     </Card>

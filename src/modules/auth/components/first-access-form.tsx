@@ -40,7 +40,7 @@ export default function FirstAccessForm() {
             Voltar
           </Button>
         </Link>
-        <BtnPromise title="Avançar" />
+        <BtnPromise title="Avançar" color="teal" />
       </CardFooter>
     </Card>
   )

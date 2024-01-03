@@ -141,7 +141,7 @@ export default function LoginForm() {
               Primeiro acesso?
             </Button>
           </Link>
-          <BtnPromise title="Entrar" />
+          <BtnPromise title="Entrar" color="teal" />
         </CardFooter>
       </form>
     </Card>
