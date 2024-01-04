@@ -40,3 +40,9 @@ export const administratorLoginSchema = z.object({
   email: z.string().email('Formato de e-mail inválido'),
   password: z.string().min(1, 'A senha é obrigatória'),
 })
+
+export const validateEmailSchema = z.object({
+  email: z.string().email('Formato de e-mail inválido'),
+})
+
+export type UserType = 'instructor' | 'student' | 'parent' | 'administrator'

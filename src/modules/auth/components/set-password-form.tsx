@@ -16,8 +16,9 @@ import { EyeOff, Eye } from 'lucide-react'
 import Link from 'next/link'
 import { useState } from 'react'
 
-export default function SetPasswordForm() {
+export default function SetPasswordForm({ id }: { id: string }) {
   const [visible, setVisible] = useState(false)
+  const email = ''
 
   return (
     <Card className="w-[350px]">
@@ -26,23 +27,25 @@ export default function SetPasswordForm() {
         <CardDescription>
           Vamos garantir que sua conta seja protegida.
         </CardDescription>
+        <CardDescription>{id}</CardDescription>
       </CardHeader>
       <CardContent>
         <form>
           <div className="grid w-full items-center gap-4">
             <div className="flex flex-col space-y-1.5">
               <Label htmlFor="">E-mail</Label>
-              <Input type="text" value={'[e-mail do usuário]'} disabled />
+              <Input type="text" value={email} disabled />
             </div>
             <div className="relative flex flex-col space-y-1.5">
               <Label htmlFor="password">Senha</Label>
               <Input
                 type={visible ? 'text' : 'password'}
-                id="password"
+                name="password"
                 placeholder="Informe uma senha segura"
               />
               <Input
                 type={visible ? 'text' : 'password'}
+                name="confirmPassword"
                 placeholder="Confirme a senha"
               />
               <Button

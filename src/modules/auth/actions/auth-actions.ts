@@ -6,6 +6,7 @@ import {
   instructorLoginSchema,
   parentLoginSchema,
   studentLoginSchema,
+  validateEmailSchema,
 } from '@/lib/types'
 import * as bcrypt from 'bcrypt'
 import AuthService from '../services/auth-service'
@@ -222,5 +223,56 @@ export async function authenticateAdministrator(formData: FormData) {
     return { success: 'Bem-vindo ao Aluno Connect.' }
   } catch (e) {
     return { error: 'Falha ao fazer login. Tente novamente.' }
+  }
+}
+
+export async function authenticateEmailStudent(formData: FormData) {
+  const parsed = validateEmailSchema.safeParse({
+    email: formData.get('email'),
+  })
+
+  if (!parsed.success) {
+    let errorMessage = ''
+
+    parsed.error.issues.forEach((issue) => {
+      errorMessage = errorMessage + issue.message + '. '
+    })
+
+    return { error: errorMessage }
+  }
+
+  try {
+    const user = await prisma.student.findUniqueOrThrow({
+      where: {
+        email: parsed.data.email,
+      },
+    })
+    return { user }
+  } catch (e) {
+    return { error: 'E-mail não encontrado. Tente novamente.' }
+  }
+}
+
+export async function authenticateEmailInstructor(formData: FormData) {
+  if (formData) {
+    return { user: { email: '', id: '' } }
+  } else {
+    return { error: 'implementar' }
+  }
+}
+
+export async function authenticateEmailParent(formData: FormData) {
+  if (formData) {
+    return { user: { email: '', id: '' } }
+  } else {
+    return { error: 'implementar' }
+  }
+}
+
+export async function authenticateEmailAdministrator(formData: FormData) {
+  if (formData) {
+    return { user: { email: '', id: '' } }
+  } else {
+    return { error: 'implementar' }
   }
 }

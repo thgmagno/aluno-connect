@@ -31,8 +31,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-
-type UserType = 'instructor' | 'student' | 'parent' | 'administrator'
+import { UserType } from '@/lib/types'
 
 export default function LoginForm() {
   const [visible, setVisible] = useState(false)
@@ -63,49 +62,47 @@ export default function LoginForm() {
         <CardDescription>Faça login para continuar.</CardDescription>
       </CardHeader>
       <form action={formSubmit}>
-        <CardContent>
-          <div className="flex w-full flex-col gap-4">
-            <div className="flex flex-col space-y-1.5">
-              <Label htmlFor="email">E-mail</Label>
-              <Input
-                type="email"
-                name="email"
-                placeholder="Digite o seu e-mail"
-                className="text-base"
-              />
-            </div>
-            <div className="relative flex flex-col space-y-1.5">
-              <Label htmlFor="password">Senha</Label>
-              <Input
-                type={visible ? 'text' : 'password'}
-                name="password"
-                placeholder="Digite a sua senha"
-                className="text-base"
-              />
-              <Button
-                type="button"
-                variant={'link'}
-                className="absolute right-2 top-3.5 mt-2 p-2 text-zinc-500"
-                onClick={() => setVisible(!visible)}
-              >
-                {visible ? <Eye /> : <EyeOff />}
-              </Button>
-            </div>
-            <Select name="userType">
-              <SelectTrigger>
-                <SelectValue placeholder="Selecione um perfil" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectGroup>
-                  <SelectLabel>Perfis</SelectLabel>
-                  <SelectItem value="instructor">Instrutor</SelectItem>
-                  <SelectItem value="student">Estudante</SelectItem>
-                  <SelectItem value="parent">Responsável</SelectItem>
-                  <SelectItem value="administrator">Administrador</SelectItem>
-                </SelectGroup>
-              </SelectContent>
-            </Select>
+        <CardContent className="flex flex-col gap-4">
+          <div className="flex flex-col space-y-1.5">
+            <Label htmlFor="email">E-mail</Label>
+            <Input
+              type="email"
+              name="email"
+              placeholder="Digite o seu e-mail"
+              className="text-base"
+            />
           </div>
+          <div className="relative flex flex-col space-y-1.5">
+            <Label htmlFor="password">Senha</Label>
+            <Input
+              type={visible ? 'text' : 'password'}
+              name="password"
+              placeholder="Digite a sua senha"
+              className="text-base"
+            />
+            <Button
+              type="button"
+              variant={'link'}
+              className="absolute right-2 top-3.5 mt-2 p-2 text-zinc-500"
+              onClick={() => setVisible(!visible)}
+            >
+              {visible ? <Eye /> : <EyeOff />}
+            </Button>
+          </div>
+          <Select name="userType">
+            <SelectTrigger>
+              <SelectValue placeholder="Selecione um perfil" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                <SelectLabel>Perfis</SelectLabel>
+                <SelectItem value="instructor">Instrutor</SelectItem>
+                <SelectItem value="student">Estudante</SelectItem>
+                <SelectItem value="parent">Responsável</SelectItem>
+                <SelectItem value="administrator">Administrador</SelectItem>
+              </SelectGroup>
+            </SelectContent>
+          </Select>
         </CardContent>
         <CardFooter className="flex justify-between">
           <Link href="primeiro-acesso">
