@@ -1,7 +1,7 @@
 import prisma from '@/lib/prisma'
 import EditStudentForm from '@/modules/administrator/components/edit-student-form'
-import BtnGoBack from '@/modules/common/components/btn-go-back'
 import ContentMain from '@/modules/common/components/content-main'
+import NavigationBar from '@/modules/common/components/navigation-bar'
 
 export default async function StudentID({
   params,
@@ -16,7 +16,7 @@ export default async function StudentID({
 
   return (
     <ContentMain>
-      <BtnGoBack href="/alunos" />
+      <NavigationBar goBack="/alunos" />
       <EditStudentForm
         id={params.id}
         name={student?.name ?? ''}

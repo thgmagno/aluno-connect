@@ -22,6 +22,15 @@ import {
 import toast from 'react-hot-toast'
 import { useState } from 'react'
 import { Eye, EyeOff } from 'lucide-react'
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
 
 type UserType = 'instructor' | 'student' | 'parent' | 'administrator'
 
@@ -55,58 +64,7 @@ export default function LoginForm() {
       </CardHeader>
       <form action={formSubmit}>
         <CardContent>
-          <div className="mb-6 grid grid-cols-2">
-            <div className="flex flex-col items-center space-y-1.5">
-              <Label htmlFor="instructor" className="text-sm">
-                Instrutor
-              </Label>
-              <Input
-                type="radio"
-                id="instructor"
-                name="userType"
-                value="instructor"
-                className="h-5 w-5"
-              />
-            </div>
-            <div className="flex flex-col items-center space-y-1.5">
-              <Label htmlFor="student" className="text-sm">
-                Aluno
-              </Label>
-              <Input
-                type="radio"
-                id="student"
-                name="userType"
-                value="student"
-                className="h-5 w-5"
-              />
-            </div>
-            <div className="mt-2 flex flex-col items-center space-y-1.5">
-              <Label htmlFor="parent" className="text-sm">
-                Responsável
-              </Label>
-              <Input
-                type="radio"
-                id="parent"
-                name="userType"
-                value="parent"
-                className="h-5 w-5"
-              />
-            </div>
-            <div className="mt-2 flex flex-col items-center space-y-1.5">
-              <Label htmlFor="administrator" className="text-sm">
-                Administrador
-              </Label>
-              <Input
-                type="radio"
-                id="administrator"
-                name="userType"
-                value="administrator"
-                className="h-5 w-5"
-              />
-            </div>
-          </div>
-
-          <div className="grid w-full items-center gap-4">
+          <div className="flex w-full flex-col gap-4">
             <div className="flex flex-col space-y-1.5">
               <Label htmlFor="email">E-mail</Label>
               <Input
@@ -133,6 +91,20 @@ export default function LoginForm() {
                 {visible ? <Eye /> : <EyeOff />}
               </Button>
             </div>
+            <Select name="userType">
+              <SelectTrigger>
+                <SelectValue placeholder="Selecione um perfil" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  <SelectLabel>Perfis</SelectLabel>
+                  <SelectItem value="instructor">Instrutor</SelectItem>
+                  <SelectItem value="student">Estudante</SelectItem>
+                  <SelectItem value="parent">Responsável</SelectItem>
+                  <SelectItem value="administrator">Administrador</SelectItem>
+                </SelectGroup>
+              </SelectContent>
+            </Select>
           </div>
         </CardContent>
         <CardFooter className="flex justify-between">
