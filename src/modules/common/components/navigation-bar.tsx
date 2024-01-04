@@ -10,14 +10,16 @@ export default function NavigationBar({
   register?: string
 }) {
   return (
-    <nav className="flex w-full items-center justify-between p-4 md:p-8">
+    <nav className="mb-5 flex h-16 w-full items-center justify-between px-4 md:mb-0 md:px-8">
       <BtnGoBack href={goBack} />
       {register && (
         <Link
           href={register}
           className="col-span-2 font-semibold text-muted md:mt-0"
         >
-          <Button variant={'secondary'}>Cadastrar</Button>
+          <Button variant={'secondary'} size={'sm'}>
+            Cadastrar
+          </Button>
         </Link>
       )}
     </nav>

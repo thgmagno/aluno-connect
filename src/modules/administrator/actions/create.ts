@@ -1,9 +1,12 @@
+'use server'
+
 import prisma from '@/lib/prisma'
 import {
   instructorRegistrationSchema,
   parentRegistrationSchema,
   studentRegistrationSchema,
 } from '@/lib/types'
+import { revalidatePath } from 'next/cache'
 
 export async function createInstructorAccount(formData: FormData) {
   const parsed = instructorRegistrationSchema.safeParse({
@@ -31,9 +34,8 @@ export async function createInstructorAccount(formData: FormData) {
       },
     })
 
-    return {
-      success: 'Usuário criado com sucesso.',
-    }
+    revalidatePath('/instrutores')
+    return { success: 'Usuário criado com sucesso.' }
   } catch (e) {
     if (e instanceof Error && e.message.includes('Unique constraint')) {
       return {
@@ -76,6 +78,8 @@ export async function createStudentAccount(formData: FormData) {
       },
     })
 
+    revalidatePath('/alunos')
+
     return {
       success: 'Usuário criado com sucesso.',
     }
@@ -86,7 +90,7 @@ export async function createStudentAccount(formData: FormData) {
           'Este e-mail já existe em nossa base de dados. Tente com outro diferente.',
       }
     } else {
-      return { error: 'Não foi possível concluir o cadastro.' + e }
+      return { error: 'Não foi possível concluir o cadastro.' }
     }
   }
 }
@@ -115,6 +119,8 @@ export async function createParentAccount(formData: FormData) {
         email: parsed.data.email,
       },
     })
+
+    revalidatePath('/responsaveis')
 
     return {
       success: 'Usuário criado com sucesso.',
