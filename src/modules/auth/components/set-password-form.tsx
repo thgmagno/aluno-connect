@@ -16,9 +16,18 @@ import { EyeOff, Eye } from 'lucide-react'
 import Link from 'next/link'
 import { useState } from 'react'
 
-export default function SetPasswordForm({ id }: { id: string }) {
+export default function SetPasswordForm({
+  id,
+  profile,
+}: {
+  id: string
+  profile: string
+}) {
   const [visible, setVisible] = useState(false)
-  const email = ''
+  const handleSubmit = async (formData: FormData) => {
+    // TODO: setar a senha (com hash) na conta com respectivo id
+    // TODO: setar a coluna firstAccess para o valor 'false'
+  }
 
   return (
     <Card className="w-[350px]">
@@ -27,50 +36,45 @@ export default function SetPasswordForm({ id }: { id: string }) {
         <CardDescription>
           Vamos garantir que sua conta seja protegida.
         </CardDescription>
-        <CardDescription>{id}</CardDescription>
       </CardHeader>
-      <CardContent>
-        <form>
-          <div className="grid w-full items-center gap-4">
-            <div className="flex flex-col space-y-1.5">
-              <Label htmlFor="">E-mail</Label>
-              <Input type="text" value={email} disabled />
-            </div>
-            <div className="relative flex flex-col space-y-1.5">
-              <Label htmlFor="password">Senha</Label>
-              <Input
-                type={visible ? 'text' : 'password'}
-                name="password"
-                placeholder="Informe uma senha segura"
-              />
-              <Input
-                type={visible ? 'text' : 'password'}
-                name="confirmPassword"
-                placeholder="Confirme a senha"
-              />
-              <Button
-                type="button"
-                variant={'link'}
-                className="absolute right-2 top-3.5 mt-2 p-2 text-zinc-500"
-                onClick={() => setVisible(!visible)}
-              >
-                {visible ? <Eye /> : <EyeOff />}
-              </Button>
-            </div>
+      <form action={handleSubmit}>
+        <CardContent>
+          <div className="relative flex flex-col space-y-1.5">
+            <input type="hidden" name="id" value={id} />
+            <input type="hidden" name="profile" value={profile} />
+            <Label htmlFor="password">Senha</Label>
+            <Input
+              type={visible ? 'text' : 'password'}
+              name="password"
+              placeholder="Informe uma senha segura"
+            />
+            <Input
+              type={visible ? 'text' : 'password'}
+              name="confirmPassword"
+              placeholder="Confirme a senha"
+            />
+            <Button
+              type="button"
+              variant={'link'}
+              className="absolute right-2 top-3.5 mt-2 p-2 text-zinc-500"
+              onClick={() => setVisible(!visible)}
+            >
+              {visible ? <Eye /> : <EyeOff />}
+            </Button>
           </div>
-        </form>
-      </CardContent>
-      <CardFooter className="flex justify-between">
-        <Link
-          href="/primeiro-acesso"
-          className="text-sm text-sky-600 transition-all duration-300 hover:font-semibold"
-        >
-          <Button type="button" variant={'outline'}>
-            Voltar
-          </Button>
-        </Link>
-        <BtnPromise title="Salvar" color="teal" />
-      </CardFooter>
+        </CardContent>
+        <CardFooter className="flex justify-between">
+          <Link
+            href="/primeiro-acesso"
+            className="text-sm text-sky-600 transition-all duration-300 hover:font-semibold"
+          >
+            <Button type="button" variant={'outline'}>
+              Voltar
+            </Button>
+          </Link>
+          <BtnPromise title="Salvar" color="teal" />
+        </CardFooter>
+      </form>
     </Card>
   )
 }

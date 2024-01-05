@@ -22,16 +22,13 @@ export default function FirstAccessForm() {
   const formSubmit = async (formData: FormData) => {
     const res = await authenticateEmail(formData)
 
-    if (res) {
-      const { user, error } = res
+    const { user, error } = res
 
-      if (Array.isArray(user)) {
-        const result = user[0]
-        'id' in result && router.replace(`/primeiro-acesso/${result.id}`)
-      }
-
-      error && toast.error(error)
+    if (Array.isArray(user) && user.length > 0 && 'id' in user[0]) {
+      router.replace(`/primeiro-acesso/${user[0].id}/${user[0].usertype}`)
     }
+
+    error && toast.error(error)
   }
 
   return (

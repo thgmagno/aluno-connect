@@ -75,7 +75,7 @@ export async function authenticateUser(formData: FormData) {
     return { success: 'Bem-vindo ao Aluno Connect.' }
   } catch (e) {
     console.error(e)
-    return { error: 'Falha ao fazer login. Tente novamente.' + e }
+    return { error: 'Falha ao fazer login. Tente novamente.' }
   }
 }
 
@@ -97,22 +97,22 @@ export async function authenticateEmail(formData: FormData) {
   try {
     const user = await prisma.$queryRaw`
       SELECT * FROM (
-        SELECT 'student' as userType, id, email FROM "Student" WHERE email = ${parsed.data.email}::text
+        SELECT 'student' as userType, id, email FROM "Student" WHERE email = ${parsed.data.email}::text AND "firstAccess" = true AND password is null
         UNION
-        SELECT 'instructor' as userType, id, email FROM "Instructor" WHERE email = ${parsed.data.email}::text
+        SELECT 'instructor' as userType, id, email FROM "Instructor" WHERE email = ${parsed.data.email}::text AND "firstAccess" = true AND password is null
         UNION
-        SELECT 'parent' as userType, id, email FROM "Parent" WHERE email = ${parsed.data.email}::text
+        SELECT 'parent' as userType, id, email FROM "Parent" WHERE email = ${parsed.data.email}::text AND "firstAccess" = true AND password is null
       ) AS allUsers
       LIMIT 1
     `
 
-    if (!user) {
-      return { error: 'E-mail não encontrado. Tente novamente.' }
+    if (Array.isArray(user) && user.length < 1) {
+      return { error: 'E-mail inexistente ou já ativado.' }
     }
 
     return { user }
   } catch (e) {
     console.error(e)
-    return { error: 'Erro na autenticação. Tente novamente.' + e }
+    return { error: 'Erro na autenticação. Tente novamente.' }
   }
 }

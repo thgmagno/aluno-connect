@@ -26,6 +26,9 @@ export default async function StudentList() {
             </li>
           ))}
         </ul>
+        {students.length === 0 && (
+          <p className="mt-5 text-zinc-100">Nenhum estudante cadastrado.</p>
+        )}
       </div>
     </ContentMain>
   )
