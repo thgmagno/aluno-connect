@@ -13,40 +13,15 @@ import Link from 'next/link'
 import { Input } from '@/components/ui/input'
 import BtnPromise from '@/modules/common/components/btn-promise'
 import { Button } from '@/components/ui/button'
-import {
-  authenticateAdministrator,
-  authenticateInstructor,
-  authenticateParent,
-  authenticateStudent,
-} from '../actions/auth-actions'
 import toast from 'react-hot-toast'
 import { useState } from 'react'
 import { Eye, EyeOff } from 'lucide-react'
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
-import { UserType } from '@/lib/types'
+import { authenticateUser } from '@/modules/auth/actions/auth-actions'
 
 export default function LoginForm() {
   const [visible, setVisible] = useState(false)
   const formSubmit = async (formData: FormData) => {
-    const userType: UserType = formData.get('userType') as UserType
-    if (!userType) return toast.error('Preencha todos os campos.')
-
-    const authenticationFunctions = {
-      instructor: authenticateInstructor,
-      student: authenticateStudent,
-      parent: authenticateParent,
-      administrator: authenticateAdministrator,
-    }
-
-    const res = await authenticationFunctions[userType](formData)
+    const res = await authenticateUser(formData)
 
     if (res) {
       const { success, error } = res
@@ -89,20 +64,6 @@ export default function LoginForm() {
               {visible ? <Eye /> : <EyeOff />}
             </Button>
           </div>
-          <Select name="userType">
-            <SelectTrigger>
-              <SelectValue placeholder="Selecione um perfil" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                <SelectLabel>Perfis</SelectLabel>
-                <SelectItem value="instructor">Instrutor</SelectItem>
-                <SelectItem value="student">Estudante</SelectItem>
-                <SelectItem value="parent">Responsável</SelectItem>
-                <SelectItem value="administrator">Administrador</SelectItem>
-              </SelectGroup>
-            </SelectContent>
-          </Select>
         </CardContent>
         <CardFooter className="flex justify-between">
           <Link href="primeiro-acesso">

@@ -62,7 +62,7 @@ export default function SetPasswordForm({ id }: { id: string }) {
       </CardContent>
       <CardFooter className="flex justify-between">
         <Link
-          href="primeiro-acesso"
+          href="/primeiro-acesso"
           className="text-sm text-sky-600 transition-all duration-300 hover:font-semibold"
         >
           <Button type="button" variant={'outline'}>

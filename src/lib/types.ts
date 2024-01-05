@@ -9,20 +9,10 @@ export const instructorRegistrationSchema = z.object({
     .optional(),
 })
 
-export const instructorLoginSchema = z.object({
-  email: z.string().email('Formato de e-mail inválido'),
-  password: z.string().min(1, 'A senha é obrigatória'),
-})
-
 export const studentRegistrationSchema = z.object({
   name: z.string().min(1, 'O nome é obrigatório'),
   email: z.string().email('Formato de e-mail inválido'),
   birthdate: z.date(),
-})
-
-export const studentLoginSchema = z.object({
-  email: z.string().email('Formato de e-mail inválido'),
-  password: z.string().min(1, 'A senha é obrigatória'),
 })
 
 export const parentRegistrationSchema = z.object({
@@ -31,12 +21,7 @@ export const parentRegistrationSchema = z.object({
   password: z.string().min(4, 'A senha precisa ter pelo menos 4 caracteres'),
 })
 
-export const parentLoginSchema = z.object({
-  email: z.string().email('Formato de e-mail inválido'),
-  password: z.string().min(1, 'A senha é obrigatória'),
-})
-
-export const administratorLoginSchema = z.object({
+export const loginUserSchema = z.object({
   email: z.string().email('Formato de e-mail inválido'),
   password: z.string().min(1, 'A senha é obrigatória'),
 })

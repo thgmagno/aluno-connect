@@ -1,18 +1,20 @@
 'use server'
 
 import prisma from '@/lib/prisma'
-import {
-  administratorLoginSchema,
-  instructorLoginSchema,
-  parentLoginSchema,
-  studentLoginSchema,
-  validateEmailSchema,
-} from '@/lib/types'
+import { loginUserSchema, validateEmailSchema } from '@/lib/types'
 import * as bcrypt from 'bcrypt'
 import AuthService from '../services/auth-service'
 
-export async function authenticateInstructor(formData: FormData) {
-  const parsed = instructorLoginSchema.safeParse({
+interface User {
+  id: string
+  name: string
+  email: string
+  password?: string
+  profile: string
+}
+
+export async function authenticateUser(formData: FormData) {
+  const parsed = loginUserSchema.safeParse({
     email: formData.get('email'),
     password: formData.get('password'),
   })
@@ -28,193 +30,43 @@ export async function authenticateInstructor(formData: FormData) {
   }
 
   try {
-    const user = await prisma.instructor.findUnique({
-      where: {
-        email: parsed.data.email,
-      },
-    })
+    const user: User[] | null = await prisma.$queryRaw`
+      SELECT * FROM (
+        SELECT 'instructor' as userType, id, email, password FROM "Instructor" WHERE email = ${parsed.data.email}
+        UNION
+        SELECT 'student' as userType, id, email, password FROM "Student" WHERE email = ${parsed.data.email}
+        UNION
+        SELECT 'parent' as userType, id, email, password FROM "Parent" WHERE email = ${parsed.data.email}
+        UNION
+        SELECT 'administrator' as userType, id, email, password FROM "Administrator" WHERE email = ${parsed.data.email}
+      ) AS allUsers
+      LIMIT 1
+    `
 
     if (!user) {
       return {
-        error: 'Cadastro de Instrutor não encontrado. Tente novamente.',
+        error: `Cadastro não encontrado. Tente novamente.`,
       }
     }
 
-    if (!user.password) {
+    if (!user[0].password) {
       return {
-        error:
-          'Para continuar defina uma senha clicando no botão "Primeiro Acesso".',
+        error: `Para continuar, defina uma senha clicando no botão "Primeiro Acesso".`,
       }
     }
 
     const isMatchPassword = await bcrypt.compare(
       parsed.data.password,
-      user.password,
+      user[0].password,
     )
 
-    if (!isMatchPassword) return { error: 'Senha incorreta, tente novamente.' }
-
-    const payload = {
-      sub: user.id,
-      name: user.name,
-      profile: 'instructor',
+    if (!isMatchPassword) {
+      return { error: 'Senha incorreta, tente novamente.' }
     }
 
-    await AuthService.createSessionToken({ payload })
-
-    return { success: 'Bem-vindo ao Aluno Connect.' }
-  } catch (e) {
-    return { error: 'Falha ao fazer login. Tente novamente.' }
-  }
-}
-
-export async function authenticateStudent(formData: FormData) {
-  const parsed = studentLoginSchema.safeParse({
-    email: formData.get('email'),
-    password: formData.get('password'),
-  })
-
-  if (!parsed.success) {
-    let errorMessage = ''
-
-    parsed.error.issues.forEach((issues) => {
-      errorMessage = errorMessage + issues.message + '. '
-    })
-
-    return { error: errorMessage }
-  }
-
-  try {
-    const user = await prisma.student.findUnique({
-      where: {
-        email: parsed.data.email,
-      },
-    })
-
-    if (!user)
-      return { error: 'Cadastro de Estudante não encontrado. Tente novamente.' }
-
-    if (!user.password)
-      return {
-        error:
-          'Para continuar defina uma senha clicando no botão "Primeiro Acesso".',
-      }
-
-    const isMatchPassword = await bcrypt.compare(
-      parsed.data.password,
-      user.password,
-    )
-
-    if (!isMatchPassword) return { error: 'Senha incorreta, tente novamente.' }
-
     const payload = {
-      sub: user.id,
-      name: user.name,
-      profile: 'student',
-    }
-
-    await AuthService.createSessionToken({ payload })
-
-    return { success: 'Bem-vindo ao Aluno Connect.' }
-  } catch (e) {
-    return { error: 'Falha ao fazer login. Tente novamente.' }
-  }
-}
-
-export async function authenticateParent(formData: FormData) {
-  const parsed = parentLoginSchema.safeParse({
-    email: formData.get('email'),
-    password: formData.get('password'),
-  })
-
-  if (!parsed.success) {
-    let errorMessage = ''
-
-    parsed.error.issues.forEach((issues) => {
-      errorMessage = errorMessage + issues.message + '. '
-    })
-
-    return { error: errorMessage }
-  }
-
-  try {
-    const user = await prisma.parent.findUnique({
-      where: {
-        email: parsed.data.email,
-      },
-    })
-
-    if (!user)
-      return {
-        error: 'Cadastro de Responsável não encontrado. Tente novamente.',
-      }
-
-    if (!user.password)
-      return {
-        error:
-          'Para continuar defina uma senha clicando no botão "Primeiro Acesso".',
-      }
-
-    const isMatchPassword = await bcrypt.compare(
-      parsed.data.password,
-      user.password,
-    )
-
-    if (!isMatchPassword) return { error: 'Senha incorreta, tente novamente.' }
-
-    const payload = {
-      sub: user.id,
-      name: user.name,
-      profile: 'parent',
-    }
-
-    await AuthService.createSessionToken({ payload })
-
-    return { success: 'Bem-vindo ao Aluno Connect.' }
-  } catch (e) {
-    return { error: 'Falha ao fazer login. Tente novamente.' }
-  }
-}
-
-export async function authenticateAdministrator(formData: FormData) {
-  const parsed = administratorLoginSchema.safeParse({
-    email: formData.get('email'),
-    password: formData.get('password'),
-  })
-
-  if (!parsed.success) {
-    let errorMessage = ''
-
-    parsed.error.issues.forEach((issue) => {
-      errorMessage = errorMessage + issue.message + '. '
-    })
-
-    return { error: errorMessage }
-  }
-
-  try {
-    const user = await prisma.administrator.findUnique({
-      where: {
-        email: parsed.data.email,
-      },
-    })
-
-    if (!user) {
-      return {
-        error: 'Cadastro de Administrador não encontrado. Tente novamente.',
-      }
-    }
-
-    const isMatchPassword = await bcrypt.compare(
-      parsed.data.password,
-      user.password,
-    )
-
-    if (!isMatchPassword) return { error: 'Senha incorreta, tente novamente.' }
-
-    const payload = {
-      sub: user.id,
-      name: user.name,
+      sub: user[0].id,
+      name: user[0].name,
       profile: 'administrator',
     }
 
@@ -222,11 +74,12 @@ export async function authenticateAdministrator(formData: FormData) {
 
     return { success: 'Bem-vindo ao Aluno Connect.' }
   } catch (e) {
-    return { error: 'Falha ao fazer login. Tente novamente.' }
+    console.error(e)
+    return { error: 'Falha ao fazer login. Tente novamente.' + e }
   }
 }
 
-export async function authenticateEmailStudent(formData: FormData) {
+export async function authenticateEmail(formData: FormData) {
   const parsed = validateEmailSchema.safeParse({
     email: formData.get('email'),
   })
@@ -242,37 +95,24 @@ export async function authenticateEmailStudent(formData: FormData) {
   }
 
   try {
-    const user = await prisma.student.findUniqueOrThrow({
-      where: {
-        email: parsed.data.email,
-      },
-    })
+    const user = await prisma.$queryRaw`
+      SELECT * FROM (
+        SELECT 'student' as userType, id, email FROM "Student" WHERE email = ${parsed.data.email}::text
+        UNION
+        SELECT 'instructor' as userType, id, email FROM "Instructor" WHERE email = ${parsed.data.email}::text
+        UNION
+        SELECT 'parent' as userType, id, email FROM "Parent" WHERE email = ${parsed.data.email}::text
+      ) AS allUsers
+      LIMIT 1
+    `
+
+    if (!user) {
+      return { error: 'E-mail não encontrado. Tente novamente.' }
+    }
+
     return { user }
   } catch (e) {
-    return { error: 'E-mail não encontrado. Tente novamente.' }
-  }
-}
-
-export async function authenticateEmailInstructor(formData: FormData) {
-  if (formData) {
-    return { user: { email: '', id: '' } }
-  } else {
-    return { error: 'implementar' }
-  }
-}
-
-export async function authenticateEmailParent(formData: FormData) {
-  if (formData) {
-    return { user: { email: '', id: '' } }
-  } else {
-    return { error: 'implementar' }
-  }
-}
-
-export async function authenticateEmailAdministrator(formData: FormData) {
-  if (formData) {
-    return { user: { email: '', id: '' } }
-  } else {
-    return { error: 'implementar' }
+    console.error(e)
+    return { error: 'Erro na autenticação. Tente novamente.' + e }
   }
 }

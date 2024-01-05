@@ -13,43 +13,25 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import BtnPromise from '@/modules/common/components/btn-promise'
 import Link from 'next/link'
-import {
-  Select,
-  SelectTrigger,
-  SelectValue,
-  SelectContent,
-  SelectGroup,
-  SelectLabel,
-  SelectItem,
-} from '@/components/ui/select'
-import { UserType } from '@/lib/types'
-import {
-  authenticateEmailAdministrator,
-  authenticateEmailInstructor,
-  authenticateEmailParent,
-  authenticateEmailStudent,
-} from '../actions/auth-actions'
 import toast from 'react-hot-toast'
 import { useRouter } from 'next/navigation'
+import { authenticateEmail } from '../actions/auth-actions'
 
 export default function FirstAccessForm() {
   const router = useRouter()
   const formSubmit = async (formData: FormData) => {
-    const userType: UserType = formData.get('userType') as UserType
-    if (!userType) return toast.error('Preencha todos os campos.')
+    const res = await authenticateEmail(formData)
 
-    const authenticateEmailFunctions = {
-      instructor: authenticateEmailInstructor,
-      student: authenticateEmailStudent,
-      parent: authenticateEmailParent,
-      administrator: authenticateEmailAdministrator,
+    if (res) {
+      const { user, error } = res
+
+      if (Array.isArray(user)) {
+        const result = user[0]
+        'id' in result && router.replace(`/primeiro-acesso/${result.id}`)
+      }
+
+      error && toast.error(error)
     }
-
-    const { user, error } = await authenticateEmailFunctions[userType](formData)
-
-    user?.email && router.replace(`/primeiro-acesso/${user.id}`)
-
-    error && toast.error(error)
   }
 
   return (
@@ -66,20 +48,6 @@ export default function FirstAccessForm() {
               <Input name="email" placeholder="Digite o seu e-mail" />
             </div>
           </div>
-          <Select name="userType">
-            <SelectTrigger>
-              <SelectValue placeholder="Selecione um perfil" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                <SelectLabel>Perfis</SelectLabel>
-                <SelectItem value="instructor">Instrutor</SelectItem>
-                <SelectItem value="student">Estudante</SelectItem>
-                <SelectItem value="parent">Responsável</SelectItem>
-                <SelectItem value="administrator">Administrador</SelectItem>
-              </SelectGroup>
-            </SelectContent>
-          </Select>
         </CardContent>
         <CardFooter className="flex justify-between">
           <Link
