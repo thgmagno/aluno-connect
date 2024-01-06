@@ -19,6 +19,8 @@ model Student {
   Frequency     Frequency[]
   StudentParent StudentParent[]
   StudentClass  StudentClass[]
+
+  @@map("student")
 }
 
 model Frequency {
@@ -28,6 +30,8 @@ model Frequency {
   studentId String
 
   studentID Student @relation(fields: [studentId], references: [id])
+
+  @@map("frequency")
 }
 
 model Request {
@@ -39,6 +43,8 @@ model Request {
   imageURL      String?
 
   studentID Student @relation(fields: [studentId], references: [id])
+
+  @@map("request")
 }
 
 model Instructor {
@@ -48,6 +54,8 @@ model Instructor {
   password        String?
   firstAccess     Boolean           @default(true)
   InstructorClass InstructorClass[]
+
+  @@map("instructor")
 }
 
 model Parent {
@@ -57,6 +65,8 @@ model Parent {
   password      String?
   firstAccess   Boolean         @default(true)
   StudentParent StudentParent[]
+
+  @@map("parent")
 }
 
 model Administrator {
@@ -64,6 +74,8 @@ model Administrator {
   name     String
   email    String @unique
   password String
+
+  @@map("administrator")
 }
 
 model Class {
@@ -71,6 +83,8 @@ model Class {
   couse_name      String
   StudentClass    StudentClass[]
   InstructorClass InstructorClass[]
+
+  @@map("class")
 }
 
 model StudentParent {
@@ -80,6 +94,8 @@ model StudentParent {
 
   studentID Student @relation(fields: [studentId], references: [id])
   parentID  Parent  @relation(fields: [parentId], references: [id])
+
+  @@map("student_parent")
 }
 
 model StudentClass {
@@ -89,6 +105,8 @@ model StudentClass {
 
   studentID Student @relation(fields: [studentId], references: [id])
   classID   Class   @relation(fields: [classId], references: [id])
+
+  @@map("student_class")
 }
 
 model InstructorClass {
@@ -98,10 +116,14 @@ model InstructorClass {
 
   instructorID Instructor @relation(fields: [instructorId], references: [id])
   classID      Class      @relation(fields: [classId], references: [id])
+
+  @@map("instructor_class")
 }
 
 enum StatusRequest {
   PENDING
   APPROVED
   REJECTED
+
+  @@map("status_request")
 }

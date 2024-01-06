@@ -15,6 +15,8 @@ import BtnPromise from '@/modules/common/components/btn-promise'
 import { EyeOff, Eye } from 'lucide-react'
 import Link from 'next/link'
 import { useState } from 'react'
+import { registerUserPassword } from '../actions/auth-actions'
+import toast from 'react-hot-toast'
 
 export default function SetPasswordForm({
   id,
@@ -27,6 +29,13 @@ export default function SetPasswordForm({
   const handleSubmit = async (formData: FormData) => {
     // TODO: setar a senha (com hash) na conta com respectivo id
     // TODO: setar a coluna firstAccess para o valor 'false'
+    const res = await registerUserPassword(formData)
+
+    if (res) {
+      const { success, error } = res
+      success && toast.success(success)
+      error && toast.error(error)
+    }
   }
 
   return (

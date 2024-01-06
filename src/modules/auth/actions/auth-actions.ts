@@ -1,7 +1,7 @@
 'use server'
 
 import prisma from '@/lib/prisma'
-import { loginUserSchema, validateEmailSchema } from '@/lib/types'
+import { UserType, loginUserSchema, validateEmailSchema } from '@/lib/types'
 import * as bcrypt from 'bcrypt'
 import AuthService from '../services/auth-service'
 
@@ -74,7 +74,6 @@ export async function authenticateUser(formData: FormData) {
 
     return { success: 'Bem-vindo ao Aluno Connect.' }
   } catch (e) {
-    console.error(e)
     return { error: 'Falha ao fazer login. Tente novamente.' }
   }
 }
@@ -112,7 +111,30 @@ export async function authenticateEmail(formData: FormData) {
 
     return { user }
   } catch (e) {
-    console.error(e)
     return { error: 'Erro na autenticação. Tente novamente.' }
+  }
+}
+
+export async function registerUserPassword(formData: FormData) {
+  const id = formData.get('id') as string
+  const profile = formData.get('profile') as UserType
+  const password = formData.get('password') as string
+  const confirmPassword = formData.get('confirmPassword')
+
+  if (!password || !confirmPassword)
+    return { error: 'Preencha todos os campos' }
+
+  if (password !== confirmPassword)
+    return { error: 'As senhas precisam ser iguais' }
+
+  const hashPassword = await bcrypt.hash(password, 10)
+
+  try {
+    await prisma.$queryRaw`
+      UPDATE FROM ${profile} SET password = ${hashPassword}, "firstAccess" = false WHERE id = ${id}
+    `
+    return { success: 'Cadastro realizado. Faça login para continuar.' }
+  } catch (e) {
+    return { error: 'Erro ao registrar senha. Tente novamente.' + e }
   }
 }
