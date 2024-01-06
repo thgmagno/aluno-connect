@@ -32,13 +32,13 @@ export async function authenticateUser(formData: FormData) {
   try {
     const user: User[] | null = await prisma.$queryRaw`
       SELECT * FROM (
-        SELECT 'instructor' as userType, id, email, password FROM "Instructor" WHERE email = ${parsed.data.email}
+        SELECT 'instructor' as userType, id, email, password FROM instructor WHERE email = ${parsed.data.email}
         UNION
-        SELECT 'student' as userType, id, email, password FROM "Student" WHERE email = ${parsed.data.email}
+        SELECT 'student' as userType, id, email, password FROM student WHERE email = ${parsed.data.email}
         UNION
-        SELECT 'parent' as userType, id, email, password FROM "Parent" WHERE email = ${parsed.data.email}
+        SELECT 'parent' as userType, id, email, password FROM parent WHERE email = ${parsed.data.email}
         UNION
-        SELECT 'administrator' as userType, id, email, password FROM "Administrator" WHERE email = ${parsed.data.email}
+        SELECT 'administrator' as userType, id, email, password FROM administrator WHERE email = ${parsed.data.email}
       ) AS allUsers
       LIMIT 1
     `
@@ -131,7 +131,7 @@ export async function registerUserPassword(formData: FormData) {
 
   try {
     await prisma.$queryRaw`
-      UPDATE FROM ${profile} SET password = ${hashPassword}, "firstAccess" = false WHERE id = ${id}
+      UPDATE ${profile} SET password = ${hashPassword}, "firstAccess" = false WHERE id = ${id}
     `
     return { success: 'Cadastro realizado. Faça login para continuar.' }
   } catch (e) {
