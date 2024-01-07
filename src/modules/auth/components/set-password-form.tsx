@@ -29,8 +29,6 @@ export default function SetPasswordForm({
   const router = useRouter()
   const [visible, setVisible] = useState(false)
   const handleSubmit = async (formData: FormData) => {
-    // TODO: setar a senha (com hash) na conta com respectivo id
-    // TODO: setar a coluna firstAccess para o valor 'false'
     const res = await registerUserPassword(formData)
 
     const { success, error } = res

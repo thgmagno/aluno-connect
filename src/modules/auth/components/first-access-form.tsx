@@ -42,7 +42,11 @@ export default function FirstAccessForm() {
           <div className="grid w-full items-center gap-4">
             <div className="flex flex-col space-y-1.5">
               <Label htmlFor="email">E-mail</Label>
-              <Input name="email" placeholder="Digite o seu e-mail" />
+              <Input
+                name="email"
+                type="email"
+                placeholder="Digite o seu e-mail"
+              />
             </div>
           </div>
         </CardContent>
