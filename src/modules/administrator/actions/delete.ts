@@ -21,7 +21,7 @@ export async function DeleteStudent(formData: FormData) {
 
   try {
     await sql`
-      DELETE FROM "Student"
+      DELETE FROM student
       WHERE id = ${data.id}::text;
     `
 

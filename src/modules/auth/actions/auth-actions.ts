@@ -96,11 +96,11 @@ export async function authenticateEmail(formData: FormData) {
   try {
     const user = await prisma.$queryRaw`
       SELECT * FROM (
-        SELECT 'student' as userType, id, email FROM "Student" WHERE email = ${parsed.data.email}::text AND "firstAccess" = true AND password is null
+        SELECT 'student' as userType, id, email FROM student WHERE email = ${parsed.data.email}::text AND "firstAccess" = true AND password is null
         UNION
-        SELECT 'instructor' as userType, id, email FROM "Instructor" WHERE email = ${parsed.data.email}::text AND "firstAccess" = true AND password is null
+        SELECT 'instructor' as userType, id, email FROM instructor WHERE email = ${parsed.data.email}::text AND "firstAccess" = true AND password is null
         UNION
-        SELECT 'parent' as userType, id, email FROM "Parent" WHERE email = ${parsed.data.email}::text AND "firstAccess" = true AND password is null
+        SELECT 'parent' as userType, id, email FROM parent WHERE email = ${parsed.data.email}::text AND "firstAccess" = true AND password is null
       ) AS allUsers
       LIMIT 1
     `
@@ -129,12 +129,14 @@ export async function registerUserPassword(formData: FormData) {
 
   const hashPassword = await bcrypt.hash(password, 10)
 
+  const query = `UPDATE "${profile}" SET password = "${hashPassword}", firstAccess = false WHERE id = "${id}"`
+
   try {
-    await prisma.$queryRaw`
-      UPDATE ${profile} SET password = ${hashPassword}, "firstAccess" = false WHERE id = ${id}
-    `
+    await prisma.$queryRaw`${query}`
     return { success: 'Cadastro realizado. Faça login para continuar.' }
   } catch (e) {
     return { error: 'Erro ao registrar senha. Tente novamente.' + e }
+  } finally {
+    prisma.$disconnect()
   }
 }
