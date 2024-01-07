@@ -121,6 +121,10 @@ export async function registerUserPassword(formData: FormData) {
   const password = formData.get('password') as string
   const confirmPassword = formData.get('confirmPassword')
 
+  const isInstructor = profile === 'instructor'
+  const isStudent = profile === 'student'
+  const isParent = profile === 'parent'
+
   if (!password || !confirmPassword)
     return { error: 'Preencha todos os campos' }
 
@@ -129,14 +133,42 @@ export async function registerUserPassword(formData: FormData) {
 
   const hashPassword = await bcrypt.hash(password, 10)
 
-  const query = `UPDATE "${profile}" SET password = "${hashPassword}", firstAccess = false WHERE id = "${id}"`
-
   try {
-    await prisma.$queryRaw`${query}`
-    return { success: 'Cadastro realizado. Faça login para continuar.' }
+    if (isInstructor) {
+      await prisma.instructor.update({
+        where: {
+          id,
+        },
+        data: {
+          password: hashPassword,
+          firstAccess: false,
+        },
+      })
+    }
+    if (isStudent) {
+      await prisma.student.update({
+        where: {
+          id,
+        },
+        data: {
+          password: hashPassword,
+          firstAccess: false,
+        },
+      })
+    }
+    if (isParent) {
+      await prisma.parent.update({
+        where: {
+          id,
+        },
+        data: {
+          password: hashPassword,
+          firstAccess: false,
+        },
+      })
+    }
+    return { success: 'Cadastro finalizado. Faça login para continuar.' }
   } catch (e) {
-    return { error: 'Erro ao registrar senha. Tente novamente.' + e }
-  } finally {
-    prisma.$disconnect()
+    return { error: 'Falha ao cadastrar senha. Tente novamente' }
   }
 }
