@@ -58,7 +58,7 @@ export default function FirstAccessForm() {
               Voltar
             </Button>
           </Link>
-          <button>Avançar</button>
+          <button type="submit">Avançar</button>
         </CardFooter>
       </form>
     </Card>

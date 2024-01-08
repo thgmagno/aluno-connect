@@ -78,7 +78,7 @@ export default function SetPasswordForm({
               Voltar
             </Button>
           </Link>
-          <button>Salvar</button>
+          <button type="submit">Salvar</button>
         </CardFooter>
       </form>
     </Card>

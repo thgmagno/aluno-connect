@@ -1,17 +1,23 @@
-import { Frown } from 'lucide-react'
+import Image from 'next/image'
 import Link from 'next/link'
 
 export default function NotFound() {
   return (
-    <div className="flex h-screen w-screen items-center justify-center">
-      <div className="flex items-center rounded-md bg-slate-300 p-5 shadow-lg">
-        <Frown strokeWidth={1.5} className="mr-3" size={32} />
-        <div className="flex flex-col">
-          <h1 className="text-lg font-semibold">Página não encontrada.</h1>
-          <Link href="/entrar" className="text-sky-600 underline">
-            Voltar para área segura
-          </Link>
-        </div>
+    <div className="flex min-h-screen items-center justify-center px-4 sm:px-6 lg:px-8">
+      <div className="flex w-full max-w-md flex-col items-center">
+        <Image
+          src="/images/erro-404.png"
+          alt="Página não encontrada"
+          height={100}
+          width={100}
+          className="mx-auto"
+        />
+        <h2 className="mt-2 text-xl font-extrabold text-gray-900 lg:text-3xl">
+          Página não encontrada
+        </h2>
+        <Link href={'/'} className="mt-2 text-lg font-semibold text-blue-700">
+          Voltar para área segura
+        </Link>
       </div>
     </div>
   )
