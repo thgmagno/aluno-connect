@@ -11,6 +11,7 @@ interface User {
   email: string
   password?: string
   profile: string
+  usertype: 'student' | 'administrator' | 'parent' | 'instructor'
 }
 
 export async function authenticateUser(formData: FormData) {
@@ -43,6 +44,8 @@ export async function authenticateUser(formData: FormData) {
       LIMIT 1
     `
 
+    console.log('Aqui: ', user)
+
     if (!user) {
       return {
         error: `Cadastro não encontrado. Tente novamente.`,
@@ -67,7 +70,7 @@ export async function authenticateUser(formData: FormData) {
     const payload = {
       sub: user[0].id,
       name: user[0].name,
-      profile: 'administrator',
+      profile: user[0].usertype,
     }
 
     await AuthService.createSessionToken({ payload })

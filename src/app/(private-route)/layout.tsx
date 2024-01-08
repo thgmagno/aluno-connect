@@ -1,5 +1,4 @@
 import AuthService from '@/modules/auth/services/auth-service'
-import Header from '@/modules/common/components/header'
 import { redirect } from 'next/navigation'
 
 export default async function PublicLayout({
@@ -12,8 +11,7 @@ export default async function PublicLayout({
 
   return (
     <>
-      <Header />
-      {children}
+      <div className="container">{children}</div>
     </>
   )
 }

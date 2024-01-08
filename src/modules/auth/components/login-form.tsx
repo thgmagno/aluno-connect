@@ -11,7 +11,6 @@ import {
 import { Label } from '@/components/ui/label'
 import Link from 'next/link'
 import { Input } from '@/components/ui/input'
-import BtnPromise from '@/modules/common/components/btn-promise'
 import { Button } from '@/components/ui/button'
 import toast from 'react-hot-toast'
 import { useState } from 'react'
@@ -71,7 +70,7 @@ export default function LoginForm() {
               Primeiro acesso?
             </Button>
           </Link>
-          <BtnPromise title="Entrar" color="teal" />
+          <button type="submit">Entrar</button>
         </CardFooter>
       </form>
     </Card>
