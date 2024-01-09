@@ -1,5 +1,5 @@
-import AuthService from '@/modules/auth/services/auth-service'
-import StudentNavbar from '@/modules/student/components/student-navbar'
+import StudentNavbar from '@/components/student/student-navbar'
+import AuthService from '@/services/auth-service'
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 

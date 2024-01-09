@@ -1,6 +1,6 @@
 import prisma from '@/lib/prisma'
 import { formatDate } from '@/lib/utils'
-import AuthService from '@/modules/auth/services/auth-service'
+import AuthService from '@/services/auth-service'
 import { Check, X } from 'lucide-react'
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'

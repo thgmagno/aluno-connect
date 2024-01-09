@@ -8,10 +8,10 @@ import {
   DropdownMenuSeparator,
   DropdownMenuGroup,
 } from '@/components/ui/dropdown-menu'
-import SignOutForm from '@/modules/auth/components/sign-out-form'
 
 import { Menu, UserCircle } from 'lucide-react'
 import Link from 'next/link'
+import SignOutForm from '@/components/auth/sign-out-form'
 
 export default function AdmNavbar({
   name,
