@@ -21,10 +21,10 @@ export default function StudentNavbar({
   profile: string
 }) {
   return (
-    <div className="absolute left-0 top-0 flex h-16 w-full flex-wrap items-center justify-between bg-teal-950 p-2">
+    <div className="absolute left-0 top-0 flex h-16 w-full flex-wrap items-center justify-between bg-stone-900 p-2">
       <p className="font-semibold text-slate-100 lg:hidden">{name}</p>
       <div className="flex gap-2 text-slate-100">
-        <Link href="/" className="hidden lg:flex">
+        <Link href="/aluno" className="hidden lg:flex">
           Inicio
         </Link>
       </div>
@@ -43,7 +43,7 @@ export default function StudentNavbar({
           <DropdownMenuSeparator className="lg:hidden" />
           <DropdownMenuGroup className="lg:hidden">
             <DropdownMenuItem>
-              <Link href="/" className="w-full p-1">
+              <Link href="/aluno" className="w-full p-1">
                 Inicio
               </Link>
             </DropdownMenuItem>

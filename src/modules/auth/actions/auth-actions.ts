@@ -44,8 +44,6 @@ export async function authenticateUser(formData: FormData) {
       LIMIT 1
     `
 
-    console.log('Aqui: ', user)
-
     if (!user) {
       return {
         error: `Cadastro não encontrado. Tente novamente.`,

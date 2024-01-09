@@ -1,10 +1,18 @@
 import prisma from '@/lib/prisma'
 import { formatDate } from '@/lib/utils'
+import AuthService from '@/modules/auth/services/auth-service'
 import { Check, X } from 'lucide-react'
+import { cookies } from 'next/headers'
+import { redirect } from 'next/navigation'
 
-export default async function StudentHome({ id }: { id: string }) {
+export default async function StudentHome() {
+  const token = cookies().get('session-aluno-connect')
+  if (!token) redirect('/entrar')
+  const { sub } = await AuthService.openSessionToken(token.value)
+  if (!sub) cookies().delete('session-aluno-connect')
+
   const frequency = await prisma.frequency.findMany({
-    where: { studentId: id },
+    where: { studentId: sub },
   })
 
   const renderedFrequency = frequency.map((freq) => {

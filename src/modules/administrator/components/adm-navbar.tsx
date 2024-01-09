@@ -21,30 +21,30 @@ export default function AdmNavbar({
   profile: string
 }) {
   return (
-    <div className="absolute left-0 top-0 flex h-16 w-full flex-wrap items-center justify-between bg-teal-950 p-2">
+    <div className="absolute left-0 top-0 flex h-16 w-full flex-wrap items-center justify-between bg-stone-900 p-2">
       <p className="font-semibold text-slate-100 lg:hidden">{name}</p>
       <div className="flex gap-2 text-slate-100">
-        <Link href="/" className="hidden lg:flex">
+        <Link href="/administrador" className="hidden lg:flex">
           Inicio
         </Link>
         <div className="border-r-2 opacity-30" />
-        <Link href="/alunos" className="hidden lg:flex">
+        <Link href="/administrador/alunos" className="hidden lg:flex">
           Alunos
         </Link>
         <div className="border-r-2 opacity-30" />
-        <Link href="/instrutores" className="hidden lg:flex">
+        <Link href="/administrador/instrutores" className="hidden lg:flex">
           Instrutores
         </Link>
         <div className="border-r-2 opacity-30" />
-        <Link href="/responsaveis" className="hidden lg:flex">
+        <Link href="/administrador/responsaveis" className="hidden lg:flex">
           Responsaveis
         </Link>
         <div className="border-r-2 opacity-30" />
-        <Link href="/turmas" className="hidden lg:flex">
+        <Link href="/administrador/turmas" className="hidden lg:flex">
           Turmas
         </Link>
         <div className="border-r-2 opacity-30" />
-        <Link href="/solicitacoes" className="hidden lg:flex">
+        <Link href="/administrador/solicitacoes" className="hidden lg:flex">
           Solicitações
         </Link>
       </div>
@@ -63,32 +63,32 @@ export default function AdmNavbar({
           <DropdownMenuSeparator className="lg:hidden" />
           <DropdownMenuGroup className="lg:hidden">
             <DropdownMenuItem>
-              <Link href="/" className="w-full p-1">
+              <Link href="/admnistrador" className="w-full p-1">
                 Inicio
               </Link>
             </DropdownMenuItem>
             <DropdownMenuItem>
-              <Link href="/alunos" className="w-full p-1">
+              <Link href="/administrador/alunos" className="w-full p-1">
                 Alunos
               </Link>
             </DropdownMenuItem>
             <DropdownMenuItem>
-              <Link href="/instrutores" className="w-full p-1">
+              <Link href="/administrador/instrutores" className="w-full p-1">
                 Instrutores
               </Link>
             </DropdownMenuItem>
             <DropdownMenuItem>
-              <Link href="/responsaveis" className="w-full p-1">
+              <Link href="/administrador/responsaveis" className="w-full p-1">
                 Responsaveis
               </Link>
             </DropdownMenuItem>
             <DropdownMenuItem>
-              <Link href="/turmas" className="w-full p-1">
+              <Link href="/administrador/turmas" className="w-full p-1">
                 Turmas
               </Link>
             </DropdownMenuItem>
             <DropdownMenuItem>
-              <Link href="/solicitacoes" className="w-full p-1">
+              <Link href="/administrador/solicitacoes" className="w-full p-1">
                 Solicitações
               </Link>
             </DropdownMenuItem>

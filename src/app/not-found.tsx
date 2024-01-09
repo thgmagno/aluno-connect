@@ -15,7 +15,10 @@ export default function NotFound() {
         <h2 className="mt-2 text-xl font-extrabold text-gray-900 lg:text-3xl">
           Página não encontrada
         </h2>
-        <Link href={'/'} className="mt-2 text-lg font-semibold text-blue-700">
+        <Link
+          href={'/'}
+          className="mt-2 text-lg font-semibold text-blue-700 underline"
+        >
           Voltar para área segura
         </Link>
       </div>
