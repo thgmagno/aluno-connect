@@ -4,6 +4,7 @@ import { useFormState } from 'react-dom'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import * as actions from '@/actions/admin-actions'
+import BtnFormSubmit from '@/components/common/btn-form-submit'
 
 export default function AdmStudentNew() {
   // the first argument must be an Server Action
@@ -55,13 +56,7 @@ export default function AdmStudentNew() {
 
           <div>{formState.message}</div>
 
-          <Button
-            type="submit"
-            variant={'primary'}
-            className="mx-auto my-2 w-[10rem] rounded p-2"
-          >
-            Salvar
-          </Button>
+          <BtnFormSubmit title="Salvar" />
         </div>
       </form>
     </div>

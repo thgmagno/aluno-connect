@@ -17,6 +17,7 @@ import { useState } from 'react'
 import * as actions from '@/actions/auth-actions'
 import toast from 'react-hot-toast'
 import { useRouter } from 'next/navigation'
+import BtnFormSubmit from '../common/btn-form-submit'
 
 export default function SetPasswordForm({
   id,
@@ -78,7 +79,7 @@ export default function SetPasswordForm({
               Voltar
             </Button>
           </Link>
-          <button type="submit">Salvar</button>
+          <BtnFormSubmit title="Salvar" />
         </CardFooter>
       </form>
     </Card>

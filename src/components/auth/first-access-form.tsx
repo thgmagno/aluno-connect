@@ -15,6 +15,7 @@ import Link from 'next/link'
 import toast from 'react-hot-toast'
 import { useRouter } from 'next/navigation'
 import * as actions from '@/actions/auth-actions'
+import BtnFormSubmit from '../common/btn-form-submit'
 
 export default function FirstAccessForm() {
   const router = useRouter()
@@ -58,7 +59,7 @@ export default function FirstAccessForm() {
               Voltar
             </Button>
           </Link>
-          <button type="submit">Avançar</button>
+          <BtnFormSubmit title="Avançar" />
         </CardFooter>
       </form>
     </Card>

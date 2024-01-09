@@ -71,6 +71,6 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground bg-slate-300;
+    @apply bg-background text-foreground bg-gradient-to-t from-indigo-950 to-neutral-900;
   }
 }

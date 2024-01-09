@@ -16,6 +16,7 @@ import toast from 'react-hot-toast'
 import { useState } from 'react'
 import { Eye, EyeOff } from 'lucide-react'
 import * as actions from '@/actions/auth-actions'
+import BtnFormSubmit from '../common/btn-form-submit'
 
 export default function LoginForm() {
   const [visible, setVisible] = useState(false)
@@ -43,7 +44,6 @@ export default function LoginForm() {
               type="email"
               name="email"
               placeholder="Digite o seu e-mail"
-              className="text-base"
             />
           </div>
           <div className="relative flex flex-col space-y-1.5">
@@ -52,7 +52,6 @@ export default function LoginForm() {
               type={visible ? 'text' : 'password'}
               name="password"
               placeholder="Digite a sua senha"
-              className="text-base"
             />
             <Button
               type="button"
@@ -66,11 +65,11 @@ export default function LoginForm() {
         </CardContent>
         <CardFooter className="flex justify-between">
           <Link href="primeiro-acesso">
-            <Button type="button" variant={'outline'}>
+            <Button type="button" variant={'link'}>
               Primeiro acesso?
             </Button>
           </Link>
-          <button type="submit">Entrar</button>
+          <BtnFormSubmit title="Entrar" />
         </CardFooter>
       </form>
     </Card>
