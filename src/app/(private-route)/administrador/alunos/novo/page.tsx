@@ -3,7 +3,7 @@
 import { useFormState } from 'react-dom'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
-import * as actions from '@/actions'
+import * as actions from '@/actions/admin-actions'
 
 export default function AdmStudentNew() {
   // the first argument must be an Server Action

@@ -1,4 +1,4 @@
-import FirstAccessForm from '@/modules/auth/components/first-access-form'
+import FirstAccessForm from '@/components/auth/first-access-form'
 
 export default function FirstAccess() {
   return (

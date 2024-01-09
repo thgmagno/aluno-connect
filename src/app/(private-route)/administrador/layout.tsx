@@ -1,5 +1,5 @@
-import AdmNavbar from '@/modules/administrator/components/adm-navbar'
-import AuthService from '@/modules/auth/services/auth-service'
+import AdmNavbar from '@/components/administrator/adm-navbar'
+import AuthService from '@/services/auth-service'
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 

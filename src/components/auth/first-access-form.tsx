@@ -14,12 +14,12 @@ import { Label } from '@/components/ui/label'
 import Link from 'next/link'
 import toast from 'react-hot-toast'
 import { useRouter } from 'next/navigation'
-import { authenticateEmail } from '../actions/auth-actions'
+import * as actions from '@/actions/auth-actions'
 
 export default function FirstAccessForm() {
   const router = useRouter()
   const formSubmit = async (formData: FormData) => {
-    const res = await authenticateEmail(formData)
+    const res = await actions.authenticateEmail(formData)
 
     const { user, error } = res
 

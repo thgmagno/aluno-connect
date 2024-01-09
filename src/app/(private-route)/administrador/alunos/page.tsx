@@ -1,6 +1,6 @@
+import RenderStudentList from '@/components/administrator/render-student-list'
 import { Button } from '@/components/ui/button'
 import prisma from '@/lib/prisma'
-import RenderStudentList from '@/modules/administrator/services/renderStudentList'
 import Link from 'next/link'
 
 export default async function AdmStudent() {

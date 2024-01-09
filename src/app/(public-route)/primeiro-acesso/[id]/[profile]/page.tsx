@@ -1,4 +1,4 @@
-import SetPasswordForm from '@/modules/auth/components/set-password-form'
+import SetPasswordForm from '@/components/auth/set-password-form'
 
 export default async function SetPassword({
   params,

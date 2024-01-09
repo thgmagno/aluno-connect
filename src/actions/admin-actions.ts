@@ -4,6 +4,10 @@ export async function createStudent(
   formState: { message: string },
   formData: FormData,
 ) {
+  // verificar se o usuário é ADM
+  // const isAdm = função que retornar true/false
+  // if (!isAdm) return { message: 'Não autorizado' }
+
   const name = formData.get('name')
   const email = formData.get('email')
   const birthdate = formData.get('birthdate')
@@ -14,6 +18,10 @@ export async function createStudent(
 
   if (typeof email !== 'string' || email.length < 1) {
     return { message: 'O email é obrigatório' }
+  }
+
+  if (!(birthdate instanceof Date) || !birthdate) {
+    return { message: 'A data de nascimento é obrigatória' }
   }
 
   return {

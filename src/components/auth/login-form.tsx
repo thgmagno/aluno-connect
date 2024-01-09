@@ -15,12 +15,12 @@ import { Button } from '@/components/ui/button'
 import toast from 'react-hot-toast'
 import { useState } from 'react'
 import { Eye, EyeOff } from 'lucide-react'
-import { authenticateUser } from '@/modules/auth/actions/auth-actions'
+import * as actions from '@/actions/auth-actions'
 
 export default function LoginForm() {
   const [visible, setVisible] = useState(false)
   const formSubmit = async (formData: FormData) => {
-    const res = await authenticateUser(formData)
+    const res = await actions.authenticateUser(formData)
 
     if (res) {
       const { success, error } = res

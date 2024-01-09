@@ -1,4 +1,4 @@
-import AuthService from '@/modules/auth/services/auth-service'
+import AuthService from '@/services/auth-service'
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 

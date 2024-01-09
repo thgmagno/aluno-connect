@@ -14,7 +14,7 @@ import { Label } from '@/components/ui/label'
 import { EyeOff, Eye } from 'lucide-react'
 import Link from 'next/link'
 import { useState } from 'react'
-import { registerUserPassword } from '../actions/auth-actions'
+import * as actions from '@/actions/auth-actions'
 import toast from 'react-hot-toast'
 import { useRouter } from 'next/navigation'
 
@@ -28,7 +28,7 @@ export default function SetPasswordForm({
   const router = useRouter()
   const [visible, setVisible] = useState(false)
   const handleSubmit = async (formData: FormData) => {
-    const res = await registerUserPassword(formData)
+    const res = await actions.registerUserPassword(formData)
 
     const { success, error } = res
     success && toast.success(success) && router.replace('/entrar')

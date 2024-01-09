@@ -2,8 +2,8 @@
 
 import prisma from '@/lib/prisma'
 import { UserType, loginUserSchema, validateEmailSchema } from '@/lib/types'
+import AuthService from '@/services/auth-service'
 import * as bcrypt from 'bcrypt'
-import AuthService from '../services/auth-service'
 
 interface User {
   id: string
