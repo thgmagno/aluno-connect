@@ -16,6 +16,8 @@ export default function AdmStudentNew() {
   const nameError = formState.message.includes('nome')
   const emailError = formState.message.includes('email')
   const birthError = formState.message.includes('data')
+  const genericError =
+    formState.message && !nameError && !emailError && !birthError
 
   return (
     <div className="relative">
@@ -84,6 +86,13 @@ export default function AdmStudentNew() {
               }`}
             />
           </div>
+
+          {genericError && (
+            <p className="rounded-md border-2 border-red-400 bg-red-200 p-2 font-semibold text-red-700">
+              {formState.message}
+            </p>
+          )}
+
           <BtnFormSubmit title="Salvar" />
         </div>
       </form>

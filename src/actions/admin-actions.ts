@@ -1,12 +1,20 @@
 'use server'
 
+import prisma from '@/lib/prisma'
+import AuthService from '@/services/auth-service'
+import { cookies } from 'next/headers'
+import { redirect } from 'next/navigation'
+
 export async function createStudent(
   formState: { message: string },
   formData: FormData,
 ) {
-  // verificar se o usuário é ADM
-  // const isAdm = função que retornar true/false
-  // if (!isAdm) return { message: 'Não autorizado' }
+  // verificar se o usuário tem perfil de ADM
+  const session = cookies().get('session-aluno-connect')
+  if (!session) redirect('/entrar')
+  const { profile } = await AuthService.openSessionToken(session.value)
+  const isAdm = profile === 'administrator'
+  if (!isAdm) return { message: 'Não autorizado' }
 
   const name = formData.get('name')
   const email = formData.get('email')
@@ -20,11 +28,28 @@ export async function createStudent(
     return { message: 'O email é obrigatório' }
   }
 
-  if (!(birthdate instanceof Date) || !birthdate) {
+  if (typeof birthdate !== 'string' || !birthdate) {
     return { message: 'A data de nascimento é obrigatória' }
   }
 
-  return {
-    message: 'Criando cadastro de aluno...',
+  try {
+    await prisma.student.create({
+      data: {
+        name,
+        email,
+        birthdate: new Date(birthdate).toISOString(),
+      },
+    })
+  } catch (e) {
+    if (e instanceof Error && e.message.includes('Unique constraint')) {
+      return {
+        message:
+          'Ops, esse e-mail já consta em nossa base de dados. Tente novamente',
+      }
+    } else {
+      return { message: 'Erro ao realizar cadastro' }
+    }
   }
+
+  redirect('/administrador/alunos')
 }
