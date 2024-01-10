@@ -2,6 +2,7 @@ import { formatDate } from '@/lib/utils'
 import type { Student } from '@prisma/client'
 import { ArrowRight } from 'lucide-react'
 import Link from 'next/link'
+import * as Table from '@/components/common/table'
 
 export default function RenderStudentList({
   students,
@@ -9,24 +10,20 @@ export default function RenderStudentList({
   students: Student[]
 }) {
   return (
-    <div className="table w-full rounded bg-zinc-200 text-center shadow-lg">
-      <div className="table-header-group">
-        <div className="table-row font-semibold">
-          <div className="table-cell py-2">Nome</div>
-          <div className="table-cell py-2">Email</div>
-          <div className="table-cell py-2">Data de Nascimento</div>
-          <div className="table-cell py-2">Ações</div>
-        </div>
-      </div>
-      <div className="table-row-group">
+    <Table.Content>
+      <Table.Header>
+        <Table.Cell>Nome</Table.Cell>
+        <Table.Cell>E-mail</Table.Cell>
+        <Table.Cell>Data de Nascimento</Table.Cell>
+        <Table.Cell>Ações</Table.Cell>
+      </Table.Header>
+      <Table.Body>
         {students.map((student) => (
-          <div className="table-row hover:bg-zinc-300">
-            <div className="table-cell py-2">{student.name}</div>
-            <div className="table-cell py-2">{student.email}</div>
-            <div className="table-cell py-2">
-              {formatDate(student.birthdate)}
-            </div>
-            <div className="table-cell py-2">
+          <Table.Row>
+            <Table.Cell>{student.name}</Table.Cell>
+            <Table.Cell>{student.email}</Table.Cell>
+            <Table.Cell>{formatDate(student.birthdate)}</Table.Cell>
+            <Table.Cell>
               <Link
                 href={`/administrador/alunos/${student.id}`}
                 className="flex justify-center"
@@ -36,10 +33,10 @@ export default function RenderStudentList({
                   className="rounded bg-zinc-500 p-1 text-zinc-100 hover:bg-indigo-500"
                 />
               </Link>
-            </div>
-          </div>
+            </Table.Cell>
+          </Table.Row>
         ))}
-      </div>
-    </div>
+      </Table.Body>
+    </Table.Content>
   )
 }
