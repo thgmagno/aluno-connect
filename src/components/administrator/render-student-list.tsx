@@ -33,7 +33,7 @@ export default function RenderStudentList({
               >
                 <ArrowRight
                   strokeWidth={4}
-                  className="rounded bg-zinc-500 p-1 text-zinc-100 hover:bg-zinc-500/90"
+                  className="rounded bg-zinc-500 p-1 text-zinc-100 hover:bg-indigo-500"
                 />
               </Link>
             </div>

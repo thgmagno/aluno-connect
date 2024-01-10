@@ -21,9 +21,9 @@ export default function AdmNavbar({
   profile: string
 }) {
   return (
-    <div className="absolute left-0 top-0 flex h-16 w-full flex-wrap items-center justify-between bg-stone-900 p-2">
-      <p className="font-semibold text-slate-100 lg:hidden">{name}</p>
-      <div className="flex gap-2 text-slate-100">
+    <div className="fixed left-0 top-0 flex h-16 w-full flex-wrap items-center justify-between bg-zinc-950/40 p-2 shadow-md">
+      <p className="font-semibold text-zinc-100 lg:hidden">{name}</p>
+      <div className="flex gap-2 text-zinc-100">
         <Link href="/administrador" className="hidden lg:flex">
           Inicio
         </Link>

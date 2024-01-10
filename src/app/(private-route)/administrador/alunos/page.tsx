@@ -7,7 +7,7 @@ export default async function AdmStudent() {
   const listStudents = await prisma.student.findMany()
 
   return (
-    <div className="relative top-20">
+    <div className="relative">
       <nav className="mb-4 flex justify-end">
         <Link href="/administrador/alunos/novo">
           <Button variant={'primary'}>Cadastrar</Button>

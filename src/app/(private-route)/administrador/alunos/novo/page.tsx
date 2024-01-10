@@ -17,7 +17,7 @@ export default function AdmStudentNew() {
   const emailError = formState.message.includes('email')
 
   return (
-    <div className="relative top-20">
+    <div className="relative">
       {/* Botões */}
       <nav className="mb-4 flex justify-end gap-4">
         <Link href="/administrador/alunos">
