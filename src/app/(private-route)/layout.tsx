@@ -11,7 +11,12 @@ export default async function PublicLayout({
 
   return (
     <>
-      <div className="container">{children}</div>
+      <div
+        className="container mt-20"
+        style={{ minHeight: 'calc(100vh - 5rem)' }}
+      >
+        {children}
+      </div>
     </>
   )
 }
