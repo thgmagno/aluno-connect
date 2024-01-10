@@ -15,6 +15,7 @@ export default function AdmStudentNew() {
 
   const nameError = formState.message.includes('nome')
   const emailError = formState.message.includes('email')
+  const birthError = formState.message.includes('data')
 
   return (
     <div className="relative">
@@ -29,33 +30,60 @@ export default function AdmStudentNew() {
       <form action={action} className="rounded bg-neutral-200 p-2 shadow-md">
         <h3 className="mb-2 text-xl">Cadastrar aluno</h3>
         <div className="flex flex-col gap-4">
-          <div className="flex gap-4">
-            <label htmlFor="name">Nome</label>
+          <div className="flex flex-col">
+            <label
+              htmlFor="name"
+              className={`flex justify-between ${
+                nameError && 'font-semibold text-red-500'
+              }`}
+            >
+              Nome
+              {nameError && <p className="text-sm">{formState.message}</p>}
+            </label>
             <input
               type="text"
               name="name"
               className={`rounded border-2 p-1 outline-none ${
-                nameError ? 'border-red-400' : ''
+                nameError && 'border-red-400'
               }`}
             />
           </div>
-          <div className="flex gap-4">
-            <label htmlFor="email">E-mail</label>
+          <div className="flex flex-col">
+            <label
+              htmlFor="email"
+              className={`flex justify-between ${
+                emailError && 'font-semibold text-red-500'
+              }`}
+            >
+              E-mail
+              {emailError && <p className="text-sm">{formState.message}</p>}
+            </label>
             <input
               type="email"
               name="email"
               className={`rounded border-2 p-1 outline-none ${
-                emailError ? 'border-red-400' : ''
+                emailError && 'border-red-400'
               }`}
             />
           </div>
-          <div className="flex gap-4">
-            <label htmlFor="birthdate">Data de nascimento</label>
-            <input type="date" name="birthdate" />
+          <div className="flex flex-col">
+            <label
+              htmlFor="birthdate"
+              className={`flex justify-between ${
+                birthError && 'font-semibold text-red-500'
+              }`}
+            >
+              Data de nascimento
+              {birthError && <p className="text-sm">{formState.message}</p>}
+            </label>
+            <input
+              type="date"
+              name="birthdate"
+              className={`rounded border-2 p-1 outline-none ${
+                birthError && 'border-red-400'
+              }`}
+            />
           </div>
-
-          <div>{formState.message}</div>
-
           <BtnFormSubmit title="Salvar" />
         </div>
       </form>
