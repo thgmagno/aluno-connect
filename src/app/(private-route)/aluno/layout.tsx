@@ -17,7 +17,7 @@ export default async function StudentLayout({
   return (
     <>
       <StudentNavbar name={name as string} profile={profile} />
-      <div className="container">{children}</div>
+      {children}
     </>
   )
 }

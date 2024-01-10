@@ -63,7 +63,7 @@ export default function AdmNavbar({
           <DropdownMenuSeparator className="lg:hidden" />
           <DropdownMenuGroup className="lg:hidden">
             <DropdownMenuItem>
-              <Link href="/admnistrador" className="w-full p-1">
+              <Link href="/administrador" className="w-full p-1">
                 Inicio
               </Link>
             </DropdownMenuItem>

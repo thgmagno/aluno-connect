@@ -17,7 +17,7 @@ export default async function AdministratorLayout({
   return (
     <>
       <AdmNavbar name={name as string} profile={profile} />
-      <div className="container">{children}</div>
+      {children}
     </>
   )
 }

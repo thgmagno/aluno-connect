@@ -1,6 +1,7 @@
 import RenderStudentFrequency from '@/components/student/render-my-frequency'
 import prisma from '@/lib/prisma'
 import AuthService from '@/services/auth-service'
+import { AlertCircle } from 'lucide-react'
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 
@@ -20,7 +21,10 @@ export default async function StudentHome() {
       {frequency.length > 0 ? (
         RenderStudentFrequency({ frequency })
       ) : (
-        <p>Nenhuma presença registrada para você neste momento.</p>
+        <p className="mt-6 flex flex-col items-center gap-5 text-lg text-muted-foreground md:mt-10">
+          <AlertCircle size={32} />
+          Nenhuma presença registrada para você neste momento.
+        </p>
       )}
     </div>
   )

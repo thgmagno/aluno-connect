@@ -10,13 +10,11 @@ export default async function PublicLayout({
   if (!session) return redirect('/entrar')
 
   return (
-    <>
-      <div
-        className="container mt-20"
-        style={{ minHeight: 'calc(100vh - 5rem)' }}
-      >
-        {children}
-      </div>
-    </>
+    <div
+      className="container-custom mt-20"
+      style={{ minHeight: 'calc(100vh - 5rem)' }}
+    >
+      {children}
+    </div>
   )
 }

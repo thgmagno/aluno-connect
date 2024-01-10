@@ -2,8 +2,10 @@ import { ReactNode } from 'react'
 
 export function Content({ children }: { children: ReactNode }) {
   return (
-    <div className="table w-full rounded bg-zinc-200 text-center shadow-lg">
-      {children}
+    <div className="overflow-x-auto">
+      <div className="table w-full rounded bg-zinc-200 text-center shadow-lg">
+        {children}
+      </div>
     </div>
   )
 }
@@ -17,7 +19,7 @@ export function Header({ children }: { children: ReactNode }) {
 }
 
 export function Cell({ children }: { children: ReactNode }) {
-  return <div className="table-cell py-2">{children}</div>
+  return <div className="table-cell min-w-32 py-2">{children}</div>
 }
 
 export function Body({ children }: { children: ReactNode }) {
