@@ -7,9 +7,10 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
 } from '@/components/ui/dropdown-menu'
-import { Edit, RotateCcw, Settings } from 'lucide-react'
+import { Edit, Settings } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import DeleteStudentForm from './delete-student-form'
+import ResetStudentPassword from './reset-student-password'
 
 export default function RenderStudentList({
   students,
@@ -50,13 +51,11 @@ export default function RenderStudentList({
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem className="flex h-12">
-                    <button className="flex flex-1">
-                      <RotateCcw size={20} className="mr-2" /> Resetar senha
-                    </button>
+                    <ResetStudentPassword id={student.id} />
                   </DropdownMenuItem>
                   <DropdownMenuItem className="flex h-12">
                     {/* // TODO: Preciso criar um formulario 'use client' e utilizar o hook useFormState */}
-                    <DeleteStudentForm id={student.id} profile="student" />
+                    <DeleteStudentForm id={student.id} />
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>

@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import * as actions from '@/actions/admin-actions'
 import BtnFormSubmit from '@/components/common/btn-form-submit'
+import { Input } from '@/components/ui/input'
 
 export default function AdmStudentNew() {
   // the first argument must be an Server Action
@@ -45,10 +46,10 @@ export default function AdmStudentNew() {
               Nome
               {nameError && <p className="text-sm">{formState.message}</p>}
             </label>
-            <input
+            <Input
               type="text"
               name="name"
-              className={`rounded border-2 p-1 outline-none ${
+              className={`rounded border-2 p-1 ${
                 nameError && 'border-red-400'
               }`}
             />
@@ -63,10 +64,10 @@ export default function AdmStudentNew() {
               E-mail
               {emailError && <p className="text-sm">{formState.message}</p>}
             </label>
-            <input
+            <Input
               type="email"
               name="email"
-              className={`rounded border-2 p-1 outline-none ${
+              className={`rounded border-2 p-1 ${
                 emailError && 'border-red-400'
               }`}
             />
@@ -81,10 +82,10 @@ export default function AdmStudentNew() {
               Data de nascimento
               {birthError && <p className="text-sm">{formState.message}</p>}
             </label>
-            <input
+            <Input
               type="date"
               name="birthdate"
-              className={`rounded border-2 p-1 outline-none ${
+              className={`rounded border-2 p-1 ${
                 birthError && 'border-red-400'
               }`}
             />

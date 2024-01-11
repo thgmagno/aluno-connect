@@ -56,12 +56,62 @@ export async function deleteStudent(id: string) {
       where: { id },
     })
   } catch (e) {
-    return { error: 'Não foi possível fazer a exclusão do aluno' + e }
+    return { error: 'Não foi possível fazer a exclusão do aluno' }
   }
 
   revalidatePath('/administrador/alunos')
 
   return { message: 'Registro excluído com sucesso!' }
+}
+
+export async function updateStudent(
+  formState: { message: string },
+  formData: FormData,
+) {
+  const { isAdm } = await getProfile()
+  if (!isAdm) return { message: 'Não autorizado' }
+
+  const id = formData.get('id') as string
+  const name = formData.get('name')?.toString().trim() || ''
+  const email = formData.get('email')?.toString().trim() || ''
+  const birthdate = formData.get('birthdate')?.toString().trim() || ''
+
+  if (!id) redirect('/administrador/alunos')
+  if (name.length < 1) return { message: 'O nome é obrigatório' }
+  if (name.length < 1) return { message: 'O nome é obrigatório' }
+  if (email.length < 1) return { message: 'O email é obrigatório' }
+  if (!birthdate) return { message: 'A data de nascimento é obrigatória' }
+
+  try {
+    await prisma.student.update({
+      where: { id },
+      data: {
+        name,
+        email,
+        birthdate: new Date(birthdate).toISOString(),
+      },
+    })
+  } catch (e) {
+    return { message: 'Não foi possível atualizar os dados' }
+  }
+
+  redirect('/administrador/alunos')
+}
+
+export async function resetStudentPassword(id: string) {
+  try {
+    await prisma.student.update({
+      where: { id },
+      data: {
+        password: null,
+        firstAccess: true,
+      },
+    })
+  } catch (e) {
+    return { error: 'Não foi possível resetar a senha' }
+  }
+
+  return { message: 'Senha resetada com sucesso' }
 }
 
 // TODO: Essa função tambem será usada por Instrutores

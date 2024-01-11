@@ -16,7 +16,9 @@ export default async function AdmStudent() {
       {listStudents.length > 0 ? (
         RenderStudentList({ students: listStudents })
       ) : (
-        <p>Não encontramos registros de estudantes em nossa base de dados</p>
+        <p className="text-center text-xl text-muted-foreground">
+          Não encontramos registros de estudantes em nossa base de dados
+        </p>
       )}
     </>
   )
