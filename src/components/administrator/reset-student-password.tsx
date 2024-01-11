@@ -8,10 +8,13 @@ export default function ResetStudentPassword({ id }: { id: string }) {
   async function handleSubmit(formData: FormData) {
     const id = formData.get('id') as string
 
-    const res = await actions.resetStudentPassword(id)
-
-    res.message && toast.success(res.message)
-    res.error && toast.success(res.error)
+    // res.message && toast.success(res.message)
+    // res.error && toast.success(res.error)
+    toast.promise(actions.resetStudentPassword(id), {
+      loading: 'Aguarde...',
+      success: () => <b>Senha resetada com sucesso!</b>,
+      error: () => <b>Não foi possível resetar a senha</b>,
+    })
   }
 
   return (
