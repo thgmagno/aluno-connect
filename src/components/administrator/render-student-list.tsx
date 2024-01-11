@@ -1,7 +1,15 @@
 import type { Student } from '@prisma/client'
-import { ArrowRight } from 'lucide-react'
 import Link from 'next/link'
 import * as Table from '@/components/common/table'
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+} from '@/components/ui/dropdown-menu'
+import { Edit, RotateCcw, Settings } from 'lucide-react'
+import { Button } from '@/components/ui/button'
+import DeleteStudentForm from './delete-student-form'
 
 export default function RenderStudentList({
   students,
@@ -25,15 +33,33 @@ export default function RenderStudentList({
               {student.birthdate.toLocaleDateString('pt-br')}
             </Table.Cell>
             <Table.Cell>
-              <Link
-                href={`/administrador/alunos/${student.id}`}
-                className="flex justify-center"
-              >
-                <ArrowRight
-                  strokeWidth={4}
-                  className="rounded bg-zinc-500 p-1 text-zinc-100 hover:bg-indigo-500"
-                />
-              </Link>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost">
+                    <Settings className="rounded  text-zinc-700" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="font-semibold">
+                  <DropdownMenuItem className="flex h-12">
+                    <Edit size={20} className="mr-2" />
+                    <Link
+                      href={`/administrador/alunos/${student.id}/editar`}
+                      className="flex-1"
+                    >
+                      Editar
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem className="flex h-12">
+                    <button className="flex flex-1">
+                      <RotateCcw size={20} className="mr-2" /> Resetar senha
+                    </button>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem className="flex h-12">
+                    {/* // TODO: Preciso criar um formulario 'use client' e utilizar o hook useFormState */}
+                    <DeleteStudentForm id={student.id} profile="student" />
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             </Table.Cell>
           </Table.Row>
         ))}

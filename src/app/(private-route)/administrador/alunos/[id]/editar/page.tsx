@@ -16,7 +16,7 @@ export default async function AdmStudentEdit({
     <>
       {/* TODO: implements composition pattern */}
       <nav className="mb-4 flex justify-end">
-        <Link href={`/administrador/alunos/${student.id}`}>
+        <Link href={`/administrador/alunos`}>
           <Button variant={'secondary'}>Voltar</Button>
         </Link>
       </nav>

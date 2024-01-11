@@ -2,35 +2,32 @@
 
 import prisma from '@/lib/prisma'
 import AuthService from '@/services/auth-service'
+import { revalidatePath } from 'next/cache'
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
+
+const getProfile = async () => {
+  const session = cookies().get('session-aluno-connect')
+  if (!session) redirect('/entrar')
+  const { profile } = await AuthService.openSessionToken(session.value)
+  const isAdm = profile === 'administrator'
+  return { isAdm }
+}
 
 export async function createStudent(
   formState: { message: string },
   formData: FormData,
 ) {
-  // verificar se o usuário tem perfil de ADM
-  const session = cookies().get('session-aluno-connect')
-  if (!session) redirect('/entrar')
-  const { profile } = await AuthService.openSessionToken(session.value)
-  const isAdm = profile === 'administrator'
+  const { isAdm } = await getProfile()
   if (!isAdm) return { message: 'Não autorizado' }
 
-  const name = formData.get('name')
-  const email = formData.get('email')
-  const birthdate = formData.get('birthdate')
+  const name = formData.get('name')?.toString().trim() || ''
+  const email = formData.get('email')?.toString().trim() || ''
+  const birthdate = formData.get('birthdate')?.toString().trim() || ''
 
-  if (typeof name !== 'string' || name.length < 1) {
-    return { message: 'O nome é obrigatório' }
-  }
-
-  if (typeof email !== 'string' || email.length < 1) {
-    return { message: 'O email é obrigatório' }
-  }
-
-  if (typeof birthdate !== 'string' || !birthdate) {
-    return { message: 'A data de nascimento é obrigatória' }
-  }
+  if (name.length < 1) return { message: 'O nome é obrigatório' }
+  if (email.length < 1) return { message: 'O email é obrigatório' }
+  if (!birthdate) return { message: 'A data de nascimento é obrigatória' }
 
   try {
     await prisma.student.create({
@@ -53,6 +50,21 @@ export async function createStudent(
   redirect('/administrador/alunos')
 }
 
+export async function deleteStudent(id: string) {
+  try {
+    await prisma.student.delete({
+      where: { id },
+    })
+  } catch (e) {
+    return { error: 'Não foi possível fazer a exclusão do aluno' + e }
+  }
+
+  revalidatePath('/administrador/alunos')
+
+  return { message: 'Registro excluído com sucesso!' }
+}
+
+// TODO: Essa função tambem será usada por Instrutores
 export async function getStudentByID(id: string) {
   const student = await prisma.student.findUnique({
     where: { id },

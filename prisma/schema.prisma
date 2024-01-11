@@ -29,7 +29,7 @@ model Frequency {
   status    Boolean
   studentId String
 
-  studentID Student @relation(fields: [studentId], references: [id])
+  studentID Student @relation(fields: [studentId], references: [id], onDelete: Cascade)
 
   @@map("frequency")
 }
