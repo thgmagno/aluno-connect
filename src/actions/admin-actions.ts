@@ -43,8 +43,7 @@ export async function createStudent(
   } catch (e) {
     if (e instanceof Error && e.message.includes('Unique constraint')) {
       return {
-        message:
-          'Ops, esse e-mail já consta em nossa base de dados. Tente novamente',
+        message: 'Ops, este e-mail já está presente em nossa base de dados',
       }
     } else {
       return { message: 'Erro ao realizar cadastro' }
@@ -52,4 +51,12 @@ export async function createStudent(
   }
 
   redirect('/administrador/alunos')
+}
+
+export async function getStudentByID(id: string) {
+  const student = await prisma.student.findUnique({
+    where: { id },
+  })
+
+  return { student }
 }

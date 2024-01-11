@@ -20,7 +20,7 @@ export default function AdmStudentNew() {
     formState.message && !nameError && !emailError && !birthError
 
   return (
-    <div className="relative">
+    <>
       {/* Botões */}
       <nav className="mb-4 flex justify-end gap-4">
         <Link href="/administrador/alunos">
@@ -29,7 +29,10 @@ export default function AdmStudentNew() {
       </nav>
 
       {/* Formulário */}
-      <form action={action} className="rounded bg-neutral-200 p-2 shadow-md">
+      <form
+        action={action}
+        className="mx-auto max-w-lg rounded bg-neutral-200 p-2 shadow-md"
+      >
         <h3 className="mb-2 text-xl">Cadastrar aluno</h3>
         <div className="flex flex-col gap-4">
           <div className="flex flex-col">
@@ -96,6 +99,6 @@ export default function AdmStudentNew() {
           <BtnFormSubmit title="Salvar" />
         </div>
       </form>
-    </div>
+    </>
   )
 }

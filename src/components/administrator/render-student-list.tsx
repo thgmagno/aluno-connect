@@ -1,4 +1,3 @@
-import { formatDate } from '@/lib/utils'
 import type { Student } from '@prisma/client'
 import { ArrowRight } from 'lucide-react'
 import Link from 'next/link'
@@ -22,7 +21,9 @@ export default function RenderStudentList({
           <Table.Row>
             <Table.Cell>{student.name}</Table.Cell>
             <Table.Cell>{student.email}</Table.Cell>
-            <Table.Cell>{formatDate(student.birthdate)}</Table.Cell>
+            <Table.Cell>
+              {student.birthdate.toLocaleDateString('pt-br')}
+            </Table.Cell>
             <Table.Cell>
               <Link
                 href={`/administrador/alunos/${student.id}`}

@@ -1,4 +1,3 @@
-import { formatDate } from '@/lib/utils'
 import type { Frequency } from '@prisma/client'
 import { Check, X } from 'lucide-react'
 import * as Table from '@/components/common/table'
@@ -18,7 +17,7 @@ export default function RenderStudentFrequency({
       <Table.Body>
         {frequency.map((freq) => (
           <Table.Row key={freq.id}>
-            <Table.Cell>{formatDate(freq.date)}</Table.Cell>
+            <Table.Cell>{freq.date.toLocaleDateString('pt-br')}</Table.Cell>
             <Table.Cell>
               <p className="flex w-full justify-center">
                 {freq.status ? (

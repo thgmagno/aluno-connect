@@ -7,7 +7,7 @@ export default async function AdmStudent() {
   const listStudents = await prisma.student.findMany()
 
   return (
-    <div className="relative">
+    <>
       <nav className="mb-4 flex justify-end">
         <Link href="/administrador/alunos/novo">
           <Button variant={'primary'}>Cadastrar</Button>
@@ -18,6 +18,6 @@ export default async function AdmStudent() {
       ) : (
         <p>Não encontramos registros de estudantes em nossa base de dados</p>
       )}
-    </div>
+    </>
   )
 }
