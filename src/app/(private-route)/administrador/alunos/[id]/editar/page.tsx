@@ -1,5 +1,6 @@
 import { getStudentByID } from '@/actions/admin-actions'
-import UpdateStudentForm from '@/components/administrator/update-student-form'
+import EditStudentForm from '@/components/administrator/edit-student-form'
+import { Navigation } from '@/components/common/navigation-bar'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
@@ -14,18 +15,18 @@ export default async function AdmStudentEdit({
 
   return (
     <>
-      {/* TODO: implements composition pattern */}
-      <nav className="mb-4 flex justify-end">
-        <Link href={`/administrador/alunos`}>
+      <Navigation.container>
+        <Link href={'/administrador/alunos'}>
           <Button variant={'secondary'}>Voltar</Button>
         </Link>
-      </nav>
+      </Navigation.container>
 
       {/* Formulário */}
-      <UpdateStudentForm
+      <EditStudentForm
         id={student.id}
         name={student.name}
         email={student.email}
+        birthdate={student.birthdate}
       />
     </>
   )

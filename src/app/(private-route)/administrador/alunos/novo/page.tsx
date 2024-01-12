@@ -6,6 +6,7 @@ import Link from 'next/link'
 import * as actions from '@/actions/admin-actions'
 import BtnFormSubmit from '@/components/common/btn-form-submit'
 import { Input } from '@/components/ui/input'
+import { Navigation } from '@/components/common/navigation-bar'
 
 export default function AdmStudentNew() {
   // the first argument must be an Server Action
@@ -22,12 +23,11 @@ export default function AdmStudentNew() {
 
   return (
     <>
-      {/* Botões */}
-      <nav className="mb-4 flex justify-end gap-4">
+      <Navigation.container>
         <Link href="/administrador/alunos">
           <Button variant={'secondary'}>Cancelar</Button>
         </Link>
-      </nav>
+      </Navigation.container>
 
       {/* Formulário */}
       <form

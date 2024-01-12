@@ -1,18 +1,22 @@
 import RenderStudentList from '@/components/administrator/render-student-list'
+import { Navigation } from '@/components/common/navigation-bar'
 import { Button } from '@/components/ui/button'
 import prisma from '@/lib/prisma'
 import Link from 'next/link'
 
 export default async function AdmStudent() {
-  const listStudents = await prisma.student.findMany()
+  const listStudents = await prisma.student.findMany({
+    orderBy: { name: 'asc' },
+  })
 
   return (
     <>
-      <nav className="mb-4 flex justify-end">
-        <Link href="/administrador/alunos/novo">
+      <Navigation.container>
+        <Link href={'/administrador/alunos/novo'}>
           <Button variant={'primary'}>Cadastrar</Button>
         </Link>
-      </nav>
+      </Navigation.container>
+
       {listStudents.length > 0 ? (
         RenderStudentList({ students: listStudents })
       ) : (

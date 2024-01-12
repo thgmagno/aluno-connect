@@ -3,21 +3,30 @@
 import BtnFormSubmit from '@/components/common/btn-form-submit'
 import { useFormState } from 'react-dom'
 import * as actions from '@/actions/admin-actions'
+import { useEffect, useState } from 'react'
 
 interface UpdateStudentProps {
   id: string
   name: string
   email: string
+  birthdate: Date
 }
 
-export default function UpdateStudentForm({
+export default function EditStudentForm({
   id,
   name,
   email,
+  birthdate,
 }: UpdateStudentProps) {
   const [formState, action] = useFormState(actions.updateStudent, {
     message: '',
   })
+
+  const [formattedBirthdate, setFormattedBirthdate] = useState('')
+
+  useEffect(() => {
+    setFormattedBirthdate(birthdate.toISOString().slice(0, 10))
+  }, [birthdate])
 
   return (
     <form
@@ -56,6 +65,7 @@ export default function UpdateStudentForm({
             type="date"
             name="birthdate"
             className={`rounded border-2 p-1 outline-none`}
+            defaultValue={formattedBirthdate}
           />
         </div>
         {formState.message && <p>{formState.message}</p>}
