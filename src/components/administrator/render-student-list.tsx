@@ -27,7 +27,7 @@ export default function RenderStudentList({
       </Table.Header>
       <Table.Body>
         {students.map((student) => (
-          <Table.Row>
+          <Table.Row key={student.id}>
             <Table.Cell>{student.name}</Table.Cell>
             <Table.Cell>{student.email}</Table.Cell>
             <Table.Cell>
@@ -54,7 +54,6 @@ export default function RenderStudentList({
                     <ResetStudentPassword id={student.id} />
                   </DropdownMenuItem>
                   <DropdownMenuItem className="flex h-12">
-                    {/* // TODO: Preciso criar um formulario 'use client' e utilizar o hook useFormState */}
                     <DeleteStudentForm id={student.id} />
                   </DropdownMenuItem>
                 </DropdownMenuContent>
