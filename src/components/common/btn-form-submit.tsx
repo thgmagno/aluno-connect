@@ -1,26 +1,28 @@
 'use client'
 
 import { Button } from '@/components/ui/button'
+import { Loader2 } from 'lucide-react'
+import { ReactNode } from 'react'
 import { useFormStatus } from 'react-dom'
 
-export default function BtnFormSubmit({ title }: { title: string }) {
+export default function BtnFormSubmit({ children }: { children: ReactNode }) {
   const { pending } = useFormStatus()
 
-  const loading = () => (
-    <div className="flex gap-1.5">
-      <div className="h-4 w-4 animate-spin rounded-full border-4 border-zinc-300 border-r-zinc-500/80" />
-      Aguarde...
-    </div>
+  const button = () => (
+    <Button type="submit" variant={'primary'} className="w-full">
+      {children}
+    </Button>
   )
 
-  return (
+  const loading = () => (
     <Button
       type="submit"
       variant={'primary'}
-      className={`w-28 ${pending ? 'cursor-not-allowed text-xs' : ''}`}
+      className="w-full animate-pulse cursor-not-allowed"
     >
-      {/* {pending ? title : loading()} */}
-      {pending ? loading() : title}
+      <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Aguarde
     </Button>
   )
+
+  return <>{pending ? loading() : button()}</>
 }

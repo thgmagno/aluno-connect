@@ -97,7 +97,7 @@ export default function AdmStudentNew() {
             </p>
           )}
 
-          <BtnFormSubmit title="Salvar" />
+          <BtnFormSubmit>Salvar</BtnFormSubmit>
         </div>
       </form>
     </>

@@ -59,7 +59,7 @@ export default function UpdateStudentForm({
           />
         </div>
         {formState.message && <p>{formState.message}</p>}
-        <BtnFormSubmit title="Salvar" />
+        <BtnFormSubmit>Salvar</BtnFormSubmit>
       </div>
     </form>
   )

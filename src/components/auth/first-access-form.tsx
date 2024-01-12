@@ -50,16 +50,16 @@ export default function FirstAccessForm() {
             </div>
           </div>
         </CardContent>
-        <CardFooter className="flex justify-between">
+        <CardFooter className="flex flex-col space-y-3">
+          <BtnFormSubmit>Avançar</BtnFormSubmit>
           <Link
             href="entrar"
-            className="text-sm text-sky-600 transition-all duration-300 hover:font-semibold"
+            className="w-full text-sm text-sky-600 transition-all duration-300 hover:font-semibold"
           >
-            <Button type="button" variant={'outline'}>
+            <Button type="button" variant={'outline'} className="w-full">
               Voltar
             </Button>
           </Link>
-          <BtnFormSubmit title="Avançar" />
         </CardFooter>
       </form>
     </Card>

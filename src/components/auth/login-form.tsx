@@ -63,13 +63,13 @@ export default function LoginForm() {
             </Button>
           </div>
         </CardContent>
-        <CardFooter className="flex justify-between">
-          <Link href="primeiro-acesso">
-            <Button type="button" variant={'link'}>
+        <CardFooter className="flex flex-col space-y-3">
+          <BtnFormSubmit>Entrar</BtnFormSubmit>
+          <Link href="primeiro-acesso" className="w-full">
+            <Button type="button" variant={'outline'} className="w-full">
               Primeiro acesso?
             </Button>
           </Link>
-          <BtnFormSubmit title="Entrar" />
         </CardFooter>
       </form>
     </Card>

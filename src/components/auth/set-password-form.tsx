@@ -45,20 +45,15 @@ export default function SetPasswordForm({
         </CardDescription>
       </CardHeader>
       <form action={handleSubmit}>
-        <CardContent>
+        <CardContent className="space-y-3">
+          <input type="hidden" name="id" value={id} />
+          <input type="hidden" name="profile" value={profile} />
           <div className="relative flex flex-col space-y-1.5">
-            <input type="hidden" name="id" value={id} />
-            <input type="hidden" name="profile" value={profile} />
             <Label htmlFor="password">Senha</Label>
             <Input
               type={visible ? 'text' : 'password'}
               name="password"
               placeholder="Informe uma senha segura"
-            />
-            <Input
-              type={visible ? 'text' : 'password'}
-              name="confirmPassword"
-              placeholder="Confirme a senha"
             />
             <Button
               type="button"
@@ -69,17 +64,22 @@ export default function SetPasswordForm({
               {visible ? <Eye /> : <EyeOff />}
             </Button>
           </div>
+          <Input
+            type={visible ? 'text' : 'password'}
+            name="confirmPassword"
+            placeholder="Confirme a senha"
+          />
         </CardContent>
-        <CardFooter className="flex justify-between">
+        <CardFooter className="flex flex-col space-y-3">
+          <BtnFormSubmit>Salvar</BtnFormSubmit>
           <Link
             href="/primeiro-acesso"
-            className="text-sm text-sky-600 transition-all duration-300 hover:font-semibold"
+            className="w-full text-sm text-sky-600 transition-all duration-300 hover:font-semibold"
           >
-            <Button type="button" variant={'outline'}>
+            <Button type="button" variant={'outline'} className="w-full">
               Voltar
             </Button>
           </Link>
-          <BtnFormSubmit title="Salvar" />
         </CardFooter>
       </form>
     </Card>
