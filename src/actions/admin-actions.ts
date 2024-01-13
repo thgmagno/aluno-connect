@@ -1,6 +1,8 @@
 'use server'
 
 import prisma from '@/lib/prisma'
+import { createStudentSchema } from '@/lib/schemas'
+import { CreateStudentFormState } from '@/lib/states'
 import AuthService from '@/services/auth-service'
 import { revalidatePath } from 'next/cache'
 import { cookies } from 'next/headers'
@@ -15,35 +17,42 @@ const getProfile = async () => {
 }
 
 export async function createStudent(
-  formState: { message: string },
+  formState: CreateStudentFormState,
   formData: FormData,
-) {
-  const { isAdm } = await getProfile()
-  if (!isAdm) return { message: 'Não autorizado' }
+): Promise<CreateStudentFormState> {
+  const { isAdmin } = await AuthService.getUserProfileLogged()
+  if (!isAdmin)
+    return {
+      errors: {
+        _form: ['O usuário atual não pode efetuar cadastros de alunos'],
+      },
+    }
 
-  const name = formData.get('name')?.toString().trim() || ''
-  const email = formData.get('email')?.toString().trim() || ''
-  const birthdate = formData.get('birthdate')?.toString().trim() || ''
+  const parsed = createStudentSchema.safeParse({
+    name: formData.get('name'),
+    email: formData.get('email'),
+    birthdate: formData.get('birthdate'),
+  })
 
-  if (name.length < 1) return { message: 'O nome é obrigatório' }
-  if (email.length < 1) return { message: 'O email é obrigatório' }
-  if (!birthdate) return { message: 'A data de nascimento é obrigatória' }
+  if (!parsed.success) {
+    return {
+      errors: parsed.error.flatten().fieldErrors,
+    }
+  }
 
   try {
     await prisma.student.create({
       data: {
-        name,
-        email,
-        birthdate: new Date(birthdate).toISOString(),
+        name: parsed.data.name,
+        email: parsed.data.email,
+        birthdate: new Date(parsed.data.birthdate).toISOString(),
       },
     })
   } catch (e) {
-    if (e instanceof Error && e.message.includes('Unique constraint')) {
-      return {
-        message: 'Ops, este e-mail já está presente em nossa base de dados',
-      }
-    } else {
-      return { message: 'Erro ao realizar cadastro' }
+    return {
+      errors: {
+        _form: ['Não foi possível realizar o cadastro'],
+      },
     }
   }
 

@@ -12,23 +12,17 @@ import { Label } from '@/components/ui/label'
 import Link from 'next/link'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
-import toast from 'react-hot-toast'
 import { useState } from 'react'
 import { Eye, EyeOff } from 'lucide-react'
 import * as actions from '@/actions/auth-actions'
 import BtnFormSubmit from '../common/btn-form-submit'
+import { useFormState } from 'react-dom'
 
 export default function LoginForm() {
   const [visible, setVisible] = useState(false)
-  const formSubmit = async (formData: FormData) => {
-    const res = await actions.authenticateUser(formData)
-
-    if (res) {
-      const { success, error } = res
-      success && toast.success(success)
-      error && toast.error(error)
-    }
-  }
+  const [formState, action] = useFormState(actions.authenticateUser, {
+    errors: {},
+  })
 
   return (
     <Card className="w-[350px]">
@@ -36,23 +30,43 @@ export default function LoginForm() {
         <CardTitle>Aluno Connect</CardTitle>
         <CardDescription>Faça login para continuar.</CardDescription>
       </CardHeader>
-      <form action={formSubmit}>
+      <form action={action}>
         <CardContent className="flex flex-col gap-4">
-          <div className="flex flex-col space-y-1.5">
+          <div
+            className={`flex flex-col gap-2 ${
+              formState.errors.email && 'text-red-600'
+            }`}
+          >
             <Label htmlFor="email">E-mail</Label>
             <Input
               type="email"
               name="email"
               placeholder="Digite o seu e-mail"
+              className={`${formState.errors.email && 'bg-red-200'}`}
             />
+            {formState.errors.email && (
+              <p className="mb-2 text-sm">
+                {formState.errors.email.join(', ')}
+              </p>
+            )}
           </div>
-          <div className="relative flex flex-col space-y-1.5">
+          <div
+            className={`relative flex flex-col gap-2 ${
+              formState.errors.password && 'text-red-600'
+            }`}
+          >
             <Label htmlFor="password">Senha</Label>
             <Input
               type={visible ? 'text' : 'password'}
               name="password"
               placeholder="Digite a sua senha"
+              className={`${formState.errors.password && 'bg-red-200'}`}
             />
+            {formState.errors.password && (
+              <p className="mb-2 text-sm">
+                {formState.errors.password.join(', ')}
+              </p>
+            )}
             <Button
               type="button"
               variant={'link'}
@@ -62,6 +76,11 @@ export default function LoginForm() {
               {visible ? <Eye /> : <EyeOff />}
             </Button>
           </div>
+          {formState.errors._form && (
+            <p className="rounded border-2 border-red-400 bg-red-200 p-2 text-sm text-red-700">
+              {formState.errors._form.join(', ')}
+            </p>
+          )}
         </CardContent>
         <CardFooter className="flex flex-col space-y-3">
           <BtnFormSubmit>Entrar</BtnFormSubmit>

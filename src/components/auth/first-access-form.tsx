@@ -12,24 +12,16 @@ import {
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import Link from 'next/link'
-import toast from 'react-hot-toast'
-import { useRouter } from 'next/navigation'
+// import toast from 'react-hot-toast'
+// import { useRouter } from 'next/navigation'
 import * as actions from '@/actions/auth-actions'
 import BtnFormSubmit from '../common/btn-form-submit'
+import { useFormState } from 'react-dom'
 
 export default function FirstAccessForm() {
-  const router = useRouter()
-  const formSubmit = async (formData: FormData) => {
-    const res = await actions.authenticateEmail(formData)
-
-    const { user, error } = res
-
-    if (Array.isArray(user) && user.length > 0 && 'id' in user[0]) {
-      router.replace(`/primeiro-acesso/${user[0].id}/${user[0].usertype}`)
-    }
-
-    error && toast.error(error)
-  }
+  const [formState, action] = useFormState(actions.authenticateEmail, {
+    errors: {},
+  })
 
   return (
     <Card className="w-[350px]">
@@ -37,18 +29,29 @@ export default function FirstAccessForm() {
         <CardTitle>Aluno Connect</CardTitle>
         <CardDescription>Informe o seu email para continuar.</CardDescription>
       </CardHeader>
-      <form action={formSubmit}>
+      <form action={action}>
         <CardContent className="flex flex-col gap-4">
-          <div className="grid w-full items-center gap-4">
-            <div className="flex flex-col space-y-1.5">
-              <Label htmlFor="email">E-mail</Label>
-              <Input
-                name="email"
-                type="email"
-                placeholder="Digite o seu e-mail"
-              />
-            </div>
+          <div
+            className={`flex flex-col gap-2 ${
+              formState.errors.email && 'text-red-600'
+            }`}
+          >
+            <Label htmlFor="email">E-mail</Label>
+            <Input
+              name="email"
+              type="email"
+              placeholder="Digite o seu e-mail"
+              className={`${formState.errors.email && 'bg-red-200'}`}
+            />
+            {formState.errors.email && (
+              <p className="mb-2 text-sm">{formState.errors.email}</p>
+            )}
           </div>
+          {formState.errors._form && (
+            <p className="rounded border-2 border-red-400 bg-red-200 p-2 text-sm text-red-700">
+              {formState.errors._form}
+            </p>
+          )}
         </CardContent>
         <CardFooter className="flex flex-col space-y-3">
           <BtnFormSubmit>Avançar</BtnFormSubmit>

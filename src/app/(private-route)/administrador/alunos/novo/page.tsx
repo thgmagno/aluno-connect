@@ -7,19 +7,13 @@ import * as actions from '@/actions/admin-actions'
 import BtnFormSubmit from '@/components/common/btn-form-submit'
 import { Input } from '@/components/ui/input'
 import { Navigation } from '@/components/common/navigation-bar'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Label } from '@/components/ui/label'
 
 export default function AdmStudentNew() {
-  // the first argument must be an Server Action
-  // the second argument must be a initial Form State
   const [formState, action] = useFormState(actions.createStudent, {
-    message: '',
+    errors: {},
   })
-
-  const nameError = formState.message.includes('nome')
-  const emailError = formState.message.includes('email')
-  const birthError = formState.message.includes('data')
-  const genericError =
-    formState.message && !nameError && !emailError && !birthError
 
   return (
     <>
@@ -30,76 +24,61 @@ export default function AdmStudentNew() {
       </Navigation.container>
 
       {/* Formulário */}
-      <form
-        action={action}
-        className="mx-auto max-w-lg rounded bg-neutral-200 p-2 shadow-md"
-      >
-        <h3 className="mb-2 text-xl">Cadastrar aluno</h3>
-        <div className="flex flex-col gap-4">
-          <div className="flex flex-col">
-            <label
-              htmlFor="name"
-              className={`flex justify-between ${
-                nameError && 'font-semibold text-red-500'
+      <Card className="mx-auto max-w-lg">
+        <CardHeader>
+          <CardTitle className="text-lg">Cadastrar aluno</CardTitle>
+        </CardHeader>
+        <form action={action}>
+          <CardContent className="flex flex-col gap-4">
+            <div
+              className={`flex flex-col gap-2 ${
+                formState.errors.name && 'text-red-600'
               }`}
             >
-              Nome
-              {nameError && <p className="text-sm">{formState.message}</p>}
-            </label>
-            <Input
-              type="text"
-              name="name"
-              className={`rounded border-2 p-1 ${
-                nameError && 'border-red-400'
-              }`}
-            />
-          </div>
-          <div className="flex flex-col">
-            <label
-              htmlFor="email"
-              className={`flex justify-between ${
-                emailError && 'font-semibold text-red-500'
+              <Label htmlFor="name">Nome</Label>
+              <Input
+                type="text"
+                name="name"
+                className={`${formState.errors.name && 'bg-red-200'}`}
+              />
+              {formState.errors.name && (
+                <p className="mb-2 text-sm">{formState.errors.name}</p>
+              )}
+            </div>
+            <div
+              className={`flex flex-col gap-2 ${
+                formState.errors.email && 'text-red-600'
               }`}
             >
-              E-mail
-              {emailError && <p className="text-sm">{formState.message}</p>}
-            </label>
-            <Input
-              type="email"
-              name="email"
-              className={`rounded border-2 p-1 ${
-                emailError && 'border-red-400'
-              }`}
-            />
-          </div>
-          <div className="flex flex-col">
-            <label
-              htmlFor="birthdate"
-              className={`flex justify-between ${
-                birthError && 'font-semibold text-red-500'
+              <Label htmlFor="email">E-mail</Label>
+              <Input
+                type="email"
+                name="email"
+                className={`${formState.errors.email && 'bg-red-200'}`}
+              />
+              {formState.errors.email && (
+                <p className="mb-2 text-sm">{formState.errors.email}</p>
+              )}
+            </div>
+            <div
+              className={`flex flex-col gap-2 ${
+                formState.errors.birthdate && 'text-red-600'
               }`}
             >
-              Data de nascimento
-              {birthError && <p className="text-sm">{formState.message}</p>}
-            </label>
-            <Input
-              type="date"
-              name="birthdate"
-              className={`rounded border-2 p-1 ${
-                birthError && 'border-red-400'
-              }`}
-            />
-          </div>
-
-          {genericError && (
-            <p className="rounded-md border-2 border-red-400 bg-red-200 p-2 font-semibold text-red-700">
-              {formState.message}
-            </p>
-          )}
-
-          <BtnFormSubmit>Salvar</BtnFormSubmit>
-        </div>
-      </form>
+              <Label htmlFor="birthdate">Data de nascimento</Label>
+              <Input
+                type="date"
+                name="birthdate"
+                className={`${formState.errors.birthdate && 'bg-red-200'}`}
+              />
+              {formState.errors.birthdate && (
+                <p className="mb-2 text-sm">{formState.errors.birthdate}</p>
+              )}
+            </div>
+            <BtnFormSubmit>Salvar</BtnFormSubmit>
+          </CardContent>
+        </form>
+      </Card>
     </>
   )
 }

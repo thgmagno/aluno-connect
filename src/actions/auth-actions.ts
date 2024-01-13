@@ -1,9 +1,19 @@
 'use server'
 
 import prisma from '@/lib/prisma'
-import { UserType, loginUserSchema, validateEmailSchema } from '@/lib/types'
+import {
+  AuthenticateEmailFormState,
+  AuthenticateUserFormState,
+  RegisterUserPassword,
+} from '@/lib/states'
+import {
+  loginUserSchema,
+  registerUserPasswordSchema,
+  validateEmailSchema,
+} from '@/lib/types'
 import AuthService from '@/services/auth-service'
 import * as bcrypt from 'bcrypt'
+import { redirect } from 'next/navigation'
 
 interface User {
   id: string
@@ -14,20 +24,25 @@ interface User {
   usertype: 'student' | 'administrator' | 'parent' | 'instructor'
 }
 
-export async function authenticateUser(formData: FormData) {
+interface AuthenticateEmailProps {
+  id: string
+  email: string
+  usertype: string
+}
+
+export async function authenticateUser(
+  formState: AuthenticateUserFormState,
+  formData: FormData,
+): Promise<AuthenticateUserFormState> {
   const parsed = loginUserSchema.safeParse({
     email: formData.get('email'),
     password: formData.get('password'),
   })
 
   if (!parsed.success) {
-    let errorMessage = ''
-
-    parsed.error.issues.forEach((issue) => {
-      errorMessage = errorMessage + issue.message + '. '
-    })
-
-    return { error: errorMessage }
+    return {
+      errors: parsed.error.flatten().fieldErrors,
+    }
   }
 
   try {
@@ -46,13 +61,19 @@ export async function authenticateUser(formData: FormData) {
 
     if (!user) {
       return {
-        error: `Cadastro não encontrado. Tente novamente.`,
+        errors: {
+          _form: ['Usuário não encontrado'],
+        },
       }
     }
 
     if (!user[0].password) {
       return {
-        error: `Para continuar, defina uma senha clicando no botão "Primeiro Acesso".`,
+        errors: {
+          _form: [
+            'Para continuar, defina uma senha clicando no botão "Primeiro Acesso"',
+          ],
+        },
       }
     }
 
@@ -62,7 +83,7 @@ export async function authenticateUser(formData: FormData) {
     )
 
     if (!isMatchPassword) {
-      return { error: 'Senha incorreta, tente novamente.' }
+      return { errors: { password: ['Senha incorreta, tente novamente.'] } }
     }
 
     const payload = {
@@ -72,30 +93,28 @@ export async function authenticateUser(formData: FormData) {
     }
 
     await AuthService.createSessionToken({ payload })
-
-    return { success: 'Bem-vindo ao Aluno Connect.' }
   } catch (e) {
-    return { error: 'Falha ao fazer login. Tente novamente.' }
+    return { errors: { _form: ['Usuário não encontrado'] } }
   }
+  redirect('/')
 }
 
-export async function authenticateEmail(formData: FormData) {
+export async function authenticateEmail(
+  formState: AuthenticateEmailFormState,
+  formData: FormData,
+): Promise<AuthenticateEmailFormState> {
   const parsed = validateEmailSchema.safeParse({
     email: formData.get('email'),
   })
 
   if (!parsed.success) {
-    let errorMessage = ''
-
-    parsed.error.issues.forEach((issue) => {
-      errorMessage = errorMessage + issue.message + '. '
-    })
-
-    return { error: errorMessage }
+    return {
+      errors: parsed.error.flatten().fieldErrors,
+    }
   }
 
   try {
-    const user = await prisma.$queryRaw`
+    const user: AuthenticateEmailProps[] = await prisma.$queryRaw`
       SELECT * FROM (
         SELECT 'student' as userType, id, email FROM student WHERE email = ${parsed.data.email}::text AND "firstAccess" = true AND password is null
         UNION
@@ -107,38 +126,59 @@ export async function authenticateEmail(formData: FormData) {
     `
 
     if (Array.isArray(user) && user.length < 1) {
-      return { error: 'E-mail inexistente ou já ativado.' }
+      return {
+        errors: {
+          email: ['E-mail inexistente ou já ativado.'],
+        },
+      }
     }
 
-    return { user }
+    const payload = {
+      sub: user[0].id,
+      email: user[0].email,
+      profile: user[0].usertype,
+    }
+
+    await AuthService.createTemporarySession({ payload })
   } catch (e) {
-    return { error: 'Erro na autenticação. Tente novamente.' }
+    if (e instanceof Error && e.message.includes(`Can't reach database`)) {
+      return {
+        errors: {
+          _form: ['Não foi possível conectar ao servidor'],
+        },
+      }
+    }
+    return {
+      errors: {
+        email: ['Erro na autenticação'],
+      },
+    }
   }
+
+  redirect('/definir-senha')
 }
 
-export async function registerUserPassword(formData: FormData) {
-  const id = formData.get('id') as string
-  const profile = formData.get('profile') as UserType
-  const password = formData.get('password') as string
-  const confirmPassword = formData.get('confirmPassword')
+export async function registerUserPassword(
+  formState: RegisterUserPassword,
+  formData: FormData,
+): Promise<RegisterUserPassword> {
+  const parsed = registerUserPasswordSchema.safeParse({
+    id: formData.get('id'),
+    email: formData.get('email'),
+    profile: formData.get('profile'),
+    password: formData.get('password'),
+    confirm: formData.get('confirm'),
+  })
 
-  const isInstructor = profile === 'instructor'
-  const isStudent = profile === 'student'
-  const isParent = profile === 'parent'
+  if (!parsed.success) return { errors: parsed.error.flatten().fieldErrors }
 
-  if (!password || !confirmPassword)
-    return { error: 'Preencha todos os campos' }
-
-  if (password !== confirmPassword)
-    return { error: 'As senhas precisam ser iguais' }
-
-  const hashPassword = await bcrypt.hash(password, 10)
+  const hashPassword = await bcrypt.hash(parsed.data.password, 10)
 
   try {
-    if (isInstructor) {
+    if (parsed.data.profile === 'instructor') {
       await prisma.instructor.update({
         where: {
-          id,
+          id: parsed.data.id,
         },
         data: {
           password: hashPassword,
@@ -146,10 +186,10 @@ export async function registerUserPassword(formData: FormData) {
         },
       })
     }
-    if (isStudent) {
+    if (parsed.data.profile === 'student') {
       await prisma.student.update({
         where: {
-          id,
+          id: parsed.data.id,
         },
         data: {
           password: hashPassword,
@@ -157,10 +197,10 @@ export async function registerUserPassword(formData: FormData) {
         },
       })
     }
-    if (isParent) {
+    if (parsed.data.profile === 'parent') {
       await prisma.parent.update({
         where: {
-          id,
+          id: parsed.data.id,
         },
         data: {
           password: hashPassword,
@@ -168,8 +208,14 @@ export async function registerUserPassword(formData: FormData) {
         },
       })
     }
-    return { success: 'Cadastro finalizado. Faça login para continuar.' }
   } catch (e) {
-    return { error: 'Falha ao cadastrar senha. Tente novamente' }
+    return {
+      errors: {
+        _form: ['Falha ao cadastrar senha.'],
+      },
+    }
   }
+
+  AuthService.closeTemporarySession()
+  redirect('/entrar')
 }

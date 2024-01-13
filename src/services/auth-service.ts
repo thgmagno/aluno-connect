@@ -9,6 +9,14 @@ type PayloadType = {
   }
 }
 
+type CreateTemporarySessionType = {
+  payload: {
+    sub: string
+    email: string
+    profile: string
+  }
+}
+
 async function openSessionToken(token: string) {
   const secret = new TextEncoder().encode(process.env.AUTH_SECRET)
   const { payload } = await jose.jwtVerify(token, secret)
@@ -34,6 +42,24 @@ async function createSessionToken({ payload }: PayloadType) {
   })
 }
 
+async function createTemporarySession({ payload }: CreateTemporarySessionType) {
+  const secret = new TextEncoder().encode(process.env.AUTH_SECRET)
+  const session = await new jose.SignJWT(payload)
+    .setProtectedHeader({
+      alg: 'HS256',
+    })
+    .setExpirationTime('5m')
+    .sign(secret)
+
+  const { exp } = await openSessionToken(session)
+
+  cookies().set('activating-account-aluno-connect', session, {
+    expires: (exp as number) * 1000,
+    path: '/',
+    httpOnly: true,
+  })
+}
+
 async function isSessionValid() {
   const sessionCookie = cookies().get('session-aluno-connect')
 
@@ -48,10 +74,43 @@ async function isSessionValid() {
   return false
 }
 
+async function getUserProfileLogged() {
+  const session = cookies().get('session-aluno-connect')
+  if (!session) return {}
+  const { profile } = await openSessionToken(session.value)
+
+  return {
+    isAdmin: profile === 'administrator',
+    isStudent: profile === 'student',
+    isInstructor: profile === 'instructor',
+    isParent: profile === 'parent',
+  }
+}
+
+async function getTemporaryUser() {
+  const session = cookies().get('activating-account-aluno-connect')
+  if (!session) return {}
+  const { sub, profile, email } = await openSessionToken(session.value)
+
+  return {
+    id: sub,
+    profile,
+    email,
+  }
+}
+
+async function closeTemporarySession() {
+  return cookies().delete('activating-account-aluno-connect')
+}
+
 const AuthService = {
   openSessionToken,
   createSessionToken,
   isSessionValid,
+  getUserProfileLogged,
+  createTemporarySession,
+  getTemporaryUser,
+  closeTemporarySession,
 }
 
 export default AuthService
