@@ -1,5 +1,5 @@
 import { getStudentByID } from '@/actions/admin-actions'
-import EditStudentForm from '@/components/administrator/edit-student-form'
+import UpdateForm from '@/components/administrator/update-form'
 import { Navigation } from '@/components/common/navigation-bar'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
@@ -22,11 +22,12 @@ export default async function AdmStudentEdit({
       </Navigation.container>
 
       {/* Formulário */}
-      <EditStudentForm
+      <UpdateForm
         id={student.id}
         name={student.name}
         email={student.email}
         birthdate={student.birthdate}
+        profile="student"
       />
     </>
   )

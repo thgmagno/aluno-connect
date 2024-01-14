@@ -59,8 +59,6 @@ export async function authenticateUser(
       LIMIT 1
     `
 
-    console.log(user)
-
     if (!user || !user.length) {
       return {
         errors: {
