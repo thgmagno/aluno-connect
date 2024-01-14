@@ -144,6 +144,22 @@ export async function getStudentByID(id: string) {
   return { student }
 }
 
+export async function resetInstructorPassword(id: string) {
+  try {
+    await prisma.instructor.update({
+      where: { id },
+      data: {
+        password: null,
+        firstAccess: true,
+      },
+    })
+  } catch (e) {
+    return { error: 'Não foi possível resetar a senha' }
+  }
+
+  return { message: 'Senha resetada com sucesso' }
+}
+
 export async function createInstructor(
   formState: CreateInstructorOrParentFormState,
   formData: FormData,
@@ -176,7 +192,21 @@ export async function createInstructor(
     }
   }
 
-  redirect('/administrador/intrutores')
+  redirect('/administrador/instrutores')
+}
+
+export async function deleteInstructor(id: string) {
+  try {
+    await prisma.instructor.delete({
+      where: { id },
+    })
+  } catch (e) {
+    return { error: 'Não foi possível fazer a exclusão do aluno' }
+  }
+
+  revalidatePath('/administrador/instrutores')
+
+  return { message: 'Registro excluído com sucesso!' }
 }
 
 export async function createParent(

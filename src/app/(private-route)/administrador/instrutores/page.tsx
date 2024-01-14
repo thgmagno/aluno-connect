@@ -1,3 +1,4 @@
+import RenderInstructorList from '@/components/administrator/render-instructor-list'
 import { Navigation } from '@/components/common/navigation-bar'
 import { Button } from '@/components/ui/button'
 import prisma from '@/lib/prisma'
@@ -17,7 +18,7 @@ export default async function AdmInstructor() {
       </Navigation.container>
 
       {listInstructors.length > 0 ? (
-        <p>Redenrizando...</p>
+        <RenderInstructorList instructors={listInstructors} />
       ) : (
         <p className="text-center text-xl text-muted-foreground">
           Não há instrutores cadastrados no sistema

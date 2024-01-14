@@ -4,11 +4,11 @@ import * as actions from '@/actions/admin-actions'
 import { RotateCcw } from 'lucide-react'
 import toast from 'react-hot-toast'
 
-export default function ResetStudentPassword({ id }: { id: string }) {
+export default function ResetInstructorPassword({ id }: { id: string }) {
   async function handleSubmit(formData: FormData) {
     const id = formData.get('id') as string
 
-    toast.promise(actions.resetStudentPassword(id), {
+    toast.promise(actions.resetInstructorPassword(id), {
       loading: 'Aguarde...',
       success: () => <b>Senha resetada com sucesso!</b>,
       error: () => <b>Não foi possível resetar a senha</b>,
