@@ -3,44 +3,50 @@
 import { Trash2 } from 'lucide-react'
 import * as actions from '@/actions/admin-actions'
 import { toast } from 'sonner'
-import { UserType } from '@/lib/types'
 
 interface DeleteFormProps {
   id: string
-  profile: UserType
+  category: 'student' | 'parent' | 'instructor' | 'class'
 }
 
-export default function DeleteForm({ id, profile }: DeleteFormProps) {
+export default function DeleteForm({ id, category }: DeleteFormProps) {
   async function handleSubmit(formData: FormData) {
     const id = formData.get('id') as string
-    const profile = formData.get('profile') as UserType
+    const category = formData.get('category')
 
-    profile === 'student' &&
-      toast.promise(actions.deleteUser({ id, profile: 'student' }), {
+    category === 'student' &&
+      toast.promise(actions.removeRecord({ id, category: 'student' }), {
         loading: 'Aguarde...',
         success: (data) => data?.message,
         error: 'Não foi possível fazer a exclusão do estudante',
       })
 
-    profile === 'instructor' &&
-      toast.promise(actions.deleteUser({ id, profile: 'student' }), {
+    category === 'instructor' &&
+      toast.promise(actions.removeRecord({ id, category: 'student' }), {
         loading: 'Aguarde...',
         success: (data) => data?.message,
         error: 'Não foi possível fazer a exclusão do instrutor',
       })
 
-    profile === 'parent' &&
-      toast.promise(actions.deleteUser({ id, profile: 'parent' }), {
+    category === 'parent' &&
+      toast.promise(actions.removeRecord({ id, category: 'parent' }), {
         loading: 'Aguarde...',
         success: (data) => data?.message,
         error: 'Não foi possível fazer a exclusão do responsável',
+      })
+
+    category === 'class' &&
+      toast.promise(actions.removeRecord({ id, category: 'class' }), {
+        loading: 'Aguarde...',
+        success: (data) => data?.message,
+        error: 'Não foi possível fazer a exclusão da turma',
       })
   }
 
   return (
     <form action={handleSubmit}>
       <input type="hidden" name="id" value={id} />
-      <input type="hidden" name="profile" value={profile} />
+      <input type="hidden" name="category" value={category} />
       <button type="submit" className="flex flex-1">
         <Trash2 size={20} className="mr-2 text-red-800" />
         <span className="text-red-800">Excluir</span>

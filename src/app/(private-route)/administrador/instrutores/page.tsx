@@ -12,7 +12,7 @@ export default async function AdmInstructor() {
         </Link>
       </Navigation.container>
 
-      <RenderList profile="instructor" />
+      <RenderList category="instructor" />
     </>
   )
 }

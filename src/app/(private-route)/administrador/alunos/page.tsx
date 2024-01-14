@@ -12,7 +12,7 @@ export default async function AdmStudent() {
         </Link>
       </Navigation.container>
 
-      <RenderList profile="student" />
+      <RenderList category="student" />
     </>
   )
 }

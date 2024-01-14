@@ -12,7 +12,7 @@ export default async function AdmParent() {
         </Link>
       </Navigation.container>
 
-      <RenderList profile="parent" />
+      <RenderList category="parent" />
     </>
   )
 }

@@ -244,14 +244,14 @@ export async function updateParent(
   redirect('/administrador/responsaveis')
 }
 
-export async function deleteUser({
+export async function removeRecord({
   id,
-  profile,
+  category,
 }: {
   id: string
-  profile: UserType
+  category: 'student' | 'parent' | 'instructor' | 'class'
 }) {
-  if (profile === 'student') {
+  if (category === 'student') {
     try {
       await prisma.student.delete({
         where: { id },
@@ -265,7 +265,7 @@ export async function deleteUser({
     return { message: 'Registro excluído com sucesso!' }
   }
 
-  if (profile === 'instructor') {
+  if (category === 'instructor') {
     try {
       await prisma.instructor.delete({
         where: { id },
@@ -279,16 +279,28 @@ export async function deleteUser({
     return { message: 'Registro excluído com sucesso!' }
   }
 
-  if (profile === 'parent') {
+  if (category === 'parent') {
     try {
       await prisma.parent.delete({
         where: { id },
       })
     } catch (e) {
-      return { error: 'Não foi possível fazer a exclusão do aluno' }
+      return { error: 'Não foi possível fazer a exclusão do responsável' }
     }
 
     revalidatePath('/administrador/responsaveis')
+
+    return { message: 'Registro excluído com sucesso!' }
+  }
+
+  if (category === 'class') {
+    try {
+      await prisma.class.delete({ where: { id } })
+    } catch (e) {
+      return { error: 'Não foi possível fazer a exclusão da turma' }
+    }
+
+    revalidatePath('administrador/turmas')
 
     return { message: 'Registro excluído com sucesso!' }
   }
