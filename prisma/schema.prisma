@@ -80,7 +80,7 @@ model Administrator {
 
 model Class {
   id              String            @id @default(uuid())
-  couse_name      String
+  course_name     String            @unique
   StudentClass    StudentClass[]
   InstructorClass InstructorClass[]
 

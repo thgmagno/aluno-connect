@@ -1,24 +1,27 @@
 import { z } from 'zod'
 
-export const instructorRegistrationSchema = z.object({
-  name: z.string().min(1, 'O nome é obrigatório'),
-  email: z.string().email('Formato de e-mail inválido'),
-  password: z
+export const createInstructorOrParentSchema = z.object({
+  name: z
     .string()
-    .min(4, 'A senha precisa ter pelo menos 4 caracteres')
-    .optional(),
+    .min(1, 'O nome é obrigatório')
+    .max(40, 'Ultrapassou limite de 40 caracteres'),
+  email: z.string().email('Formato de e-mail inválido'),
 })
 
-export const studentRegistrationSchema = z.object({
-  name: z.string().min(1, 'O nome é obrigatório'),
-  email: z.string().email('Formato de e-mail inválido'),
-  birthdate: z.date(),
+export const createStudentSchema = z.object({
+  name: z
+    .string()
+    .min(1, 'O nome é obrigatório')
+    .max(40, 'Ultrapassou limite de 40 caracteres'),
+  email: z.string().email('O e-mail é inválido'),
+  birthdate: z.string().min(1, 'A data de nascimento é obrigatória'),
 })
 
-export const parentRegistrationSchema = z.object({
-  name: z.string().min(1, 'O nome é obrigatório'),
-  email: z.string().email('Formato de e-mail inválido'),
-  password: z.string().min(4, 'A senha precisa ter pelo menos 4 caracteres'),
+export const createClassSchema = z.object({
+  course_name: z
+    .string()
+    .min(1, 'O nome do curso é obrigatório')
+    .max(60, 'Ultrapassou limite de 60 caracteres'),
 })
 
 export const loginUserSchema = z.object({

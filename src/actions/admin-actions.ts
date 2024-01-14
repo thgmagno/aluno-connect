@@ -1,8 +1,16 @@
 'use server'
 
 import prisma from '@/lib/prisma'
-import { createStudentSchema } from '@/lib/schemas'
-import { CreateStudentFormState } from '@/lib/states'
+import {
+  CreateClassFormState,
+  CreateInstructorOrParentFormState,
+  CreateStudentFormState,
+} from '@/lib/states'
+import {
+  createClassSchema,
+  createStudentSchema,
+  createInstructorOrParentSchema,
+} from '@/lib/types'
 import AuthService from '@/services/auth-service'
 import { revalidatePath } from 'next/cache'
 import { cookies } from 'next/headers'
@@ -20,13 +28,13 @@ export async function createStudent(
   formState: CreateStudentFormState,
   formData: FormData,
 ): Promise<CreateStudentFormState> {
-  const { isAdmin } = await AuthService.getUserProfileLogged()
-  if (!isAdmin)
-    return {
-      errors: {
-        _form: ['O usuário atual não pode efetuar cadastros de alunos'],
-      },
-    }
+  // const { isAdmin } = await AuthService.getUserProfileLogged()
+  // if (!isAdmin)
+  //   return {
+  //     errors: {
+  //       _form: ['O usuário atual não pode efetuar cadastros de alunos'],
+  //     },
+  //   }
 
   const parsed = createStudentSchema.safeParse({
     name: formData.get('name'),
@@ -49,10 +57,14 @@ export async function createStudent(
       },
     })
   } catch (e) {
-    return {
-      errors: {
-        _form: ['Não foi possível realizar o cadastro'],
-      },
+    if (e instanceof Error && e.message.includes('Unique constraint')) {
+      return { errors: { email: ['Ops! Esse e-mail já está registrado'] } }
+    } else {
+      return {
+        errors: {
+          _form: ['Não foi possível realizar o cadastro'],
+        },
+      }
     }
   }
 
@@ -130,4 +142,103 @@ export async function getStudentByID(id: string) {
   })
 
   return { student }
+}
+
+export async function createInstructor(
+  formState: CreateInstructorOrParentFormState,
+  formData: FormData,
+): Promise<CreateInstructorOrParentFormState> {
+  const parsed = createInstructorOrParentSchema.safeParse({
+    name: formData.get('name'),
+    email: formData.get('email'),
+  })
+
+  if (!parsed.success) {
+    return { errors: parsed.error.flatten().fieldErrors }
+  }
+
+  try {
+    await prisma.instructor.create({
+      data: {
+        name: parsed.data.name,
+        email: parsed.data.email,
+      },
+    })
+  } catch (e) {
+    if (e instanceof Error && e.message.includes('Unique constraint')) {
+      return { errors: { email: ['Ops! Esse e-mail já está registrado'] } }
+    } else {
+      return {
+        errors: {
+          _form: ['Não foi possível realizar o cadastro'],
+        },
+      }
+    }
+  }
+
+  redirect('/administrador/intrutores')
+}
+
+export async function createParent(
+  formState: CreateInstructorOrParentFormState,
+  formData: FormData,
+): Promise<CreateInstructorOrParentFormState> {
+  const parsed = createInstructorOrParentSchema.safeParse({
+    name: formData.get('name'),
+    email: formData.get('email'),
+  })
+
+  if (!parsed.success) {
+    return { errors: parsed.error.flatten().fieldErrors }
+  }
+
+  try {
+    await prisma.parent.create({
+      data: {
+        name: parsed.data.name,
+        email: parsed.data.email,
+      },
+    })
+  } catch (e) {
+    if (e instanceof Error && e.message.includes('Unique constraint')) {
+      return { errors: { email: ['Ops! Esse e-mail já está registrado'] } }
+    } else {
+      return {
+        errors: {
+          _form: ['Não foi possível realizar o cadastro'],
+        },
+      }
+    }
+  }
+
+  redirect('/administrador/responsaveis')
+}
+
+export async function createClass(
+  formState: CreateClassFormState,
+  formData: FormData,
+): Promise<CreateClassFormState> {
+  const parsed = createClassSchema.safeParse({
+    course_name: formData.get('course_name'),
+  })
+
+  if (!parsed.success) {
+    return { errors: parsed.error.flatten().fieldErrors }
+  }
+
+  try {
+    await prisma.class.create({
+      data: {
+        course_name: parsed.data.course_name,
+      },
+    })
+  } catch (e) {
+    return {
+      errors: {
+        _form: ['Não foi possível realizar o cadastro'],
+      },
+    }
+  }
+
+  redirect('/administrador/turmas')
 }

@@ -74,19 +74,6 @@ async function isSessionValid() {
   return false
 }
 
-async function getUserProfileLogged() {
-  const session = cookies().get('session-aluno-connect')
-  if (!session) return {}
-  const { profile } = await openSessionToken(session.value)
-
-  return {
-    isAdmin: profile === 'administrator',
-    isStudent: profile === 'student',
-    isInstructor: profile === 'instructor',
-    isParent: profile === 'parent',
-  }
-}
-
 async function getTemporaryUser() {
   const session = cookies().get('activating-account-aluno-connect')
   if (!session) return {}
@@ -107,10 +94,22 @@ const AuthService = {
   openSessionToken,
   createSessionToken,
   isSessionValid,
-  getUserProfileLogged,
   createTemporarySession,
   getTemporaryUser,
   closeTemporarySession,
 }
 
 export default AuthService
+
+// async function getUserProfileLogged() {
+//   const session = cookies().get('session-aluno-connect')
+//   if (!session) return {}
+//   const { profile } = await openSessionToken(session.value)
+
+//   return {
+//     isAdmin: profile === 'administrator',
+//     isStudent: profile === 'student',
+//     isInstructor: profile === 'instructor',
+//     isParent: profile === 'parent',
+//   }
+// }

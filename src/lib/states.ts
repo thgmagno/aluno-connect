@@ -7,6 +7,21 @@ export interface CreateStudentFormState {
   }
 }
 
+export interface CreateInstructorOrParentFormState {
+  errors: {
+    name?: string[]
+    email?: string[]
+    _form?: string[]
+  }
+}
+
+export interface CreateClassFormState {
+  errors: {
+    course_name?: string[]
+    _form?: string[]
+  }
+}
+
 export interface AuthenticateUserFormState {
   errors: {
     email?: string[]
