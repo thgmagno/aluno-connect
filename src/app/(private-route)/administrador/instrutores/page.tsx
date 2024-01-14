@@ -11,13 +11,18 @@ export default async function AdmInstructor() {
   return (
     <>
       <Navigation.container>
-        <Link href={'/administrador/alunos/novo'}>
+        <Link href={'/administrador/instrutores/novo'}>
           <Button variant={'primary'}>Cadastrar</Button>
         </Link>
       </Navigation.container>
 
-      <h1>Listagem de instrutores</h1>
-      {listInstructors.length}
+      {listInstructors.length > 0 ? (
+        <p>Redenrizando...</p>
+      ) : (
+        <p className="text-center text-xl text-muted-foreground">
+          Não encontramos registros de instrutores em nossa base de dados
+        </p>
+      )}
     </>
   )
 }

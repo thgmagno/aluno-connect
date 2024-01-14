@@ -59,10 +59,14 @@ export async function authenticateUser(
       LIMIT 1
     `
 
-    if (!user) {
+    console.log(user)
+
+    if (!user || !user.length) {
       return {
         errors: {
-          _form: ['Usuário não encontrado'],
+          _form: [
+            'Parece que você ainda não efetuou o seu registro. Entre em contato com um coordenador para realizar o cadastro.',
+          ],
         },
       }
     }
@@ -94,7 +98,13 @@ export async function authenticateUser(
 
     await AuthService.createSessionToken({ payload })
   } catch (e) {
-    return { errors: { _form: ['Usuário não encontrado'] } }
+    return {
+      errors: {
+        _form: [
+          'Não foi possível estabelecer uma conexão segura com este site',
+        ],
+      },
+    }
   }
   redirect('/')
 }

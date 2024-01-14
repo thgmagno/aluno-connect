@@ -11,13 +11,18 @@ export default async function AdmParent() {
   return (
     <>
       <Navigation.container>
-        <Link href={'/administrador/alunos/novo'}>
+        <Link href={'/administrador/responsaveis/novo'}>
           <Button variant={'primary'}>Cadastrar</Button>
         </Link>
       </Navigation.container>
 
-      <h1>Listagem de responsáveis</h1>
-      {listParents.length}
+      {listParents.length > 0 ? (
+        <p>Redenrizando...</p>
+      ) : (
+        <p className="text-center text-xl text-muted-foreground">
+          Não encontramos registros de responsáveis em nossa base de dados
+        </p>
+      )}
     </>
   )
 }
