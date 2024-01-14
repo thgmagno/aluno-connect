@@ -68,7 +68,7 @@ export default function SetPasswordForm({
               </Button>
             </div>
             {formState.errors.password && (
-              <p className="mb-2 text-sm">{formState.errors.password}</p>
+              <p className="text-sm">{formState.errors.password}</p>
             )}
           </div>
           <div
@@ -84,7 +84,7 @@ export default function SetPasswordForm({
               className={`${formState.errors.confirm && 'bg-red-200'}`}
             />
             {formState.errors.confirm && (
-              <p className="mb-2 text-sm">{formState.errors.confirm}</p>
+              <p className="text-sm">{formState.errors.confirm}</p>
             )}
           </div>
         </CardContent>

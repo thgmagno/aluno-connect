@@ -42,7 +42,7 @@ export default function AdmStudentNew() {
                 className={`${formState.errors.name && 'bg-red-200'}`}
               />
               {formState.errors.name && (
-                <p className="mb-2 text-sm">{formState.errors.name}</p>
+                <p className="text-sm">{formState.errors.name}</p>
               )}
             </div>
             <div
@@ -57,7 +57,7 @@ export default function AdmStudentNew() {
                 className={`${formState.errors.email && 'bg-red-200'}`}
               />
               {formState.errors.email && (
-                <p className="mb-2 text-sm">{formState.errors.email}</p>
+                <p className="text-sm">{formState.errors.email}</p>
               )}
             </div>
             <div
@@ -72,7 +72,7 @@ export default function AdmStudentNew() {
                 className={`${formState.errors.birthdate && 'bg-red-200'}`}
               />
               {formState.errors.birthdate && (
-                <p className="mb-2 text-sm">{formState.errors.birthdate}</p>
+                <p className="text-sm">{formState.errors.birthdate}</p>
               )}
             </div>
             <BtnFormSubmit>Salvar</BtnFormSubmit>

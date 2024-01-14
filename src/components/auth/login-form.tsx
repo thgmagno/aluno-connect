@@ -45,9 +45,7 @@ export default function LoginForm() {
               className={`${formState.errors.email && 'bg-red-200'}`}
             />
             {formState.errors.email && (
-              <p className="mb-2 text-sm">
-                {formState.errors.email.join(', ')}
-              </p>
+              <p className="text-sm">{formState.errors.email.join(', ')}</p>
             )}
           </div>
           <div
@@ -63,9 +61,7 @@ export default function LoginForm() {
               className={`${formState.errors.password && 'bg-red-200'}`}
             />
             {formState.errors.password && (
-              <p className="mb-2 text-sm">
-                {formState.errors.password.join(', ')}
-              </p>
+              <p className="text-sm">{formState.errors.password.join(', ')}</p>
             )}
             <Button
               type="button"
