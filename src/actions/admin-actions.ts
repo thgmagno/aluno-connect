@@ -4,6 +4,7 @@ import prisma from '@/lib/prisma'
 import {
   ClassFormState,
   InstructorFormState,
+  ParentFormState,
   StudentFormState,
 } from '@/lib/states'
 import {
@@ -212,6 +213,35 @@ export async function updateInstructor(
   }
 
   redirect('/administrador/instrutores')
+}
+
+export async function updateParent(
+  formState: ParentFormState,
+  formData: FormData,
+): Promise<ParentFormState> {
+  const parsed = parentSchema.safeParse({
+    id: formData.get('id'),
+    name: formData.get('name'),
+    email: formData.get('email'),
+  })
+
+  if (!parsed.success) {
+    return { errors: parsed.error.flatten().fieldErrors }
+  }
+
+  try {
+    await prisma.parent.update({
+      where: { id: parsed.data.id },
+      data: {
+        name: parsed.data.name,
+        email: parsed.data.email,
+      },
+    })
+  } catch (e) {
+    return { errors: { _form: ['Não foi possível atualizar os dados'] } }
+  }
+
+  redirect('/administrador/responsaveis')
 }
 
 export async function deleteUser({
