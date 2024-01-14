@@ -16,20 +16,25 @@ export default function DeleteForm({ id, profile }: DeleteFormProps) {
     const profile = formData.get('profile') as UserType
 
     profile === 'student' &&
-      toast.promise(actions.deleteStudent(id), {
+      toast.promise(actions.deleteUser({ id, profile: 'student' }), {
         loading: 'Aguarde...',
-        success: (data) => data.message,
+        success: (data) => data?.message,
         error: 'Não foi possível fazer a exclusão do estudante',
       })
 
     profile === 'instructor' &&
-      toast.promise(actions.deleteInstructor(id), {
+      toast.promise(actions.deleteUser({ id, profile: 'student' }), {
         loading: 'Aguarde...',
-        success: (data) => data.message,
-        error: 'Não foi possível fazer a exclusão do estudante',
+        success: (data) => data?.message,
+        error: 'Não foi possível fazer a exclusão do instrutor',
       })
 
-    profile === 'parent' && toast.info('Implementar')
+    profile === 'parent' &&
+      toast.promise(actions.deleteUser({ id, profile: 'parent' }), {
+        loading: 'Aguarde...',
+        success: (data) => data?.message,
+        error: 'Não foi possível fazer a exclusão do responsável',
+      })
   }
 
   return (

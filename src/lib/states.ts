@@ -1,4 +1,4 @@
-export interface CreateStudentFormState {
+export interface StudentFormState {
   errors: {
     name?: string[]
     email?: string[]
@@ -7,7 +7,7 @@ export interface CreateStudentFormState {
   }
 }
 
-export interface CreateInstructorOrParentFormState {
+export interface InstructorFormState {
   errors: {
     name?: string[]
     email?: string[]
@@ -15,7 +15,15 @@ export interface CreateInstructorOrParentFormState {
   }
 }
 
-export interface CreateClassFormState {
+export interface ParentFormState {
+  errors: {
+    name?: string[]
+    email?: string[]
+    _form?: string[]
+  }
+}
+
+export interface ClassFormState {
   errors: {
     course_name?: string[]
     _form?: string[]

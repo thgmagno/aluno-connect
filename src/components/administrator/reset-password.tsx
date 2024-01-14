@@ -16,20 +16,25 @@ export default function ResetPassword({ id, profile }: ResetPasswordProps) {
     const profile = formData.get('profile') as UserType
 
     profile === 'student' &&
-      toast.promise(actions.resetStudentPassword(id), {
+      toast.promise(actions.resetPassword({ id, profile: 'student' }), {
         loading: 'Aguarde...',
-        success: (data) => data.message,
+        success: (data) => data?.message,
         error: 'Não foi possível resetar a senha',
       })
 
     profile === 'instructor' &&
-      toast.promise(actions.resetInstructorPassword(id), {
+      toast.promise(actions.resetPassword({ id, profile: 'instructor' }), {
         loading: 'Aguarde...',
-        success: (data) => data.message,
+        success: (data) => data?.message,
         error: 'Não foi possível resetar a senha',
       })
 
-    profile === 'parent' && toast.info('Implementar')
+    profile === 'parent' &&
+      toast.promise(actions.resetPassword({ id, profile: 'parent' }), {
+        loading: 'Aguarde...',
+        success: (data) => data?.message,
+        error: 'Não foi possível resetar a senha',
+      })
   }
 
   return (

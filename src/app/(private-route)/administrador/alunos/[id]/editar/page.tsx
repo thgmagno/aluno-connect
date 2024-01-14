@@ -1,4 +1,4 @@
-import { getStudentByID } from '@/actions/admin-actions'
+import { getUserByID } from '@/actions/admin-actions'
 import UpdateForm from '@/components/administrator/update-form'
 import { Navigation } from '@/components/common/navigation-bar'
 import { Button } from '@/components/ui/button'
@@ -10,7 +10,10 @@ export default async function AdmStudentEdit({
 }: {
   params: { id: string }
 }) {
-  const { student } = await getStudentByID(params.id)
+  const { student } = await getUserByID({
+    id: params.id,
+    profile: 'student',
+  })
   if (!student) redirect('/administrador/alunos')
 
   return (
@@ -26,7 +29,7 @@ export default async function AdmStudentEdit({
         id={student.id}
         name={student.name}
         email={student.email}
-        birthdate={student.birthdate}
+        birthdate={student?.birthdate}
         profile="student"
       />
     </>

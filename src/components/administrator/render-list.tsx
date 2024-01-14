@@ -23,7 +23,7 @@ export default function RenderList({ profile }: { profile: UserType }) {
       <>
         {!listStudents.length ? (
           <p className="text-center text-xl text-muted-foreground">
-            Não há alunos cadastrados no sistema
+            Não há registros de alunos cadastrados no sistema
           </p>
         ) : (
           <Table.Content>
@@ -85,7 +85,7 @@ export default function RenderList({ profile }: { profile: UserType }) {
       <>
         {!listInstructors.length ? (
           <p className="text-center text-xl text-muted-foreground">
-            Não há instrutores cadastrados no sistema
+            Não há registros de instrutores cadastrados no sistema
           </p>
         ) : (
           <Table.Content>
@@ -109,7 +109,7 @@ export default function RenderList({ profile }: { profile: UserType }) {
                       <DropdownMenuContent className="font-semibold">
                         <DropdownMenuItem className="flex h-12">
                           <Link
-                            href={`/administrador/alunos/${instructor.id}/editar`}
+                            href={`/administrador/instrutores/${instructor.id}/editar`}
                             className="flex flex-1"
                           >
                             <Edit size={20} className="mr-2" />
@@ -137,10 +137,69 @@ export default function RenderList({ profile }: { profile: UserType }) {
     )
   }
 
+  async function parentList() {
+    const listParents = await prisma.parent.findMany({
+      orderBy: { name: 'asc' },
+    })
+
+    return (
+      <>
+        {!listParents.length ? (
+          <p className="text-center text-xl text-muted-foreground">
+            Não há registros de responsáveis cadastrados no sistema
+          </p>
+        ) : (
+          <Table.Content>
+            <Table.Header>
+              <Table.Cell>Nome</Table.Cell>
+              <Table.Cell>E-mail</Table.Cell>
+              <Table.Cell>Ações</Table.Cell>
+            </Table.Header>
+            <Table.Body>
+              {listParents.map((parent) => (
+                <Table.Row key={parent.id}>
+                  <Table.Cell>{parent.name}</Table.Cell>
+                  <Table.Cell>{parent.email}</Table.Cell>
+                  <Table.Cell>
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <Button variant="ghost">
+                          <Settings className="rounded  text-zinc-700" />
+                        </Button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent className="font-semibold">
+                        <DropdownMenuItem className="flex h-12">
+                          <Link
+                            href={`/administrador/responsaveis/${parent.id}/editar`}
+                            className="flex flex-1"
+                          >
+                            <Edit size={20} className="mr-2" />
+                            Editar
+                          </Link>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem className="flex h-12">
+                          <ResetPassword id={parent.id} profile="parent" />
+                        </DropdownMenuItem>
+                        <DropdownMenuItem className="flex h-12">
+                          <DeleteForm id={parent.id} profile="parent" />
+                        </DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  </Table.Cell>
+                </Table.Row>
+              ))}
+            </Table.Body>
+          </Table.Content>
+        )}
+      </>
+    )
+  }
+
   return (
     <>
       {profile === 'student' && studentList()}
       {profile === 'instructor' && instructorList()}
+      {profile === 'parent' && parentList()}
     </>
   )
 }
