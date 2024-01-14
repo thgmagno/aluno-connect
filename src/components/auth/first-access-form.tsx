@@ -12,8 +12,6 @@ import {
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import Link from 'next/link'
-// import toast from 'react-hot-toast'
-// import { useRouter } from 'next/navigation'
 import * as actions from '@/actions/auth-actions'
 import BtnFormSubmit from '../common/btn-form-submit'
 import { useFormState } from 'react-dom'

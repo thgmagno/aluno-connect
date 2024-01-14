@@ -201,7 +201,7 @@ export async function deleteInstructor(id: string) {
       where: { id },
     })
   } catch (e) {
-    return { error: 'Não foi possível fazer a exclusão do aluno' }
+    return { error: 'Não foi possível fazer a exclusão do instrutor' }
   }
 
   revalidatePath('/administrador/instrutores')

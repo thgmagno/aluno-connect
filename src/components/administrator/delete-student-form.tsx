@@ -2,16 +2,17 @@
 
 import { Trash2 } from 'lucide-react'
 import * as actions from '@/actions/admin-actions'
-import toast from 'react-hot-toast'
+import { toast } from 'sonner'
 
 export default function DeleteStudentForm({ id }: { id: string }) {
   async function handleSubmit(formData: FormData) {
     const id = formData.get('id') as string
 
-    const res = await actions.deleteStudent(id)
-
-    res.message && toast.success(res.message)
-    res.error && toast.error(res.error)
+    toast.promise(actions.deleteStudent(id), {
+      loading: 'Aguarde...',
+      success: (data) => data.message,
+      error: 'Não foi possível fazer a exclusão do estudante',
+    })
   }
 
   return (
