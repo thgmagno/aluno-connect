@@ -37,22 +37,36 @@ export default async function InstructorClassID({
           Não há registros de alunos nessa turma
         </p>
       ) : (
-        <Table.Content>
-          <Table.Header>
-            <Table.Cell>Nome do aluno</Table.Cell>
-            <Table.Cell>Frequência</Table.Cell>
-          </Table.Header>
-          <Table.Body>
-            {students.map((student) => (
-              <Table.Row key={student.id}>
-                <Table.Cell>{student.studentID.name}</Table.Cell>
-                <Table.Cell>
-                  <SwitchFrequency />
-                </Table.Cell>
-              </Table.Row>
-            ))}
-          </Table.Body>
-        </Table.Content>
+        <form
+          action={async (formData: FormData) => {
+            'use server'
+
+            const status = formData.get('status')
+            const student = formData.get('student')
+            console.log(status, student)
+          }}
+          className="mx-auto max-w-xl"
+        >
+          <Table.Content>
+            <Table.Header>
+              <Table.Cell>Nome do aluno</Table.Cell>
+              <Table.Cell>Frequência</Table.Cell>
+            </Table.Header>
+            <Table.Body>
+              {students.map((student) => (
+                <Table.Row key={student.id}>
+                  <Table.Cell>{student.studentID.name}</Table.Cell>
+                  <Table.Cell>
+                    <SwitchFrequency studentID={student.studentID.id} />
+                  </Table.Cell>
+                </Table.Row>
+              ))}
+            </Table.Body>
+          </Table.Content>
+          <Button type="submit" variant={'primary'} className="mt-4 w-full">
+            Finalizar
+          </Button>
+        </form>
       )}
     </>
   )
