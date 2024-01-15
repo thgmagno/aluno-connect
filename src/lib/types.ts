@@ -29,6 +29,7 @@ export const studentSchema = z.object({
 })
 
 export const classSchema = z.object({
+  id: z.string().uuid().optional(),
   course_name: z
     .string()
     .min(1, 'O nome do curso é obrigatório')

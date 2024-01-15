@@ -244,6 +244,37 @@ export async function updateParent(
   redirect('/administrador/responsaveis')
 }
 
+export async function updateClass(
+  formState: ClassFormState,
+  formData: FormData,
+): Promise<ClassFormState> {
+  const parsed = classSchema.safeParse({
+    id: formData.get('id'),
+    course_name: formData.get('course_name'),
+  })
+
+  if (!parsed.success) {
+    return { errors: parsed.error.flatten().fieldErrors }
+  }
+
+  try {
+    await prisma.class.update({
+      where: { id: parsed.data.id },
+      data: {
+        course_name: parsed.data.course_name,
+      },
+    })
+  } catch (e) {
+    return { errors: { _form: ['Não foi possível atualizar os dados'] } }
+  }
+
+  redirect('/administrador/turmas')
+
+  return {
+    errors: {},
+  }
+}
+
 export async function removeRecord({
   id,
   category,
@@ -363,30 +394,36 @@ export async function resetPassword({
 }
 
 // TODO: Essa função tambem será usada por Instrutores
-export async function getUserByID({
+export async function getRecordByID({
   id,
-  profile,
+  category,
 }: {
   id: string
-  profile: UserType
+  category: 'student' | 'parent' | 'instructor' | 'class'
 }) {
-  if (profile === 'student') {
+  if (category === 'student') {
     const student = await prisma.student.findUnique({
       where: { id },
     })
 
     return { student }
-  } else if (profile === 'instructor') {
+  } else if (category === 'instructor') {
     const instructor = await prisma.instructor.findUnique({
       where: { id },
     })
 
     return { instructor }
-  } else {
+  } else if (category === 'parent') {
     const parent = await prisma.parent.findUnique({
       where: { id },
     })
 
     return { parent }
+  } else {
+    const _class = await prisma.class.findUnique({
+      where: { id },
+    })
+
+    return { _class }
   }
 }

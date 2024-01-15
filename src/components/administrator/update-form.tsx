@@ -3,7 +3,6 @@
 import BtnFormSubmit from '@/components/common/btn-form-submit'
 import { useFormState } from 'react-dom'
 import * as actions from '@/actions/admin-actions'
-import { UserType } from '@/lib/types'
 import {
   Card,
   CardContent,
@@ -19,7 +18,7 @@ interface UpdateProps {
   name: string
   email: string
   birthdate: Date
-  profile: UserType
+  category: 'student' | 'parent' | 'instructor' | 'class'
 }
 
 export default function UpdateForm({
@@ -27,7 +26,7 @@ export default function UpdateForm({
   name,
   email,
   birthdate,
-  profile,
+  category,
 }: UpdateProps) {
   function updateStudent({
     id,
@@ -242,11 +241,53 @@ export default function UpdateForm({
     )
   }
 
+  function updateClass({ id, courseName }: { id: string; courseName: string }) {
+    const [formState, action] = useFormState(actions.updateClass, {
+      errors: {},
+    })
+
+    return (
+      <Card className="mx-auto max-w-lg">
+        <CardHeader>
+          <CardTitle className="text-lg">Atualizar cadastro</CardTitle>
+        </CardHeader>
+        <form action={action}>
+          <CardContent className="flex flex-col gap-4">
+            <Input type="hidden" name="id" value={id} />
+            <div
+              className={`flex flex-col gap-2 ${
+                formState.errors.course_name && 'text-red-600'
+              }`}
+            >
+              <Label htmlFor="course_name">Nome do curso</Label>
+              <Input
+                type="text"
+                name="course_name"
+                defaultValue={courseName}
+                className={`${formState.errors.course_name && 'bg-red-200'}`}
+              />
+              {formState.errors.course_name && (
+                <p className="text-sm">{formState.errors.course_name}</p>
+              )}
+            </div>
+          </CardContent>
+          <CardFooter>
+            {formState.errors._form && (
+              <p className="text-sm">{formState.errors._form}</p>
+            )}
+            <BtnFormSubmit>Salvar</BtnFormSubmit>
+          </CardFooter>
+        </form>
+      </Card>
+    )
+  }
+
   return (
     <>
-      {profile === 'student' && updateStudent({ id, name, email, birthdate })}
-      {profile === 'instructor' && updateInstructor({ id, name, email })}
-      {profile === 'parent' && updateParent({ id, name, email })}
+      {category === 'student' && updateStudent({ id, name, email, birthdate })}
+      {category === 'instructor' && updateInstructor({ id, name, email })}
+      {category === 'parent' && updateParent({ id, name, email })}
+      {category === 'class' && updateClass({ id, courseName: name })}
     </>
   )
 }
