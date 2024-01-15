@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import UpdateForm from '@/components/administrator/update-form'
 import { redirect } from 'next/navigation'
-import { getUserByID } from '@/actions/admin-actions'
+import { getRecordByID } from '@/actions/admin-actions'
 import { Navigation } from '@/components/common/navigation-bar'
 import { Button } from '@/components/ui/button'
 
@@ -10,9 +10,9 @@ export default async function AdmInstructorEdit({
 }: {
   params: { id: string }
 }) {
-  const { instructor } = await getUserByID({
+  const { instructor } = await getRecordByID({
     id: params.id,
-    profile: 'instructor',
+    category: 'instructor',
   })
   if (!instructor) redirect('/administrador/instrutores')
 
@@ -30,7 +30,7 @@ export default async function AdmInstructorEdit({
         name={instructor.name}
         email={instructor.email}
         birthdate={new Date()}
-        profile="instructor"
+        category="instructor"
       />
     </>
   )
