@@ -1,7 +1,7 @@
 import AuthService from '@/services/auth-service'
 import { redirect } from 'next/navigation'
 
-export default async function PublicLayout({
+export default async function PrivateLayout({
   children,
 }: {
   children: React.ReactNode

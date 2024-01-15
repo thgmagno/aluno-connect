@@ -13,13 +13,7 @@ import { Menu, UserCircle } from 'lucide-react'
 import Link from 'next/link'
 import SignOutForm from '@/components/auth/sign-out-form'
 
-export default function AdmNavbar({
-  name,
-  profile,
-}: {
-  name: string
-  profile: string
-}) {
+export default function AdmNavbar({ name }: { name: string }) {
   return (
     <div className="fixed left-0 top-0 flex h-16 w-full flex-wrap items-center justify-between bg-zinc-950/40 p-2 shadow-md">
       <p className="font-semibold text-zinc-100 lg:hidden">{name}</p>
@@ -58,7 +52,7 @@ export default function AdmNavbar({
         </DropdownMenuTrigger>
         <DropdownMenuContent>
           <DropdownMenuLabel className="text-center">
-            {profile}
+            Administrador
           </DropdownMenuLabel>
           <DropdownMenuSeparator className="lg:hidden" />
           <DropdownMenuGroup className="lg:hidden">

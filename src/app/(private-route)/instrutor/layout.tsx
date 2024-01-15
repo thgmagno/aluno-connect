@@ -1,9 +1,9 @@
-import StudentNavbar from '@/components/student/student-navbar'
+import InstructorNavbar from '@/components/instructor/instructor-navbar'
 import AuthService from '@/services/auth-service'
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 
-export default async function StudentLayout({
+export default async function InstructorLayout({
   children,
 }: {
   children: React.ReactNode
@@ -12,11 +12,11 @@ export default async function StudentLayout({
   if (!token) redirect('/entrar')
   const { name, profile } = await AuthService.openSessionToken(token.value)
 
-  if (profile !== 'student') redirect('/')
+  if (profile !== 'instructor') redirect('/')
 
   return (
     <>
-      <StudentNavbar name={name as string} />
+      <InstructorNavbar name={name as string} />
       {children}
     </>
   )

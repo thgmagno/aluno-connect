@@ -22,7 +22,7 @@ export default function DeleteForm({ id, category }: DeleteFormProps) {
       })
 
     category === 'instructor' &&
-      toast.promise(actions.removeRecord({ id, category: 'student' }), {
+      toast.promise(actions.removeRecord({ id, category: 'instructor' }), {
         loading: 'Aguarde...',
         success: (data) => data?.message,
         error: 'Não foi possível fazer a exclusão do instrutor',

@@ -1,3 +1,4 @@
+import SignOutForm from '@/components/auth/sign-out-form'
 import AuthService from '@/services/auth-service'
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
@@ -17,7 +18,14 @@ export default async function Home() {
       {isAdmin && redirect('/administrador')}
       {isStudent && redirect('/aluno')}
       {isParent && <p>Implementar página de Responsaveis</p>}
-      {isInstructor && <p>Implementar página de Instrutores</p>}
+      {isInstructor && redirect('/instrutor')}
+
+      <div className="flex flex-col items-center justify-center space-y-5">
+        <b className="text-lg text-muted-foreground">
+          O usuário logado não possui um perfil válido
+        </b>
+        <SignOutForm />
+      </div>
     </>
   )
 }
