@@ -29,51 +29,53 @@ export default function RenderList({ category }: RenderListProps) {
             Não há registros de alunos cadastrados no sistema
           </p>
         ) : (
-          <Table.Content>
-            <Table.Header>
-              <Table.Cell>Nome</Table.Cell>
-              <Table.Cell>E-mail</Table.Cell>
-              <Table.Cell>Data de Nascimento</Table.Cell>
-              <Table.Cell>Ações</Table.Cell>
-            </Table.Header>
-            <Table.Body>
-              {listStudents.map((student) => (
-                <Table.Row key={student.id}>
-                  <Table.Cell>{student.name}</Table.Cell>
-                  <Table.Cell>{student.email}</Table.Cell>
-                  <Table.Cell>
-                    {student.birthdate.toLocaleDateString('pt-br')}
-                  </Table.Cell>
-                  <Table.Cell>
-                    <DropdownMenu>
-                      <DropdownMenuTrigger asChild>
-                        <Button variant="ghost">
-                          <Settings className="rounded  text-zinc-700" />
-                        </Button>
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent className="font-semibold">
-                        <DropdownMenuItem className="flex h-12">
-                          <Link
-                            href={`/administrador/alunos/${student.id}/editar`}
-                            className="flex flex-1"
-                          >
-                            <Edit size={20} className="mr-2" />
-                            Editar
-                          </Link>
-                        </DropdownMenuItem>
-                        <DropdownMenuItem className="flex h-12">
-                          <ResetPassword id={student.id} profile="student" />
-                        </DropdownMenuItem>
-                        <DropdownMenuItem className="flex h-12">
-                          <DeleteForm id={student.id} category="student" />
-                        </DropdownMenuItem>
-                      </DropdownMenuContent>
-                    </DropdownMenu>
-                  </Table.Cell>
-                </Table.Row>
-              ))}
-            </Table.Body>
-          </Table.Content>
+          <div className="mb-20">
+            <Table.Content>
+              <Table.Header>
+                <Table.Cell>Nome</Table.Cell>
+                <Table.Cell>E-mail</Table.Cell>
+                <Table.Cell>Data de Nascimento</Table.Cell>
+                <Table.Cell>Ações</Table.Cell>
+              </Table.Header>
+              <Table.Body>
+                {listStudents.map((student) => (
+                  <Table.Row key={student.id}>
+                    <Table.Cell>{student.name}</Table.Cell>
+                    <Table.Cell>{student.email}</Table.Cell>
+                    <Table.Cell>
+                      {student.birthdate.toLocaleDateString('pt-br')}
+                    </Table.Cell>
+                    <Table.Cell>
+                      <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                          <Button variant="ghost">
+                            <Settings className="rounded  text-zinc-700" />
+                          </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent className="font-semibold">
+                          <DropdownMenuItem className="flex h-12">
+                            <Link
+                              href={`/administrador/alunos/${student.id}/editar`}
+                              className="flex flex-1"
+                            >
+                              <Edit size={20} className="mr-2" />
+                              Editar
+                            </Link>
+                          </DropdownMenuItem>
+                          <DropdownMenuItem className="flex h-12">
+                            <ResetPassword id={student.id} profile="student" />
+                          </DropdownMenuItem>
+                          <DropdownMenuItem className="flex h-12">
+                            <DeleteForm id={student.id} category="student" />
+                          </DropdownMenuItem>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+                    </Table.Cell>
+                  </Table.Row>
+                ))}
+              </Table.Body>
+            </Table.Content>
+          </div>
         )}
       </>
     )

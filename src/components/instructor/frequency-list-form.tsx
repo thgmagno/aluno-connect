@@ -29,7 +29,10 @@ export default function FrequencyListForm({ students }: FrequencyListProps) {
   })
 
   return (
-    <form action={action} className="mx-auto flex max-w-xl flex-col gap-4">
+    <form
+      action={action}
+      className="mx-auto mb-20 flex max-w-xl flex-col gap-4"
+    >
       {formState.errors._form && (
         <p className="rounded-md border-2 border-red-400 bg-red-200 p-2 font-semibold text-red-700">
           {formState.errors._form}
