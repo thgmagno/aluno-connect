@@ -13,7 +13,7 @@ model Student {
   name          String
   email         String          @unique
   password      String?
-  birthdate     DateTime
+  birthdate     DateTime        @db.Date
   firstAccess   Boolean         @default(true)
   Request       Request[]
   Frequency     Frequency[]
@@ -37,7 +37,7 @@ model Frequency {
 model Request {
   id            String        @id @default(uuid())
   studentId     String
-  date          DateTime
+  date          DateTime      @default(now()) @db.Date
   status        StatusRequest
   justification String
   imageURL      String?
