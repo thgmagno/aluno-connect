@@ -25,7 +25,7 @@ model Student {
 
 model Frequency {
   id        String   @id @default(uuid())
-  date      DateTime
+  date      DateTime @default(now()) @db.Date
   status    Boolean
   studentId String
 

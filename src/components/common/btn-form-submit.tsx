@@ -9,7 +9,12 @@ export default function BtnFormSubmit({ children }: { children: ReactNode }) {
   const { pending } = useFormStatus()
 
   const button = () => (
-    <Button type="submit" variant={'primary'} className="w-full">
+    <Button
+      type="submit"
+      variant={'primary'}
+      className="w-full"
+      style={{ userSelect: 'none' }}
+    >
       {children}
     </Button>
   )
@@ -18,7 +23,9 @@ export default function BtnFormSubmit({ children }: { children: ReactNode }) {
     <Button
       type="submit"
       variant={'primary'}
-      className="w-full animate-pulse cursor-not-allowed"
+      className="w-full"
+      style={{ userSelect: 'none' }}
+      disabled
     >
       <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Aguarde
     </Button>

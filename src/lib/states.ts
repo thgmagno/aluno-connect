@@ -30,6 +30,13 @@ export interface ClassFormState {
   }
 }
 
+export interface FrequencyFormState {
+  success: boolean
+  errors: {
+    _form?: string
+  }
+}
+
 export interface AuthenticateUserFormState {
   errors: {
     email?: string[]

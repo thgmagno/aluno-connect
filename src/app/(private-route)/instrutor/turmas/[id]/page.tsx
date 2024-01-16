@@ -2,9 +2,8 @@ import { getRecordByID } from '@/actions/admin-actions'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
-import * as Table from '@/components/common/table'
 import prisma from '@/lib/prisma'
-import SwitchFrequency from '@/components/instructor/switch-frequency'
+import FrequencyListForm from '@/components/instructor/frequency-list-form'
 
 export default async function InstructorClassID({
   params,
@@ -37,36 +36,7 @@ export default async function InstructorClassID({
           Não há registros de alunos nessa turma
         </p>
       ) : (
-        <form
-          action={async (formData: FormData) => {
-            'use server'
-
-            const status = formData.get('status')
-            const student = formData.get('student')
-            console.log(status, student)
-          }}
-          className="mx-auto max-w-xl"
-        >
-          <Table.Content>
-            <Table.Header>
-              <Table.Cell>Nome do aluno</Table.Cell>
-              <Table.Cell>Frequência</Table.Cell>
-            </Table.Header>
-            <Table.Body>
-              {students.map((student) => (
-                <Table.Row key={student.id}>
-                  <Table.Cell>{student.studentID.name}</Table.Cell>
-                  <Table.Cell>
-                    <SwitchFrequency studentID={student.studentID.id} />
-                  </Table.Cell>
-                </Table.Row>
-              ))}
-            </Table.Body>
-          </Table.Content>
-          <Button type="submit" variant={'primary'} className="mt-4 w-full">
-            Finalizar
-          </Button>
-        </form>
+        <FrequencyListForm students={students} />
       )}
     </>
   )

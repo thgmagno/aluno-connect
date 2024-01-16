@@ -3,7 +3,13 @@
 import { Check, X } from 'lucide-react'
 import { useState } from 'react'
 
-export default function SwitchFrequency({ studentID }: { studentID: string }) {
+export default function SwitchFrequency({
+  index,
+  studentID,
+}: {
+  index: number
+  studentID: string
+}) {
   const [frequency, setFrequency] = useState(false)
 
   const Present = () => (
@@ -22,10 +28,10 @@ export default function SwitchFrequency({ studentID }: { studentID: string }) {
     <>
       <input
         type="hidden"
-        name="status"
+        name={`status${index}`}
         value={frequency ? 'present' : 'absent'}
       />
-      <input type="hidden" name="student" value={studentID} />
+      <input type="hidden" name={`studentID${index}`} value={studentID} />
       <button type="button" onClick={() => setFrequency(!frequency)}>
         {frequency ? <Present /> : <Absent />}
       </button>
