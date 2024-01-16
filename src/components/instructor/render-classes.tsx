@@ -24,7 +24,7 @@ export default async function RenderClasses() {
           Não há registros de turmas nesse momento
         </p>
       ) : (
-        <div className="mx-auto w-full max-w-lg rounded bg-zinc-200 p-2 shadow-lg">
+        <div className="mx-auto mb-20 w-full max-w-lg rounded bg-zinc-200 p-2 shadow-lg">
           <h1 className="text-lg text-muted-foreground">Minhas turmas:</h1>
           <section>
             {classes.map((row) => (

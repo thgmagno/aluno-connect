@@ -46,7 +46,7 @@ export default function InstructorNavbar({ name }: { name: string }) {
               </Link>
             </DropdownMenuItem>
             <DropdownMenuItem>
-              <Link href="/turmas" className="w-full p-1">
+              <Link href="/instrutor/turmas" className="w-full p-1">
                 Turmas
               </Link>
             </DropdownMenuItem>

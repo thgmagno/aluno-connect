@@ -2,7 +2,7 @@ import { ReactNode } from 'react'
 
 export function Content({ children }: { children: ReactNode }) {
   return (
-    <div className="overflow-x-auto">
+    <div className="mb-20 overflow-x-auto">
       <div className="table w-full rounded bg-zinc-200 text-center shadow-lg">
         {children}
       </div>
