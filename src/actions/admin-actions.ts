@@ -14,7 +14,7 @@ import {
   parentSchema,
   UserType,
 } from '@/lib/types'
-import { revalidatePath } from 'next/cache'
+import { revalidatePath, revalidateTag } from 'next/cache'
 import { redirect } from 'next/navigation'
 
 export async function createStudent(
@@ -426,4 +426,34 @@ export async function getRecordByID({
 
     return { _class }
   }
+}
+
+export async function approveAbsenceJustification(formData: FormData) {
+  const requestId = formData.get('requestId') as string
+
+  try {
+    await prisma.request.update({
+      where: { id: requestId },
+      data: { status: 'APPROVED' },
+    })
+  } catch (e) {
+    return console.log(e)
+  }
+
+  revalidatePath('/administrador/solicitacoes')
+}
+
+export async function rejectAbsenceJustification(formData: FormData) {
+  const requestId = formData.get('requestId') as string
+
+  try {
+    await prisma.request.update({
+      where: { id: requestId },
+      data: { status: 'REJECTED' },
+    })
+  } catch (e) {
+    return console.log(e)
+  }
+
+  revalidatePath('/administrador/solicitacoes')
 }

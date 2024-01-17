@@ -52,6 +52,11 @@ export default function JustificationForm({
         </Label>
         <Input name="picture" type="file" />
       </div>
+      {formState.errors._form && (
+        <p className="mb-4 rounded-md border-2 border-red-400 bg-red-200 p-2 text-sm text-red-700">
+          {formState.errors._form}
+        </p>
+      )}
       <BtnFormSubmit>Enviar</BtnFormSubmit>
     </form>
   )

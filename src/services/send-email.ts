@@ -27,7 +27,7 @@ export default async function SendEmail(
       data: {
         studentId,
         justification,
-        date: frequencyDate,
+        date: new Date(frequencyDate),
       },
       include: { Frequency: true },
     })
