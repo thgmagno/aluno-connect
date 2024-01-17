@@ -7,11 +7,13 @@ import SendEmail from '@/services/send-email'
 import { useFormState } from 'react-dom'
 
 export default function JustificationForm({
-  id,
-  name,
+  frequencyId,
+  studentId,
+  studentName,
 }: {
-  id: string
-  name: string
+  frequencyId: string
+  studentId: string
+  studentName: string
 }) {
   const [formState, action] = useFormState(SendEmail, {
     errors: {},
@@ -19,8 +21,9 @@ export default function JustificationForm({
 
   return (
     <form action={action}>
-      <input type="hidden" name="id" value={id} />
-      <input type="hidden" name="studentName" value={name} />
+      <input type="hidden" name="frequencyId" value={frequencyId} />
+      <input type="hidden" name="studentId" value={studentId} />
+      <input type="hidden" name="studentName" value={studentName} />
       <input type="hidden" name="date" />
       <div
         className={`flex flex-col gap-2 ${

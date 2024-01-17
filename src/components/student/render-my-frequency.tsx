@@ -3,6 +3,7 @@ import * as Table from '@/components/common/table'
 import { cookies } from 'next/headers'
 import AuthService from '@/services/auth-service'
 import prisma from '@/lib/prisma'
+import Link from 'next/link'
 
 export default async function RenderStudentFrequency() {
   // recupera o ID do aluno logado
@@ -16,6 +17,32 @@ export default async function RenderStudentFrequency() {
     include: { requestID: true },
     orderBy: { date: 'desc' },
   })
+
+  const Flag = ({
+    status,
+  }: {
+    status: 'PENDING' | 'APPROVED' | 'REJECTED'
+  }) => {
+    return (
+      <>
+        {status === 'APPROVED' && (
+          <p className="mx-auto w-28 cursor-default rounded-md bg-emerald-600 px-2 py-1 text-white">
+            Aprovado
+          </p>
+        )}
+        {status === 'PENDING' && (
+          <p className="mx-auto w-28 cursor-default rounded-md bg-amber-600 px-2 py-1 text-white">
+            Pendente
+          </p>
+        )}
+        {status === 'REJECTED' && (
+          <p className="mx-auto w-28 cursor-default rounded-md bg-red-600 px-2 py-1 text-white">
+            Rejeitado
+          </p>
+        )}
+      </>
+    )
+  }
 
   return (
     <>
@@ -50,11 +77,18 @@ export default async function RenderStudentFrequency() {
                   </p>
                 </Table.Cell>
                 <Table.Cell>
-                  {freq.status
-                    ? 'presente!'
-                    : !freq.requestID
-                      ? 'justificar'
-                      : 'status'}
+                  {freq.status ? (
+                    'presente!'
+                  ) : !freq.requestID ? (
+                    <Link
+                      href={`/aluno/justificar/${freq.id}`}
+                      className="rounded-md bg-amber-500 px-2 py-1 text-neutral-100"
+                    >
+                      Jusitificar
+                    </Link>
+                  ) : (
+                    <Flag status={freq.requestID.status} />
+                  )}
                 </Table.Cell>
               </Table.Row>
             ))}

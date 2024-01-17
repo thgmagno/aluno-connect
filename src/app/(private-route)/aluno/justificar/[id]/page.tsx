@@ -5,11 +5,15 @@ import Link from 'next/link'
 import AuthService from '@/services/auth-service'
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
+import prisma from '@/lib/prisma'
 
-export default async function Justify() {
+export default async function Justify({ params }: { params: { id: string } }) {
   const token = cookies().get('session-aluno-connect')
   if (!token) redirect('/entrar')
   const { sub, name } = await AuthService.openSessionToken(token.value)
+  const frequency = await prisma.frequency.findUniqueOrThrow({
+    where: { id: params.id },
+  })
 
   return (
     <Card className="mx-auto max-w-lg">
@@ -18,11 +22,15 @@ export default async function Justify() {
           <Link href="/aluno">
             <ArrowLeft />
           </Link>
-          10/10/2022
+          {frequency.date.toLocaleDateString('pt-br')}
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <JustifyForm id={sub as string} name={name as string} />
+        <JustifyForm
+          frequencyId={frequency.id}
+          studentId={sub as string}
+          studentName={name as string}
+        />
       </CardContent>
     </Card>
   )

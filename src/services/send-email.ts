@@ -11,7 +11,8 @@ export default async function SendEmail(
   formState: SendEmailFormState,
   formData: FormData,
 ): Promise<SendEmailFormState> {
-  const studentId = formData.get('id') as string
+  const frequencyId = formData.get('frequencyId') as string
+  const studentId = formData.get('studentId') as string
   const studentName = formData.get('studentName') as string
   const justification = formData.get('justification') as string
   // TODO: Anexar imagem
@@ -21,12 +22,18 @@ export default async function SendEmail(
     return { errors: { justification: 'A justificativa é obrigatória' } }
 
   try {
-    await prisma.request.create({
+    const req = await prisma.request.create({
       data: {
         studentId,
         justification,
         date: new Date(),
       },
+      include: { Frequency: true },
+    })
+
+    await prisma.frequency.update({
+      data: { requestId: req.id },
+      where: { id: frequencyId },
     })
 
     resent.emails.send({
