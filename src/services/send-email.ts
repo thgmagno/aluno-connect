@@ -42,15 +42,12 @@ export default async function SendEmail(
       subject: `Justificativa de Falta - Aluno(a) ${studentName}`,
       html: `
         <p>A justificativa de falta foi devidamente registrada na plataforma Aluno Connect, conforme as informações a seguir:</p>
-        <br/>
-        <p><b>Aluno</b>: [Nome do Aluno]</p>
-        <p><b>Turma</b>: [Turma]</p>
-        <p><b>Data da Falta</b>: [Data da Falta]</p>
+        <b>Aluno</b>: [Nome do Aluno]
+        <b>Turma</b>: [Turma]
+        <b>Data da Falta</b>: [Data da Falta]
         <p><b>Justificativa:</b>${justification}</p>
-        <br/>
-        <br/>
         <p>Não é necessário responder a este e-mail.</p>
-        <p>Para <b>aceitar</b> ou <b>recusar</b> a solicitação, solicitamos que acesse a plataforma Aluno Connect</p>
+        <p>Para <b>aceitar</b> ou <b>recusar</b> a solicitação, solicitamos que acesse a plataforma <a href="https://aluno-connect.vercel.app/">Aluno Connect</a></p>
       `,
     })
   } catch (e) {
