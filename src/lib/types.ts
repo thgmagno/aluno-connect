@@ -61,3 +61,22 @@ export const registerUserPasswordSchema = z
   })
 
 export type UserType = 'instructor' | 'student' | 'parent' | 'administrator'
+
+export interface RenderRequestsProps {
+  data: {
+    id: string
+    studentId: string
+    date: Date
+    status: 'PENDING' | 'APPROVED' | 'REJECTED'
+    justification: string
+    imageURL: string | null
+    studentID: {
+      id: string
+      name: string
+      email: string
+      password: string | null
+      birthdate: Date
+      firstAccess: boolean
+    }
+  }[]
+}

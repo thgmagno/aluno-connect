@@ -16,7 +16,7 @@ interface RenderListProps {
   category: 'student' | 'parent' | 'instructor' | 'class'
 }
 
-export default function RenderList({ category }: RenderListProps) {
+export default function RenderEntity({ category }: RenderListProps) {
   async function studentList() {
     const listStudents = await prisma.student.findMany({
       orderBy: { name: 'asc' },
