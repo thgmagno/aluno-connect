@@ -41,13 +41,16 @@ export default async function SendEmail(
       to: 'secretaria.alunoconnect@gmail.com',
       subject: `Justificativa de Falta - Aluno(a) ${studentName}`,
       html: `
-      <p>A justificativa de falta foi devidamente registrada na plataforma Aluno Connect, conforme as informações a seguir:</p>
-      <b>Aluno</b>: [Nome do Aluno]
-      <b>Turma</b>: [Turma]
-      <b>Data da Falta</b>: [Data da Falta]
-      <p><b>Justificativa:</b>${justification}</p>
-      <p>Não é necessário responder a este e-mail.</p>
-      <p>Para <b>aceitar</b> ou <b>recusar</b> a solicitação, solicitamos que acesse a plataforma Aluno Connect</p>
+        <p>A justificativa de falta foi devidamente registrada na plataforma Aluno Connect, conforme as informações a seguir:</p>
+        <br/>
+        <p><b>Aluno</b>: [Nome do Aluno]</p>
+        <p><b>Turma</b>: [Turma]</p>
+        <p><b>Data da Falta</b>: [Data da Falta]</p>
+        <p><b>Justificativa:</b>${justification}</p>
+        <br/>
+        <br/>
+        <p>Não é necessário responder a este e-mail.</p>
+        <p>Para <b>aceitar</b> ou <b>recusar</b> a solicitação, solicitamos que acesse a plataforma Aluno Connect</p>
       `,
     })
   } catch (e) {
