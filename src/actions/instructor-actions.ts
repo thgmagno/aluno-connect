@@ -42,6 +42,7 @@ export async function markFrequency(
           studentId,
           status: status === 'present',
           date: currentDate,
+          requestId: '',
         },
       }),
     )
