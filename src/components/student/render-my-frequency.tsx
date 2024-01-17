@@ -3,6 +3,7 @@ import * as Table from '@/components/common/table'
 import { cookies } from 'next/headers'
 import AuthService from '@/services/auth-service'
 import prisma from '@/lib/prisma'
+import Link from 'next/link'
 
 export default async function RenderStudentFrequency() {
   // recupera o ID do aluno logado
@@ -48,7 +49,18 @@ export default async function RenderStudentFrequency() {
                     )}
                   </p>
                 </Table.Cell>
-                <Table.Cell>[implementar]</Table.Cell>
+                <Table.Cell>
+                  {freq.status ? (
+                    '-'
+                  ) : (
+                    <Link
+                      href="/aluno/justificar"
+                      className="rounded-md bg-amber-500 px-2 py-1 text-neutral-100"
+                    >
+                      Jusitificar
+                    </Link>
+                  )}
+                </Table.Cell>
               </Table.Row>
             ))}
           </Table.Body>

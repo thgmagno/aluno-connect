@@ -59,3 +59,11 @@ export interface RegisterUserPassword {
     _form?: string[]
   }
 }
+
+export interface SendEmailFormState {
+  errors: {
+    justify?: string
+    file?: string
+    _form?: string
+  }
+}
