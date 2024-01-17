@@ -20,11 +20,13 @@ export default async function SendEmail(
   try {
     resent.emails.send({
       from: 'onboarding@resend.dev',
-      to: 'thgmgn@gmail.com',
+      to: 'secretaria.alunoconnect@gmail.com',
       subject: `Justificativa de falta de ${studentName}`,
       html: `<p>${jusitfy}</p>`,
     })
+    console.log('bloco try')
   } catch (e) {
+    console.log('bloco catch')
     return { errors: { _form: 'Erro inesperado' } }
   }
 

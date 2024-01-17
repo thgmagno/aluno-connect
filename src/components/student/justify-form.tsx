@@ -1,9 +1,9 @@
 'use client'
 
-import SendEmail from '@/actions/send-email'
 import BtnFormSubmit from '@/components/common/btn-form-submit'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import SendEmail from '@/services/send-email'
 import { useFormState } from 'react-dom'
 
 export default function JustifyForm({ name }: { name: string }) {
