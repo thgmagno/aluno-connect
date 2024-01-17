@@ -39,8 +39,16 @@ export default async function SendEmail(
     resent.emails.send({
       from: 'onboarding@resend.dev',
       to: 'secretaria.alunoconnect@gmail.com',
-      subject: `Justificativa de falta de ${studentName}`,
-      html: `<p>${justification}</p>`,
+      subject: `Justificativa de Falta - Aluno(a) ${studentName}`,
+      html: `
+      <p>A justificativa de falta foi devidamente registrada na plataforma Aluno Connect, conforme as informações a seguir:</p>
+      <b>Aluno</b>: [Nome do Aluno]
+      <b>Turma</b>: [Turma]
+      <b>Data da Falta</b>: [Data da Falta]
+      <p><b>Justificativa:</b>${justification}</p>
+      <p>Não é necessário responder a este e-mail.</p>
+      <p>Para <b>aceitar</b> ou <b>recusar</b> a solicitação, solicitamos que acesse a plataforma Aluno Connect</p>
+      `,
     })
   } catch (e) {
     if (e instanceof Error && e.message.includes('Unique constraint')) {
