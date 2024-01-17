@@ -1,9 +1,9 @@
-import { Check, X } from 'lucide-react'
 import * as Table from '@/components/common/table'
 import { cookies } from 'next/headers'
 import AuthService from '@/services/auth-service'
 import prisma from '@/lib/prisma'
 import Link from 'next/link'
+import { Badge } from '../ui/badge'
 
 export default async function RenderStudentFrequency() {
   // recupera o ID do aluno logado
@@ -23,25 +23,24 @@ export default async function RenderStudentFrequency() {
   }: {
     status: 'PENDING' | 'APPROVED' | 'REJECTED'
   }) => {
-    return (
-      <>
-        {status === 'APPROVED' && (
-          <p className="mx-auto w-28 cursor-default rounded-md bg-emerald-600 px-2 py-1 text-white">
-            Aprovado
-          </p>
-        )}
-        {status === 'PENDING' && (
-          <p className="mx-auto w-28 cursor-default rounded-md bg-amber-600 px-2 py-1 text-white">
-            Pendente
-          </p>
-        )}
-        {status === 'REJECTED' && (
-          <p className="mx-auto w-28 cursor-default rounded-md bg-red-600 px-2 py-1 text-white">
-            Rejeitado
-          </p>
-        )}
-      </>
-    )
+    if (status === 'APPROVED')
+      return (
+        <Badge className="cursor-default" variant={'primary'}>
+          Justificativa aceita
+        </Badge>
+      )
+    if (status === 'PENDING')
+      return (
+        <Badge className="cursor-default" variant={'pending'}>
+          Justificativa pendente
+        </Badge>
+      )
+    if (status === 'REJECTED')
+      return (
+        <Badge className="cursor-default" variant={'destructive'}>
+          Justificativa rejeitada
+        </Badge>
+      )
   }
 
   return (
@@ -62,32 +61,21 @@ export default async function RenderStudentFrequency() {
               <Table.Row key={freq.id}>
                 <Table.Cell>{freq.date.toLocaleDateString('pt-br')}</Table.Cell>
                 <Table.Cell>
-                  <p className="flex w-full justify-center">
-                    {freq.status ? (
-                      <Check
-                        strokeWidth={5}
-                        className="rounded bg-green-600 p-1 text-slate-100"
-                      />
-                    ) : (
-                      <X
-                        strokeWidth={5}
-                        className="rounded bg-red-600 p-1 text-slate-100"
-                      />
-                    )}
-                  </p>
+                  {freq.status ? (
+                    <Badge variant={'primary'}>presente</Badge>
+                  ) : (
+                    <Badge variant={'destructive'}>faltou</Badge>
+                  )}
                 </Table.Cell>
                 <Table.Cell>
                   {freq.status ? (
-                    'presente!'
-                  ) : !freq.requestID ? (
-                    <Link
-                      href={`/aluno/justificar/${freq.id}`}
-                      className="rounded-md bg-amber-500 px-2 py-1 text-neutral-100"
-                    >
-                      Jusitificar
-                    </Link>
-                  ) : (
+                    ''
+                  ) : freq.requestID ? (
                     <Flag status={freq.requestID.status} />
+                  ) : (
+                    <Link href={`/aluno/justificar/${freq.id}`}>
+                      <Badge variant={'pending'}>Justificar</Badge>
+                    </Link>
                   )}
                 </Table.Cell>
               </Table.Row>
