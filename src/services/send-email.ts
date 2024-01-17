@@ -12,6 +12,7 @@ export default async function SendEmail(
   formData: FormData,
 ): Promise<SendEmailFormState> {
   const frequencyId = formData.get('frequencyId') as string
+  const frequencyDate = formData.get('frequencyDate') as string
   const studentId = formData.get('studentId') as string
   const studentName = formData.get('studentName') as string
   const justification = formData.get('justification') as string
@@ -42,9 +43,11 @@ export default async function SendEmail(
       subject: `Justificativa de Falta - Aluno(a) ${studentName}`,
       html: `
         <p>A justificativa de falta foi devidamente registrada na plataforma Aluno Connect, conforme as informações a seguir:</p>
-        <b>Aluno</b>: [Nome do Aluno]
-        <b>Turma</b>: [Turma]
-        <b>Data da Falta</b>: [Data da Falta]
+        <b>Aluno</b>: ${studentName}
+        <b>Data da Falta</b>: ${new Date(frequencyDate).toLocaleDateString(
+          'pt-br',
+          { dateStyle: 'long' },
+        )}
         <p><b>Justificativa:</b>${justification}</p>
         <p>Não é necessário responder a este e-mail.</p>
         <p>Para <b>aceitar</b> ou <b>recusar</b> a solicitação, solicitamos que acesse a plataforma <a href="https://aluno-connect.vercel.app/">Aluno Connect</a></p>

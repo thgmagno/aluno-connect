@@ -28,6 +28,7 @@ export default async function Justify({ params }: { params: { id: string } }) {
       <CardContent>
         <JustifyForm
           frequencyId={frequency.id}
+          frequencyDate={frequency.date}
           studentId={sub as string}
           studentName={name as string}
         />

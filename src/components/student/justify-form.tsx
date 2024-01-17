@@ -8,10 +8,12 @@ import { useFormState } from 'react-dom'
 
 export default function JustificationForm({
   frequencyId,
+  frequencyDate,
   studentId,
   studentName,
 }: {
   frequencyId: string
+  frequencyDate: Date
   studentId: string
   studentName: string
 }) {
@@ -22,6 +24,7 @@ export default function JustificationForm({
   return (
     <form action={action}>
       <input type="hidden" name="frequencyId" value={frequencyId} />
+      <input type="hidden" name="frequencyDate" value={String(frequencyDate)} />
       <input type="hidden" name="studentId" value={studentId} />
       <input type="hidden" name="studentName" value={studentName} />
       <input type="hidden" name="date" />
