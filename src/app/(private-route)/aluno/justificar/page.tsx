@@ -9,7 +9,7 @@ import { redirect } from 'next/navigation'
 export default async function Justify() {
   const token = cookies().get('session-aluno-connect')
   if (!token) redirect('/entrar')
-  const { name } = await AuthService.openSessionToken(token.value)
+  const { sub, name } = await AuthService.openSessionToken(token.value)
 
   return (
     <Card className="mx-auto max-w-lg">
@@ -22,7 +22,7 @@ export default async function Justify() {
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <JustifyForm name={name as string} />
+        <JustifyForm id={sub as string} name={name as string} />
       </CardContent>
     </Card>
   )

@@ -62,7 +62,7 @@ export interface RegisterUserPassword {
 
 export interface SendEmailFormState {
   errors: {
-    justify?: string
+    justification?: string
     file?: string
     _form?: string
   }

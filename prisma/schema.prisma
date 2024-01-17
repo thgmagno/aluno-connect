@@ -28,8 +28,10 @@ model Frequency {
   date      DateTime @default(now()) @db.Date
   status    Boolean
   studentId String
+  requestId String
 
   studentID Student @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  requestID Request @relation(fields: [requestId], references: [id])
 
   @@map("frequency")
 }
@@ -37,12 +39,13 @@ model Frequency {
 model Request {
   id            String        @id @default(uuid())
   studentId     String
-  date          DateTime      @default(now()) @db.Date
-  status        StatusRequest
+  date          DateTime      @unique @db.Date
+  status        StatusRequest @default(PENDING)
   justification String
   imageURL      String?
 
-  studentID Student @relation(fields: [studentId], references: [id])
+  studentID Student     @relation(fields: [studentId], references: [id])
+  Frequency Frequency[]
 
   @@map("request")
 }
