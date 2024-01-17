@@ -28,10 +28,10 @@ model Frequency {
   date      DateTime @default(now()) @db.Date
   status    Boolean
   studentId String
-  requestId String
+  requestId String?
 
-  studentID Student @relation(fields: [studentId], references: [id], onDelete: Cascade)
-  requestID Request @relation(fields: [requestId], references: [id])
+  studentID Student  @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  requestID Request? @relation(fields: [requestId], references: [id])
 
   @@map("frequency")
 }

@@ -42,7 +42,6 @@ export async function markFrequency(
           studentId,
           status: status === 'present',
           date: currentDate,
-          requestId: '',
         },
       }),
     )
@@ -53,7 +52,7 @@ export async function markFrequency(
   } catch (e) {
     return {
       success: false,
-      errors: { _form: 'Erro durante a criação das frequências' },
+      errors: { _form: 'Erro durante a criação das frequências' + e },
     }
   }
 
