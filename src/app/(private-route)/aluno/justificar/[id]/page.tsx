@@ -18,11 +18,11 @@ export default async function Justify({ params }: { params: { id: string } }) {
   return (
     <Card className="mx-auto max-w-lg">
       <CardHeader>
-        <CardTitle className="flex justify-between text-muted-foreground">
+        <CardTitle className="flex justify-between text-lg text-muted-foreground">
           <Link href="/aluno">
             <ArrowLeft />
           </Link>
-          {frequency.date.toLocaleDateString('pt-br')}
+          {frequency.date.toLocaleDateString('pt-br', { dateStyle: 'long' })}
         </CardTitle>
       </CardHeader>
       <CardContent>
