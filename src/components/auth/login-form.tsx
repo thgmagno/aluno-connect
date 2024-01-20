@@ -14,13 +14,13 @@ import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { useState } from 'react'
 import { Eye, EyeOff } from 'lucide-react'
-import * as actions from '@/actions/auth-actions'
 import BtnFormSubmit from '../common/btn-form-submit'
 import { useFormState } from 'react-dom'
+import { authenticateUser } from '@/actions/auth'
 
 export default function LoginForm() {
   const [visible, setVisible] = useState(false)
-  const [formState, action] = useFormState(actions.authenticateUser, {
+  const [formState, action] = useFormState(authenticateUser, {
     errors: {},
   })
 

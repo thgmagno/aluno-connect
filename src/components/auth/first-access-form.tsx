@@ -12,12 +12,12 @@ import {
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import Link from 'next/link'
-import * as actions from '@/actions/auth-actions'
 import BtnFormSubmit from '../common/btn-form-submit'
 import { useFormState } from 'react-dom'
+import { authenticateEmail } from '@/actions/auth'
 
 export default function FirstAccessForm() {
-  const [formState, action] = useFormState(actions.authenticateEmail, {
+  const [formState, action] = useFormState(authenticateEmail, {
     errors: {},
   })
 

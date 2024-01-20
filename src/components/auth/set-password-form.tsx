@@ -14,9 +14,9 @@ import { Label } from '@/components/ui/label'
 import { EyeOff, Eye } from 'lucide-react'
 import Link from 'next/link'
 import { useState } from 'react'
-import * as actions from '@/actions/auth-actions'
 import BtnFormSubmit from '../common/btn-form-submit'
 import { useFormState } from 'react-dom'
+import { registerUserPassword } from '@/actions/auth'
 
 export default function SetPasswordForm({
   id,
@@ -28,7 +28,7 @@ export default function SetPasswordForm({
   email: string
 }) {
   const [visible, setVisible] = useState(false)
-  const [formState, action] = useFormState(actions.registerUserPassword, {
+  const [formState, action] = useFormState(registerUserPassword, {
     errors: {},
   })
 

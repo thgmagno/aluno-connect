@@ -1,11 +1,12 @@
-import SignOutForm from '@/components/auth/sign-out-form'
-import AuthService from '@/services/auth-service'
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
+import AuthService from '@/services/auth-service'
+import paths from '@/paths'
 
 export default async function Home() {
   const token = cookies().get('session-aluno-connect')
-  if (!token) return
+  if (!token) return redirect(paths.signInPath())
+
   const { profile } = await AuthService.openSessionToken(token.value)
 
   const isAdmin = profile === 'administrator'
@@ -13,19 +14,14 @@ export default async function Home() {
   const isParent = profile === 'parent'
   const isInstructor = profile === 'instructor'
 
-  return (
-    <>
-      {isAdmin && redirect('/administrador')}
-      {isStudent && redirect('/aluno')}
-      {isParent && <p>Implementar página de Responsaveis</p>}
-      {isInstructor && redirect('/instrutor')}
+  isAdmin && redirect(paths.homeAdministratorPath(profile))
+  isStudent && redirect(paths.homeStudentPath(profile))
+  isParent && redirect(paths.homeParentPath(profile))
+  isInstructor && redirect(paths.homeInstructorPath(profile))
 
-      <div className="flex flex-col items-center justify-center space-y-5">
-        <b className="text-lg text-muted-foreground">
-          O usuário logado não possui um perfil válido
-        </b>
-        <SignOutForm />
-      </div>
-    </>
+  return (
+    <div>
+      <h1>Bem vindo ao Aluno Connect!</h1>
+    </div>
   )
 }

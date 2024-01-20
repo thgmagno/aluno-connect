@@ -9,7 +9,7 @@ datasource db {
 }
 
 model Student {
-  id            String          @id @default(uuid())
+  id            String          @id @default(cuid())
   name          String
   email         String          @unique
   password      String?
@@ -24,34 +24,35 @@ model Student {
 }
 
 model Frequency {
-  id        String   @id @default(uuid())
+  id        String   @id @default(cuid())
   date      DateTime @default(now()) @db.Date
   status    Boolean
   studentId String
-  requestId String?
+  classId   String
 
-  studentID Student  @relation(fields: [studentId], references: [id], onDelete: Cascade)
-  requestID Request? @relation(fields: [requestId], references: [id])
+  classID   Class     @relation(fields: [classId], references: [id])
+  studentID Student   @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  Request   Request[]
 
   @@map("frequency")
 }
 
 model Request {
-  id            String        @id @default(uuid())
-  studentId     String
-  date          DateTime      @unique @db.Date
+  id            String        @id @default(cuid())
   status        StatusRequest @default(PENDING)
   justification String
   imageURL      String?
+  studentId     String
+  frequencyId   String
 
-  studentID Student     @relation(fields: [studentId], references: [id])
-  Frequency Frequency[]
+  studentID   Student   @relation(fields: [studentId], references: [id])
+  frequencyID Frequency @relation(fields: [frequencyId], references: [id])
 
   @@map("request")
 }
 
 model Instructor {
-  id              String            @id @default(uuid())
+  id              String            @id @default(cuid())
   name            String
   email           String            @unique
   password        String?
@@ -62,7 +63,7 @@ model Instructor {
 }
 
 model Parent {
-  id            String          @id @default(uuid())
+  id            String          @id @default(cuid())
   name          String
   email         String          @unique
   password      String?
@@ -73,7 +74,7 @@ model Parent {
 }
 
 model Administrator {
-  id       String @id @default(uuid())
+  id       String @id @default(cuid())
   name     String
   email    String @unique
   password String
@@ -82,10 +83,11 @@ model Administrator {
 }
 
 model Class {
-  id              String            @id @default(uuid())
+  id              String            @id @default(cuid())
   course_name     String            @unique
   StudentClass    StudentClass[]
   InstructorClass InstructorClass[]
+  Frequency       Frequency[]
 
   @@map("class")
 }

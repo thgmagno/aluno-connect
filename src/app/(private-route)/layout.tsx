@@ -1,3 +1,4 @@
+import paths from '@/paths'
 import AuthService from '@/services/auth-service'
 import { redirect } from 'next/navigation'
 
@@ -7,14 +8,7 @@ export default async function PrivateLayout({
   children: React.ReactNode
 }) {
   const session = await AuthService.isSessionValid()
-  if (!session) return redirect('/entrar')
+  if (!session) return redirect(paths.signInPath())
 
-  return (
-    <div
-      className="container-custom mt-20"
-      style={{ minHeight: 'calc(100vh - 5rem)' }}
-    >
-      {children}
-    </div>
-  )
+  return <>{children}</>
 }
