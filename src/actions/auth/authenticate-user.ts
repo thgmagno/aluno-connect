@@ -49,7 +49,7 @@ export async function authenticateUser(
       return {
         errors: {
           _form: [
-            'Parece que você ainda não efetuou o seu registro. Entre em contato com um coordenador para realizar o cadastro.',
+            'Esse e-mail ainda não foi cadastrado na nossa plataforma.',
           ],
         },
       }
