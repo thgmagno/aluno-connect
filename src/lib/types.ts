@@ -45,6 +45,17 @@ export const validateEmailSchema = z.object({
   email: z.string().email('Formato de e-mail inválido'),
 })
 
+export const requestSchema = z.object({
+  justification: z.string().min(1, 'O campo justificativa é obrigatório'),
+  media: z
+    .any()
+    .optional()
+    .refine(
+      (file) => file?.size <= 5 * 1024 * 1024,
+      `Tamanho máximo de arquivo é 5MB`,
+    ),
+})
+
 const ProfileEnum = z.enum(['student', 'instructor', 'administrator', 'parent'])
 
 export const registerUserPasswordSchema = z

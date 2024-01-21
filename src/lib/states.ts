@@ -60,10 +60,10 @@ export interface RegisterUserPassword {
   }
 }
 
-export interface SendEmailFormState {
+export interface RequestFormState {
   errors: {
-    justification?: string
-    file?: string
-    _form?: string
+    justification?: string[]
+    media?: string[]
+    _form?: string[]
   }
 }
