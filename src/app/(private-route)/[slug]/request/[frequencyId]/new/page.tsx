@@ -7,7 +7,7 @@ import type { Frequency } from '@prisma/client'
 import Link from 'next/link'
 import React from 'react'
 
-// student, parent, administrator
+// student, parent,
 export default async function NewRequestPage({
   params,
 }: {

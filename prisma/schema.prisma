@@ -26,7 +26,7 @@ model Student {
 model Frequency {
   id        String   @id @default(cuid())
   date      DateTime @default(now()) @db.Date
-  status    Boolean
+  status    Status
   studentId String
   classId   String
 
@@ -38,8 +38,7 @@ model Frequency {
 }
 
 model Request {
-  id            String        @id @default(cuid())
-  status        StatusRequest @default(PENDING)
+  id            String  @id @default(cuid())
   justification String
   imageURL      String?
   studentId     String
@@ -125,10 +124,12 @@ model InstructorClass {
   @@map("instructor_class")
 }
 
-enum StatusRequest {
+enum Status {
   PENDING
   APPROVED
   REJECTED
+  PRESENT
+  ABSENT
 
   @@map("status_request")
 }

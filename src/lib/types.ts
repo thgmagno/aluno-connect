@@ -46,6 +46,8 @@ export const validateEmailSchema = z.object({
 })
 
 export const requestSchema = z.object({
+  frequencyId: z.string().min(25),
+  studentId: z.string().min(25),
   justification: z.string().min(1, 'O campo justificativa é obrigatório'),
   media: z
     .any()

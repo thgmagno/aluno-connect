@@ -1,5 +1,5 @@
 import getAll from '@/actions/read/getAll'
-import { Badge } from '@/components/ui/badge'
+import FrequencyStatusBadge from '@/components/common/frequency-status-badge'
 import {
   Table,
   TableCaption,
@@ -42,14 +42,10 @@ export default async function FrequencyPage() {
                 {frequency.date.toLocaleDateString()}
               </TableCell>
               <TableCell>
-                {frequency.status ? (
-                  <Badge variant={'primary'}>Presente</Badge>
-                ) : (
-                  <Badge variant={'destructive'}>Faltou</Badge>
-                )}
+                <FrequencyStatusBadge status={frequency.status} />
               </TableCell>
               <TableCell>
-                {!frequency.status && (
+                {frequency.status === 'ABSENT' && (
                   <Link
                     href={paths.createEntityPath(
                       profile,

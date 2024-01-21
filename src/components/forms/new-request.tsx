@@ -24,6 +24,8 @@ export function request({ data }: Props) {
       </p>
       <CardContent className="py-5">
         <form action={action} className="flex flex-col gap-2">
+          <input type="hidden" name="frequencyId" value={data.id} />
+          <input type="hidden" name="studentId" value={data.studentId} />
           <div
             className={`mb-2 flex flex-col gap-2 ${
               formState.errors.justification && 'text-red-600'
@@ -55,6 +57,7 @@ export function request({ data }: Props) {
               <p className="text-sm">{formState.errors.media}</p>
             )}
           </div>
+          {formState.errors._form && <p>{formState.errors._form}</p>}
           <BtnFormSubmit>Salvar</BtnFormSubmit>
         </form>
       </CardContent>
