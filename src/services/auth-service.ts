@@ -1,5 +1,8 @@
+import { UserType } from '@/lib/types'
+import paths from '@/paths'
 import * as jose from 'jose'
 import { cookies } from 'next/headers'
+import { redirect } from 'next/navigation'
 
 type PayloadType = {
   payload: {
@@ -90,6 +93,20 @@ async function closeTemporarySession() {
   return cookies().delete('activating-account-aluno-connect')
 }
 
+async function getUserProfile() {
+  const token = cookies().get('session-aluno-connect')
+  if (!token) return redirect(paths.signInPath())
+  const { profile } = (await openSessionToken(token.value)) as {
+    profile: UserType
+  }
+
+  if (!profile) {
+    cookies().delete('session-aluno-connect')
+  }
+
+  return profile
+}
+
 const AuthService = {
   openSessionToken,
   createSessionToken,
@@ -97,19 +114,7 @@ const AuthService = {
   createTemporarySession,
   getTemporaryUser,
   closeTemporarySession,
+  getUserProfile,
 }
 
 export default AuthService
-
-// async function getUserProfileLogged() {
-//   const session = cookies().get('session-aluno-connect')
-//   if (!session) return {}
-//   const { profile } = await openSessionToken(session.value)
-
-//   return {
-//     isAdmin: profile === 'administrator',
-//     isStudent: profile === 'student',
-//     isInstructor: profile === 'instructor',
-//     isParent: profile === 'parent',
-//   }
-// }

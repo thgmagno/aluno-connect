@@ -1,8 +1,10 @@
+import React from 'react'
+
 // administrator
 export default function DashboardPage() {
   return (
-    <div>
-      <h1>Painel do administrator</h1>
-    </div>
+    <React.Fragment>
+      <h1 className="text-muted md:text-xl">Painel do administrator</h1>
+    </React.Fragment>
   )
 }

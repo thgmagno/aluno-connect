@@ -1,3 +1,4 @@
+import Navbar from '@/components/common/navbar'
 import paths from '@/paths'
 import AuthService from '@/services/auth-service'
 import { redirect } from 'next/navigation'
@@ -10,5 +11,12 @@ export default async function PrivateLayout({
   const session = await AuthService.isSessionValid()
   if (!session) return redirect(paths.signInPath())
 
-  return <>{children}</>
+  return (
+    <main className="flex min-h-screen flex-col">
+      <Navbar />
+      <div className="container flex-1 bg-gradient-to-t from-indigo-950 to-neutral-900 p-4 pb-12">
+        {children}
+      </div>
+    </main>
+  )
 }

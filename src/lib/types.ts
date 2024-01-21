@@ -61,6 +61,13 @@ export const registerUserPasswordSchema = z
   })
 
 export type UserType = 'instructor' | 'student' | 'parent' | 'administrator'
+export type EntityType =
+  | 'instructor'
+  | 'student'
+  | 'parent'
+  | 'classroom'
+  | 'frequency'
+  | 'request'
 
 export interface RenderRequestsProps {
   data: {

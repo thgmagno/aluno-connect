@@ -1,8 +1,27 @@
+import getAll from '@/actions/read/getAll'
+import React from 'react'
+
 // administrator
-export default function ParentsPage() {
+export default async function ParentsPage() {
+  const parents = await getAll.Parents()
+
   return (
-    <div>
-      <h1>Lista de todos os responsáveis</h1>
-    </div>
+    <React.Fragment>
+      <h1 className="text-muted md:text-xl">Lista de todos os responsáveis</h1>
+      {parents?.length ? (
+        parents.map((parent) => (
+          <div key={parent.id}>
+            <p>{parent.name}</p>
+            <p>{parent.email}</p>
+          </div>
+        ))
+      ) : (
+        <div className="mt-10 flex items-center justify-center">
+          <p className="text-muted-foreground">
+            Não há nenhum responsável cadastrado
+          </p>
+        </div>
+      )}
+    </React.Fragment>
   )
 }

@@ -4,7 +4,7 @@ import prisma from '@/lib/prisma'
 import AuthService from '@/services/auth-service'
 import { cookies } from 'next/headers'
 
-export async function getAllFrequencies() {
+export async function Frequencies() {
   const token = cookies().get('session-aluno-connect')
   if (!token) return null
   const { sub, profile } = await AuthService.openSessionToken(token.value)

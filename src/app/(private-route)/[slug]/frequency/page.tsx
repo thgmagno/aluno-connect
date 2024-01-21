@@ -1,12 +1,13 @@
-import { getAllFrequencies } from '@/actions/read'
+import getAll from '@/actions/read/getAll'
+import React from 'react'
 
 // student, parent
 export default async function FrequencyPage() {
-  const frequencies = await getAllFrequencies()
+  const frequencies = await getAll.Frequencies()
 
   return (
-    <div>
-      <h1>Lista de frequência do aluno</h1>
+    <React.Fragment>
+      <h1 className="text-muted md:text-xl">Lista de frequência do aluno</h1>
       {frequencies?.length &&
         frequencies.map((frequency) => (
           <div key={frequency.id}>
@@ -18,6 +19,6 @@ export default async function FrequencyPage() {
             <p>{frequency.status}</p>
           </div>
         ))}
-    </div>
+    </React.Fragment>
   )
 }

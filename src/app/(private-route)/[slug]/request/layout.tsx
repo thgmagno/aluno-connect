@@ -15,7 +15,9 @@ export default async function RequestLayout({
   const { profile } = await AuthService.openSessionToken(token.value)
   if (
     profile !== params.slug ||
-    (profile !== 'student' && profile !== 'parent')
+    (profile !== 'student' &&
+      profile !== 'parent' &&
+      profile !== 'administrator')
   )
     return redirect('/')
 
