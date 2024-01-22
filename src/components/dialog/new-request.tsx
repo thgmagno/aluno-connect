@@ -21,7 +21,7 @@ interface Props {
   data: Frequency
 }
 
-export default function NewRequest({ data }: Props) {
+export function NewRequest({ data }: Props) {
   const [formState, action] = useFormState(Querys.Create.Request, {
     errors: {},
   })
@@ -53,7 +53,7 @@ export default function NewRequest({ data }: Props) {
               <Label htmlFor="name">Justificativa:</Label>
               <textarea
                 name="justification"
-                className={`h-20 rounded-md border p-2 ${
+                className={`h-20 rounded-md border p-2 text-sm md:text-base ${
                   formState.errors.justification && 'border-red-600'
                 }`}
               />

@@ -1,6 +1,6 @@
 import Querys from '@/actions/querys'
 import FrequencyStatusBadge from '@/components/common/frequency-status-badge'
-import NewRequest from '@/components/dialog/new-request'
+import Dialog from '@/components/dialog'
 import {
   Table,
   TableCaption,
@@ -44,7 +44,7 @@ export default async function FrequencyPage() {
               <TableCell>
                 {frequency.status === 'ABSENT' && (
                   // TODO: IMPLEMENTAR DIALOG
-                  <NewRequest data={frequency} />
+                  <Dialog.Create.NewRequest data={frequency} />
                 )}
               </TableCell>
             </TableRow>
