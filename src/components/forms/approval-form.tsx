@@ -1,19 +1,19 @@
 'use client'
 
 import React from 'react'
-import updateActions from '@/actions/update'
 import BtnFormSubmit from '../common/btn-form-submit'
+import Mutations from '@/actions/mutations'
 
-export default function ApprovalForm({ frequencyId }: { frequencyId: string }) {
+export function approvalRequest({ frequencyId }: { frequencyId: string }) {
   return (
     <section className="flex gap-3">
-      <form action={updateActions.RejectRequest}>
+      <form action={Mutations.Update.ApproveRequest}>
         <input type="hidden" name="frequencyId" value={frequencyId} />
         <BtnFormSubmit variant={'destructive'} size={'sm'}>
           Recusar
         </BtnFormSubmit>
       </form>
-      <form action={updateActions.ApproveRequest}>
+      <form action={Mutations.Update.ApproveRequest}>
         <input type="hidden" name="frequencyId" value={frequencyId} />
         <BtnFormSubmit variant={'emerald'} size={'sm'}>
           Aprovar

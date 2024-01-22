@@ -43,6 +43,7 @@ model Request {
   imageURL      String?
   studentId     String
   frequencyId   String
+  category      String  @default("Nenhuma")
 
   studentID   Student   @relation(fields: [studentId], references: [id])
   frequencyID Frequency @relation(fields: [frequencyId], references: [id])

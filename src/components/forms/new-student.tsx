@@ -1,14 +1,14 @@
 'use client'
 
-import CreateEntity from '@/actions/create'
+import Mutations from '@/actions/mutations'
 import BtnFormSubmit from '@/components/common/btn-form-submit'
 import { Card, CardContent } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { useFormState } from 'react-dom'
 
-export function student() {
-  const [formState, action] = useFormState(CreateEntity.student, {
+export function Student() {
+  const [formState, action] = useFormState(Mutations.Create.Student, {
     errors: {},
   })
 

@@ -6,14 +6,14 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { useFormState } from 'react-dom'
 import type { Frequency } from '@prisma/client'
-import CreateEntity from '@/actions/create'
+import Mutations from '@/actions/mutations'
 
 interface Props {
   data: Frequency
 }
 
-export function request({ data }: Props) {
-  const [formState, action] = useFormState(CreateEntity.request, {
+export function Request({ data }: Props) {
+  const [formState, action] = useFormState(Mutations.Create.Request, {
     errors: {},
   })
 

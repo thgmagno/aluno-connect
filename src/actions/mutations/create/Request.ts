@@ -8,7 +8,7 @@ import AuthService from '@/services/auth-service'
 import SendEmail from '@/services/send-email'
 import { redirect } from 'next/navigation'
 
-export async function request(
+export async function Request(
   formState: RequestFormState,
   formData: FormData,
 ): Promise<RequestFormState> {
@@ -25,8 +25,6 @@ export async function request(
       errors: parsed.error.flatten().fieldErrors,
     }
   }
-
-  console.log('chamou! parsed success, frequency')
 
   try {
     const [student, frequency] = await Promise.all([

@@ -1,6 +1,5 @@
 import getAll from '@/actions/read/getAll'
 import FrequencyStatusBadge from '@/components/common/frequency-status-badge'
-import ApprovalForm from '@/components/forms/approval-form'
 import {
   Table,
   TableBody,
@@ -11,7 +10,16 @@ import {
   TableRow,
 } from '@/components/ui/table'
 import AuthService from '@/services/auth-service'
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+} from '@/components/ui/dropdown-menu'
+import { Button } from '@/components/ui/button'
 import React from 'react'
+import Forms from '@/components/forms'
 
 // student, parent
 export default async function RequestPage() {
@@ -33,6 +41,7 @@ export default async function RequestPage() {
               <TableHead>Data</TableHead>
               <TableHead>Justificativa</TableHead>
               <TableHead>Situação</TableHead>
+              <TableHead>Categoria</TableHead>
               {isAdmin && <TableHead>Ações</TableHead>}
             </TableRow>
           </TableHeader>
@@ -56,10 +65,77 @@ export default async function RequestPage() {
                 <TableCell className="min-w-[200px]">
                   <FrequencyStatusBadge status={req.frequencyID.status} />
                 </TableCell>
+                {isAdmin && <TableCell>Problemas Técnicos</TableCell>}
                 {isAdmin && (
                   <TableCell>
-                    {req.frequencyID.status === 'PENDING' && (
-                      <ApprovalForm frequencyId={req.frequencyID.id} />
+                    {req.frequencyID.status === 'PENDING' ? (
+                      <Forms.update.approvalRequest
+                        frequencyId={req.frequencyID.id}
+                      />
+                    ) : (
+                      <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                          <Button>Categorizar</Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent className="w-56">
+                          <DropdownMenuGroup className="overflow-y-auto">
+                            <DropdownMenuItem>
+                              <Forms.update.setCategoryToRequest
+                                category="Assuntos Pessoais"
+                                requestId={req.id}
+                              />
+                            </DropdownMenuItem>
+                            <DropdownMenuItem>
+                              <Forms.update.setCategoryToRequest
+                                category="Compromissos Médicos"
+                                requestId={req.id}
+                              />
+                            </DropdownMenuItem>
+                            <DropdownMenuItem>
+                              <Forms.update.setCategoryToRequest
+                                category="Eventos Religiosos"
+                                requestId={req.id}
+                              />
+                            </DropdownMenuItem>
+                            <DropdownMenuItem>
+                              <Forms.update.setCategoryToRequest
+                                category="Estágios ou Trabalho"
+                                requestId={req.id}
+                              />
+                            </DropdownMenuItem>
+                            <DropdownMenuItem>
+                              <Forms.update.setCategoryToRequest
+                                category="Problemas de Saúde"
+                                requestId={req.id}
+                              />
+                            </DropdownMenuItem>
+                            <DropdownMenuItem>
+                              <Forms.update.setCategoryToRequest
+                                category="Problemas de Transporte"
+                                requestId={req.id}
+                              />
+                            </DropdownMenuItem>
+                            <DropdownMenuItem>
+                              <Forms.update.setCategoryToRequest
+                                category="Problemas Financeiros"
+                                requestId={req.id}
+                              />
+                            </DropdownMenuItem>
+                            <DropdownMenuItem>
+                              <Forms.update.setCategoryToRequest
+                                category="Questões Familiares"
+                                requestId={req.id}
+                              />
+                            </DropdownMenuItem>
+                            <DropdownMenuItem>
+                              <Forms.update.setCategoryToRequest
+                                category="Outros Assuntos"
+                                requestId={req.id}
+                              />
+                            </DropdownMenuItem>
+                          </DropdownMenuGroup>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
                     )}
                   </TableCell>
                 )}
