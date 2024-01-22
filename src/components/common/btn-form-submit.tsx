@@ -5,15 +5,36 @@ import { Loader2 } from 'lucide-react'
 import { ReactNode } from 'react'
 import { useFormStatus } from 'react-dom'
 
-export default function BtnFormSubmit({ children }: { children: ReactNode }) {
+interface BtnFormSubmitProps {
+  children: ReactNode
+  size?: 'default' | 'sm' | 'lg' | 'icon' | null | undefined
+  variant?:
+    | 'default'
+    | 'link'
+    | 'primary'
+    | 'emerald'
+    | 'destructive'
+    | 'outline'
+    | 'secondary'
+    | 'ghost'
+    | null
+    | undefined
+}
+
+export default function BtnFormSubmit({
+  children,
+  size,
+  variant,
+}: BtnFormSubmitProps) {
   const { pending } = useFormStatus()
 
   const button = () => (
     <Button
       type="submit"
-      variant={'primary'}
+      variant={variant ?? 'primary'}
       className="w-full"
       style={{ userSelect: 'none' }}
+      size={size ?? 'default'}
     >
       {children}
     </Button>
@@ -22,9 +43,10 @@ export default function BtnFormSubmit({ children }: { children: ReactNode }) {
   const loading = () => (
     <Button
       type="submit"
-      variant={'primary'}
+      variant={variant ?? 'primary'}
       className="w-full"
       style={{ userSelect: 'none' }}
+      size={size ?? 'default'}
       disabled
     >
       <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Aguarde

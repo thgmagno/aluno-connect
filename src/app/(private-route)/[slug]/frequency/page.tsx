@@ -32,11 +32,11 @@ export default async function FrequencyPage() {
             <TableHead>Ações</TableHead>
           </TableRow>
         </TableHeader>
-        <TableBody>
+        <TableBody className="bg-neutral-950/40">
           {frequencies?.map((frequency) => (
             <TableRow
               key={frequency.id}
-              className="text-neutral-200 hover:text-black"
+              className="text-white hover:text-black"
             >
               <TableCell className="font-medium">
                 {frequency.date.toLocaleDateString()}

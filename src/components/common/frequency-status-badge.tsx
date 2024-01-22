@@ -11,7 +11,7 @@ export default function FrequencyStatusBadge({ status }: Props) {
     <React.Fragment>
       {status === 'PRESENT' && <Badge variant={'primary'}>Presente</Badge>}
       {status === 'ABSENT' && <Badge variant={'destructive'}>Faltou</Badge>}
-      {status === 'PENDING' && <Badge>Solicitação pendente</Badge>}
+      {status === 'PENDING' && <Badge variant={'pending'}>Em análise</Badge>}
       {status === 'APPROVED' && (
         <Badge variant={'primary'}>Falta justificada</Badge>
       )}

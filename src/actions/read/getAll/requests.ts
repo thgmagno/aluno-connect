@@ -11,7 +11,7 @@ export async function Requests() {
   if (!profileAuthorized.includes(profile)) return null
 
   const request = await prisma.request.findMany({
-    include: { frequencyID: true },
+    include: { frequencyID: true, studentID: true },
   })
 
   return request
