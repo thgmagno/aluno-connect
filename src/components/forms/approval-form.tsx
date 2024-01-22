@@ -7,7 +7,7 @@ import Querys from '@/actions/querys'
 export function ApprovalRequest({ frequencyId }: { frequencyId: string }) {
   return (
     <section className="flex gap-3">
-      <form action={Querys.Update.ApproveRequest}>
+      <form action={Querys.Update.RejectRequest}>
         <input type="hidden" name="frequencyId" value={frequencyId} />
         <BtnFormSubmit variant={'destructive'} size={'sm'}>
           Recusar

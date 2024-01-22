@@ -17,20 +17,9 @@ const paths = {
   getEntitiesPath(profileSlug: UserType, entity: EntityType) {
     return `/${profileSlug}/${entity}`
   },
-  createEntityPath(
-    profileSlug: UserType,
-    entity: EntityType,
-    entityId?: string,
-  ) {
-    return `/${profileSlug}/${entity}/${entityId ? `${entityId}/new` : 'new'}`
-  },
-  updateEntityPath(
-    profileSlug: UserType,
-    entity: EntityType,
-    entityId: string,
-  ) {
-    return `${profileSlug}/${entity}/${entityId}/edit`
-  },
 }
 
 export default paths
+
+// createEntityPath(
+// updateEntityPath(

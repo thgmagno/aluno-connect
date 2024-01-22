@@ -15,9 +15,8 @@ export default async function StudentsPage() {
       <section className="flex items-center justify-between">
         <h1 className="text-muted md:text-xl">Listar todos os estudantes</h1>
         <Button variant={'primary'}>
-          <Link href={paths.createEntityPath(profile, 'student')}>
-            Cadastrar
-          </Link>
+          {/* // TODO: IMPLEMENTAR DIALOG */}
+          <Link href={'#'}>Cadastrar</Link>
         </Button>
       </section>
 
