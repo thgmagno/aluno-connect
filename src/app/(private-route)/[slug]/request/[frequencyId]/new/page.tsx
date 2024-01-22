@@ -1,9 +1,8 @@
-import getUnique from '@/actions/read/getUnique'
+import Querys from '@/actions/querys'
 import Forms from '@/components/forms'
 import { Button } from '@/components/ui/button'
 import paths from '@/paths'
 import AuthService from '@/services/auth-service'
-import type { Frequency } from '@prisma/client'
 import Link from 'next/link'
 import React from 'react'
 
@@ -14,10 +13,10 @@ export default async function NewRequestPage({
   params: { frequencyId: string }
 }) {
   const profile = await AuthService.getUserProfile()
-  const frequency = (await getUnique.EntityData(
+  const frequency = await Querys.Read.findUnique.EntityData(
     'frequency',
     params.frequencyId,
-  )) as Frequency
+  )
 
   return (
     <React.Fragment>

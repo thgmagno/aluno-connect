@@ -1,4 +1,4 @@
-import getAll from '@/actions/read/getAll'
+import Querys from '@/actions/querys'
 import FrequencyStatusBadge from '@/components/common/frequency-status-badge'
 import {
   Table,
@@ -17,7 +17,7 @@ import React from 'react'
 // student, parent
 export default async function FrequencyPage() {
   const profile = await AuthService.getUserProfile()
-  const frequencies = await getAll.Frequencies()
+  const frequencies = await Querys.Read.findMany.Frequencies()
 
   return (
     <React.Fragment>

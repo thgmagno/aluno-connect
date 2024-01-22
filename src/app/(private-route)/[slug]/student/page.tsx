@@ -1,4 +1,4 @@
-import getAll from '@/actions/read/getAll'
+import Querys from '@/actions/querys'
 import { Button } from '@/components/ui/button'
 import paths from '@/paths'
 import AuthService from '@/services/auth-service'
@@ -7,7 +7,7 @@ import React from 'react'
 
 // parent, instructor, administrator
 export default async function StudentsPage() {
-  const students = await getAll.Students()
+  const students = await Querys.Read.findMany.Students()
   const profile = await AuthService.getUserProfile()
 
   return (

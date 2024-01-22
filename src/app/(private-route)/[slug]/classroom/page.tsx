@@ -1,9 +1,9 @@
-import getAll from '@/actions/read/getAll'
+import Querys from '@/actions/querys'
 import React from 'react'
 
 // instructor, administrator
 export default async function ClassroomsPage() {
-  const classrooms = await getAll.Classrooms()
+  const classrooms = await Querys.Read.findMany.Classrooms()
 
   return (
     <React.Fragment>

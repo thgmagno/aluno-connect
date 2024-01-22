@@ -1,6 +1,6 @@
 'use client'
 
-import Mutations from '@/actions/mutations'
+import Querys from '@/actions/querys'
 import React from 'react'
 
 interface Props {
@@ -10,7 +10,7 @@ interface Props {
 
 export function setCategoryToRequest({ category, requestId }: Props) {
   return (
-    <form action={Mutations.Update.SetCategoryToRequest}>
+    <form action={Querys.Update.SetCategoryToRequest}>
       <input type="hidden" name="category" value={category} />
       <input type="hidden" name="requestId" value={requestId} />
       <button type="submit">{category}</button>

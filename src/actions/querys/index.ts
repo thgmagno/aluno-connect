@@ -16,7 +16,7 @@ import { ApproveRequest } from './update/ApproveRequest'
 import { RejectRequest } from './update/RejectRequest'
 import { SetCategoryToRequest } from './update/SetCategory'
 
-const Mutations = {
+const Querys = {
   Create: {
     Student,
     Request,
@@ -41,4 +41,4 @@ const Mutations = {
   },
 }
 
-export default Mutations
+export default Querys

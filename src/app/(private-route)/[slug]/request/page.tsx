@@ -1,4 +1,3 @@
-import getAll from '@/actions/read/getAll'
 import FrequencyStatusBadge from '@/components/common/frequency-status-badge'
 import {
   Table,
@@ -20,10 +19,11 @@ import {
 import { Button } from '@/components/ui/button'
 import React from 'react'
 import Forms from '@/components/forms'
+import Querys from '@/actions/querys'
 
 // student, parent
 export default async function RequestPage() {
-  const requests = await getAll.Requests()
+  const requests = await Querys.Read.findMany.Requests()
   const profile = await AuthService.getUserProfile()
 
   const isAdmin = profile === 'administrator'

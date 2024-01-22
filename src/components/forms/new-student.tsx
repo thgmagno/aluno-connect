@@ -1,6 +1,6 @@
 'use client'
 
-import Mutations from '@/actions/mutations'
+import Querys from '@/actions/querys'
 import BtnFormSubmit from '@/components/common/btn-form-submit'
 import { Card, CardContent } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
@@ -8,7 +8,7 @@ import { Label } from '@/components/ui/label'
 import { useFormState } from 'react-dom'
 
 export function Student() {
-  const [formState, action] = useFormState(Mutations.Create.Student, {
+  const [formState, action] = useFormState(Querys.Create.Student, {
     errors: {},
   })
 

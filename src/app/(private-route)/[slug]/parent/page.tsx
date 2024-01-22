@@ -1,9 +1,9 @@
-import getAll from '@/actions/read/getAll'
+import Querys from '@/actions/querys'
 import React from 'react'
 
 // administrator
 export default async function ParentsPage() {
-  const parents = await getAll.Parents()
+  const parents = await Querys.Read.findMany.Parents()
 
   return (
     <React.Fragment>
