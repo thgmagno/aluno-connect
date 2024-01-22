@@ -1,12 +1,12 @@
 import {
   Body,
+  Button,
   Container,
   Head,
   Heading,
   Hr,
   Html,
   // Img,
-  Link,
   Preview,
   Section,
   Tailwind,
@@ -47,13 +47,17 @@ const NewRequestEmail = ({
             <Text className="flex">Data da falta: {frequencyDate}</Text>
             <Text className="flex">Justificativa: {justification}</Text>
             <Hr />
-            <Text className="flex gap-1">
-              Para aceitar ou recusar a solicitação, acesse
-              <Link href="https://aluno-connect.vercel.app/">
-                Aluno Connect
-              </Link>
-              .
+            <Text>
+              Para aceitar ou recusar a solicitação, clique no botão abaixo:
             </Text>
+            <Section className="flex justify-center">
+              <Button
+                href="https://aluno-connect.vercel.app/"
+                className="rounded-md bg-indigo-950 p-2 px-4 text-lg font-medium text-white shadow"
+              >
+                Acesse Aluno Connect
+              </Button>
+            </Section>
             <Text className="font-bold">
               Não é necessário responder a este e-mail
             </Text>
