@@ -4,7 +4,7 @@ import React from 'react'
 import BtnFormSubmit from '../common/btn-form-submit'
 import Querys from '@/actions/querys'
 
-export function approvalRequest({ frequencyId }: { frequencyId: string }) {
+export function ApprovalRequest({ frequencyId }: { frequencyId: string }) {
   return (
     <section className="flex gap-3">
       <form action={Querys.Update.ApproveRequest}>

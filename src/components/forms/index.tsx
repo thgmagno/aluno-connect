@@ -1,16 +1,16 @@
-import { student } from './new-student'
-import { request } from './new-request'
-import { approvalRequest } from './approval-form'
-import { setCategoryToRequest } from './set-category'
+import { Student } from './new-student'
+import { Request } from './new-request'
+import { ApprovalRequest } from './approval-form'
+import { SetCategoryToRequest } from './set-category'
 
 const Forms = {
-  create: {
-    student,
-    request,
+  Create: {
+    Student,
+    Request,
   },
-  update: {
-    approvalRequest,
-    setCategoryToRequest,
+  Update: {
+    ApprovalRequest,
+    SetCategoryToRequest,
   },
 }
 

@@ -18,7 +18,7 @@ export default async function NewStudentsPage() {
         </Button>
       </section>
 
-      <Forms.create.student />
+      <Forms.Create.Student />
     </React.Fragment>
   )
 }

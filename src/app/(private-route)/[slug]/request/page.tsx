@@ -69,7 +69,7 @@ export default async function RequestPage() {
                 {isAdmin && (
                   <TableCell>
                     {req.frequencyID.status === 'PENDING' ? (
-                      <Forms.update.approvalRequest
+                      <Forms.Update.ApprovalRequest
                         frequencyId={req.frequencyID.id}
                       />
                     ) : (
@@ -80,55 +80,55 @@ export default async function RequestPage() {
                         <DropdownMenuContent className="w-56">
                           <DropdownMenuGroup className="overflow-y-auto">
                             <DropdownMenuItem>
-                              <Forms.update.setCategoryToRequest
+                              <Forms.Update.SetCategoryToRequest
                                 category="Assuntos Pessoais"
                                 requestId={req.id}
                               />
                             </DropdownMenuItem>
                             <DropdownMenuItem>
-                              <Forms.update.setCategoryToRequest
+                              <Forms.Update.SetCategoryToRequest
                                 category="Compromissos Médicos"
                                 requestId={req.id}
                               />
                             </DropdownMenuItem>
                             <DropdownMenuItem>
-                              <Forms.update.setCategoryToRequest
+                              <Forms.Update.SetCategoryToRequest
                                 category="Eventos Religiosos"
                                 requestId={req.id}
                               />
                             </DropdownMenuItem>
                             <DropdownMenuItem>
-                              <Forms.update.setCategoryToRequest
+                              <Forms.Update.SetCategoryToRequest
                                 category="Estágios ou Trabalho"
                                 requestId={req.id}
                               />
                             </DropdownMenuItem>
                             <DropdownMenuItem>
-                              <Forms.update.setCategoryToRequest
+                              <Forms.Update.SetCategoryToRequest
                                 category="Problemas de Saúde"
                                 requestId={req.id}
                               />
                             </DropdownMenuItem>
                             <DropdownMenuItem>
-                              <Forms.update.setCategoryToRequest
+                              <Forms.Update.SetCategoryToRequest
                                 category="Problemas de Transporte"
                                 requestId={req.id}
                               />
                             </DropdownMenuItem>
                             <DropdownMenuItem>
-                              <Forms.update.setCategoryToRequest
+                              <Forms.Update.SetCategoryToRequest
                                 category="Problemas Financeiros"
                                 requestId={req.id}
                               />
                             </DropdownMenuItem>
                             <DropdownMenuItem>
-                              <Forms.update.setCategoryToRequest
+                              <Forms.Update.SetCategoryToRequest
                                 category="Questões Familiares"
                                 requestId={req.id}
                               />
                             </DropdownMenuItem>
                             <DropdownMenuItem>
-                              <Forms.update.setCategoryToRequest
+                              <Forms.Update.SetCategoryToRequest
                                 category="Outros Assuntos"
                                 requestId={req.id}
                               />

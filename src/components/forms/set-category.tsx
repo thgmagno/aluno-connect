@@ -8,7 +8,7 @@ interface Props {
   requestId: string
 }
 
-export function setCategoryToRequest({ category, requestId }: Props) {
+export function SetCategoryToRequest({ category, requestId }: Props) {
   return (
     <form action={Querys.Update.SetCategoryToRequest}>
       <input type="hidden" name="category" value={category} />
