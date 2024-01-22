@@ -65,7 +65,7 @@ export default async function RequestPage() {
                 <TableCell className="min-w-[200px]">
                   <FrequencyStatusBadge status={req.frequencyID.status} />
                 </TableCell>
-                {isAdmin && <TableCell>Problemas Técnicos</TableCell>}
+                {isAdmin && <TableCell>{req.category}</TableCell>}
                 {isAdmin && (
                   <TableCell>
                     {req.frequencyID.status === 'PENDING' ? (
