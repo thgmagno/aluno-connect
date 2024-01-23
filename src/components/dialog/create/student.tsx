@@ -15,7 +15,6 @@ import { Input } from '@/components/ui/input'
 import BtnFormSubmit from '@/components/common/btn-form-submit'
 import Querys from '@/actions/querys'
 import { useFormState } from 'react-dom'
-import { Student } from '@prisma/client'
 
 export function Student() {
   const [formState, action] = useFormState(Querys.Create.Student, {
@@ -46,9 +45,7 @@ export function Student() {
               <Label htmlFor="name">Nome:</Label>
               <Input
                 name="name"
-                className={`h-20 rounded-md border p-2 text-sm md:text-base ${
-                  formState.errors.name && 'border-red-600'
-                }`}
+                className={`${formState.errors.name && 'border-red-600'}`}
               />
               {formState.errors.name && (
                 <p className="text-sm">{formState.errors.name}</p>
