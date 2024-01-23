@@ -1,8 +1,10 @@
-import { NewRequest } from './new-request'
+import { Request } from './create/request'
+import { Student } from './create/student'
 
 const Dialog = {
   Create: {
-    NewRequest,
+    Request,
+    Student,
   },
 }
 

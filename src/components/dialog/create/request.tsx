@@ -12,7 +12,7 @@ import {
 import { Label } from '@/components/ui/label'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import BtnFormSubmit from '../common/btn-form-submit'
+import BtnFormSubmit from '@/components/common/btn-form-submit'
 import Querys from '@/actions/querys'
 import { useFormState } from 'react-dom'
 import { Frequency } from '@prisma/client'
@@ -21,7 +21,7 @@ interface Props {
   data: Frequency
 }
 
-export function NewRequest({ data }: Props) {
+export function Request({ data }: Props) {
   const [formState, action] = useFormState(Querys.Create.Request, {
     errors: {},
   })
@@ -50,7 +50,7 @@ export function NewRequest({ data }: Props) {
                 formState.errors.justification && 'text-red-600'
               }`}
             >
-              <Label htmlFor="name">Justificativa:</Label>
+              <Label htmlFor="justification">Justificativa:</Label>
               <textarea
                 name="justification"
                 className={`h-20 rounded-md border p-2 text-sm md:text-base ${
@@ -63,7 +63,7 @@ export function NewRequest({ data }: Props) {
             </div>
             <div className="flex flex-col gap-3">
               <Label
-                htmlFor="username"
+                htmlFor="media"
                 className={`${formState.errors.media && 'text-red-600'}`}
               >
                 Enviar um documento

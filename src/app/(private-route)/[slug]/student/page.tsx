@@ -1,8 +1,6 @@
 import Querys from '@/actions/querys'
-import { Button } from '@/components/ui/button'
-import paths from '@/paths'
+import Dialog from '@/components/dialog'
 import AuthService from '@/services/auth-service'
-import Link from 'next/link'
 import React from 'react'
 
 // parent, instructor, administrator
@@ -10,14 +8,13 @@ export default async function StudentsPage() {
   const students = await Querys.Read.findMany.Students()
   const profile = await AuthService.getUserProfile()
 
+  const isAdmin = profile === 'administrator'
+
   return (
     <React.Fragment>
       <section className="flex items-center justify-between">
         <h1 className="text-muted md:text-xl">Listar todos os estudantes</h1>
-        <Button variant={'primary'}>
-          {/* // TODO: IMPLEMENTAR DIALOG */}
-          <Link href={'#'}>Cadastrar</Link>
-        </Button>
+        {isAdmin && <Dialog.Create.Student />}
       </section>
 
       {students?.length ? (

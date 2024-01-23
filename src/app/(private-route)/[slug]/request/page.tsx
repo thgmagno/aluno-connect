@@ -41,7 +41,7 @@ export default async function RequestPage() {
               <TableHead>Data</TableHead>
               <TableHead>Justificativa</TableHead>
               <TableHead>Situação</TableHead>
-              <TableHead>Categoria</TableHead>
+              {isAdmin && <TableHead>Categoria</TableHead>}
               {isAdmin && <TableHead>Ações</TableHead>}
             </TableRow>
           </TableHeader>
