@@ -158,6 +158,7 @@ export default async function Navbar() {
         <Button
           className="rounded-md-full hover:text-red-600"
           variant={'secondary'}
+          size="sm"
         >
           <SignOutForm />
         </Button>

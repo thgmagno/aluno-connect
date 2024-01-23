@@ -24,7 +24,7 @@ export function Student() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button size="sm" variant="secondary">
+        <Button size="sm" variant="primary">
           Cadastrar
         </Button>
       </DialogTrigger>
@@ -51,13 +51,12 @@ export function Student() {
                 <p className="text-sm">{formState.errors.name}</p>
               )}
             </div>
-            <div className="flex flex-col gap-3">
-              <Label
-                htmlFor="email"
-                className={`${formState.errors.email && 'text-red-600'}`}
-              >
-                E-mail:
-              </Label>
+            <div
+              className={`flex flex-col gap-3 ${
+                formState.errors.email && 'text-red-600'
+              }`}
+            >
+              <Label htmlFor="email">E-mail:</Label>
               <Input
                 type="text"
                 name="email"
@@ -69,13 +68,12 @@ export function Student() {
                 <p className="text-sm">{formState.errors.email}</p>
               )}
             </div>
-            <div className="flex flex-col gap-3">
-              <Label
-                htmlFor="birthdate"
-                className={`${formState.errors.birthdate && 'text-red-600'}`}
-              >
-                Data do aniversário:
-              </Label>
+            <div
+              className={`flex flex-col gap-3 ${
+                formState.errors.birthdate && 'text-red-600'
+              }`}
+            >
+              <Label htmlFor="birthdate">Data do aniversário:</Label>
               <Input
                 type="date"
                 name="birthdate"
