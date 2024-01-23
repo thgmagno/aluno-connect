@@ -44,7 +44,7 @@ export default async function FrequencyPage() {
               <TableCell>
                 {frequency.status === 'ABSENT' && (
                   // TODO: IMPLEMENTAR DIALOG
-                  <Dialog.Create.NewRequest data={frequency} />
+                  <Dialog.Create.Request data={frequency} />
                 )}
               </TableCell>
             </TableRow>
