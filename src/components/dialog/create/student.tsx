@@ -15,6 +15,7 @@ import { Input } from '@/components/ui/input'
 import BtnFormSubmit from '@/components/common/btn-form-submit'
 import Querys from '@/actions/querys'
 import { useFormState } from 'react-dom'
+import { PlusCircle } from 'lucide-react'
 
 export function Student() {
   const [formState, action] = useFormState(Querys.Create.Student, {
@@ -25,7 +26,7 @@ export function Student() {
     <Dialog>
       <DialogTrigger asChild>
         <Button size="sm" variant="primary">
-          Cadastrar
+          <PlusCircle className="mr-1.5 h-4 w-4" strokeWidth={3} /> Novo aluno
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
