@@ -47,22 +47,22 @@ export function Student({ data, children }: Props) {
             <input type="hidden" name="id" value={data?.id} />
             <div
               className={`flex flex-col gap-2 ${
-                formState.errors.name && 'text-red-600'
+                formState?.errors.name && 'text-red-600'
               }`}
             >
               <Label htmlFor="name">Nome:</Label>
               <Input
                 name="name"
                 defaultValue={data?.name}
-                className={`${formState.errors.name && 'border-red-600'}`}
+                className={`${formState?.errors.name && 'border-red-600'}`}
               />
-              {formState.errors.name && (
-                <p className="text-sm">{formState.errors.name}</p>
+              {formState?.errors.name && (
+                <p className="text-sm">{formState?.errors.name}</p>
               )}
             </div>
             <div
               className={`flex flex-col gap-3 ${
-                formState.errors.email && 'text-red-600'
+                formState?.errors.email && 'text-red-600'
               }`}
             >
               <Label htmlFor="email">E-mail:</Label>
@@ -71,16 +71,16 @@ export function Student({ data, children }: Props) {
                 name="email"
                 defaultValue={data?.email}
                 className={`col-span-3 ${
-                  formState.errors.email && 'border border-red-600'
+                  formState?.errors.email && 'border border-red-600'
                 }`}
               />
-              {formState.errors.email && (
-                <p className="text-sm">{formState.errors.email}</p>
+              {formState?.errors.email && (
+                <p className="text-sm">{formState?.errors.email}</p>
               )}
             </div>
             <div
               className={`flex flex-col gap-3 ${
-                formState.errors.birthdate && 'text-red-600'
+                formState?.errors.birthdate && 'text-red-600'
               }`}
             >
               <Label htmlFor="birthdate">Data do aniversário:</Label>
@@ -89,16 +89,16 @@ export function Student({ data, children }: Props) {
                 name="birthdate"
                 defaultValue={data?.birthdate.toISOString().slice(0, 10)}
                 className={`col-span-3 ${
-                  formState.errors.birthdate && 'border border-red-600'
+                  formState?.errors.birthdate && 'border border-red-600'
                 }`}
               />
-              {formState.errors.birthdate && (
-                <p className="text-sm">{formState.errors.birthdate}</p>
+              {formState?.errors.birthdate && (
+                <p className="text-sm">{formState?.errors.birthdate}</p>
               )}
             </div>
-            {formState.errors._form && (
+            {formState?.errors._form && (
               <p className="rounded-md border-2 border-red-600 bg-red-200 p-2 text-red-600">
-                {formState.errors._form}
+                {formState?.errors._form}
               </p>
             )}
           </div>

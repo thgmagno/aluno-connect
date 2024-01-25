@@ -1,7 +1,7 @@
 import { z } from 'zod'
 
 export const instructorSchema = z.object({
-  id: z.string().cuid().optional(),
+  id: z.string().optional(),
   name: z
     .string()
     .min(1, 'O nome é obrigatório')
@@ -10,7 +10,7 @@ export const instructorSchema = z.object({
 })
 
 export const parentSchema = z.object({
-  id: z.string().cuid().optional(),
+  id: z.string().optional(),
   name: z
     .string()
     .min(1, 'O nome é obrigatório')
@@ -19,7 +19,7 @@ export const parentSchema = z.object({
 })
 
 export const studentSchema = z.object({
-  id: z.string().cuid().optional(),
+  id: z.string().optional(),
   name: z
     .string()
     .min(1, 'O nome é obrigatório')
@@ -29,7 +29,7 @@ export const studentSchema = z.object({
 })
 
 export const classSchema = z.object({
-  id: z.string().cuid().optional(),
+  id: z.string().optional(),
   course_name: z
     .string()
     .min(1, 'O nome do curso é obrigatório')
