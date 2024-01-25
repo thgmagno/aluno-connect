@@ -11,6 +11,7 @@ export async function Student(
   formData: FormData,
 ): Promise<StudentFormState> {
   const parsed = studentSchema.safeParse({
+    id: formData.get('id'),
     name: formData.get('name'),
     email: formData.get('email'),
     birthdate: formData.get('birthdate'),
@@ -23,11 +24,17 @@ export async function Student(
   }
 
   try {
-    await prisma.student.create({
-      data: {
+    await prisma.student.upsert({
+      where: { id: parsed.data.id },
+      update: {
         name: parsed.data.name,
         email: parsed.data.email,
-        birthdate: new Date(parsed.data.birthdate).toISOString(),
+        birthdate: new Date(parsed.data.birthdate),
+      },
+      create: {
+        name: parsed.data.name,
+        email: parsed.data.email,
+        birthdate: new Date(parsed.data.birthdate),
       },
     })
   } catch (e) {
@@ -36,7 +43,7 @@ export async function Student(
     } else {
       return {
         errors: {
-          _form: ['Não foi possível realizar o cadastro'],
+          _form: ['Não foi possível realizar o cadastro' + e],
         },
       }
     }

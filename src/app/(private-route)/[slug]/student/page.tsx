@@ -1,7 +1,7 @@
 import Querys from '@/actions/querys'
 import SearchBar from '@/components/common/search-bar'
 import Dialog from '@/components/dialog'
-import RenderStudents from '@/components/render-students'
+import RenderStudents from '@/components/common/render-students'
 import AuthService from '@/services/auth-service'
 import React from 'react'
 
@@ -15,7 +15,7 @@ export default async function StudentsPage() {
     <React.Fragment>
       <section className="flex items-center justify-between">
         <h1 className="text-muted md:text-xl">Listar todos os estudantes</h1>
-        {isAdmin && <Dialog.Create.Student />}
+        {isAdmin && <Dialog.Create.Student>Novo aluno</Dialog.Create.Student>}
       </section>
 
       <SearchBar />

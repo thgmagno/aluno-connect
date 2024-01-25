@@ -20,6 +20,3 @@ const paths = {
 }
 
 export default paths
-
-// createEntityPath(
-// updateEntityPath(

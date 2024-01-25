@@ -1,15 +1,6 @@
 'use client'
 
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
-import {
   Table,
   TableBody,
   TableCaption,
@@ -18,9 +9,9 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
-import { Edit, MoreVertical, RefreshCcw, Trash2 } from 'lucide-react'
 import type { Student } from '@prisma/client'
 import { useSearchParams } from 'next/navigation'
+import Dialog from '../dialog'
 
 interface Props {
   data: Student[]
@@ -56,28 +47,9 @@ export default function RenderStudents({ data }: Props) {
               {student.birthdate.toLocaleDateString('pt-br')}
             </TableCell>
             <TableCell>
-              <DropdownMenu>
-                <DropdownMenuTrigger>
-                  <MoreVertical />
-                </DropdownMenuTrigger>
-                <DropdownMenuContent className="w-40">
-                  <DropdownMenuLabel className="truncate">
-                    {student.name}
-                  </DropdownMenuLabel>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuGroup>
-                    <DropdownMenuItem className="cursor-pointer">
-                      <Edit className="mr-2 h-4 w-4" /> Editar
-                    </DropdownMenuItem>
-                    <DropdownMenuItem className="cursor-pointer">
-                      <RefreshCcw className="mr-2 h-4 w-4" /> Resetar senha
-                    </DropdownMenuItem>
-                    <DropdownMenuItem>
-                      <Trash2 className="mr-2 h-4 w-4" /> Excluir
-                    </DropdownMenuItem>
-                  </DropdownMenuGroup>
-                </DropdownMenuContent>
-              </DropdownMenu>
+              <Dialog.Create.Student data={student}>
+                Editar
+              </Dialog.Create.Student>
             </TableCell>
           </TableRow>
         ))}

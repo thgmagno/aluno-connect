@@ -15,9 +15,15 @@ import { Input } from '@/components/ui/input'
 import BtnFormSubmit from '@/components/common/btn-form-submit'
 import Querys from '@/actions/querys'
 import { useFormState } from 'react-dom'
-import { PlusCircle } from 'lucide-react'
+import type { Student } from '@prisma/client'
+import { ReactNode } from 'react'
 
-export function Student() {
+interface Props {
+  data?: Student
+  children: ReactNode
+}
+
+export function Student({ data, children }: Props) {
   const [formState, action] = useFormState(Querys.Create.Student, {
     errors: {},
   })
@@ -26,7 +32,7 @@ export function Student() {
     <Dialog>
       <DialogTrigger asChild>
         <Button size="sm" variant="primary">
-          <PlusCircle className="mr-1.5 h-4 w-4" strokeWidth={3} /> Novo aluno
+          {children}
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
@@ -38,6 +44,7 @@ export function Student() {
             </DialogDescription>
           </DialogHeader>
           <div className="flex flex-col gap-4 py-4">
+            <input type="hidden" name="id" value={data?.id} />
             <div
               className={`flex flex-col gap-2 ${
                 formState.errors.name && 'text-red-600'
@@ -46,6 +53,7 @@ export function Student() {
               <Label htmlFor="name">Nome:</Label>
               <Input
                 name="name"
+                defaultValue={data?.name}
                 className={`${formState.errors.name && 'border-red-600'}`}
               />
               {formState.errors.name && (
@@ -61,6 +69,7 @@ export function Student() {
               <Input
                 type="text"
                 name="email"
+                defaultValue={data?.email}
                 className={`col-span-3 ${
                   formState.errors.email && 'border border-red-600'
                 }`}
@@ -78,6 +87,7 @@ export function Student() {
               <Input
                 type="date"
                 name="birthdate"
+                defaultValue={data?.birthdate.toISOString().slice(0, 10)}
                 className={`col-span-3 ${
                   formState.errors.birthdate && 'border border-red-600'
                 }`}
