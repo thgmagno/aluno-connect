@@ -6,14 +6,14 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { useFormState } from 'react-dom'
 import type { Frequency } from '@prisma/client'
-import Querys from '@/actions/querys'
+import { CreateRequest } from '@/actions/crud/create-request'
 
 interface Props {
   data: Frequency
 }
 
 export function Request({ data }: Props) {
-  const [formState, action] = useFormState(Querys.Create.Request, {
+  const [formState, action] = useFormState(CreateRequest, {
     errors: {},
   })
 
