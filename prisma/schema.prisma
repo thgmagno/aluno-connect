@@ -30,7 +30,7 @@ model Frequency {
   studentId String
   classId   String
 
-  classID   Class     @relation(fields: [classId], references: [id])
+  classID   Classroom @relation(fields: [classId], references: [id])
   studentID Student   @relation(fields: [studentId], references: [id], onDelete: Cascade)
   Request   Request[]
 
@@ -82,14 +82,14 @@ model Administrator {
   @@map("administrator")
 }
 
-model Class {
+model Classroom {
   id              String            @id @default(cuid())
   course_name     String            @unique
   StudentClass    StudentClass[]
   InstructorClass InstructorClass[]
   Frequency       Frequency[]
 
-  @@map("class")
+  @@map("classroom")
 }
 
 model StudentParent {
@@ -108,8 +108,8 @@ model StudentClass {
   studentId String
   classId   String
 
-  studentID Student @relation(fields: [studentId], references: [id])
-  classID   Class   @relation(fields: [classId], references: [id])
+  studentID Student   @relation(fields: [studentId], references: [id])
+  classID   Classroom @relation(fields: [classId], references: [id])
 
   @@map("student_class")
 }
@@ -120,7 +120,7 @@ model InstructorClass {
   classId      String
 
   instructorID Instructor @relation(fields: [instructorId], references: [id])
-  classID      Class      @relation(fields: [classId], references: [id])
+  classID      Classroom  @relation(fields: [classId], references: [id])
 
   @@map("instructor_class")
 }

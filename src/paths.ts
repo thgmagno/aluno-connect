@@ -1,4 +1,4 @@
-import { UserType, EntityType } from '@/lib/types'
+import { UserType } from '@/lib/types'
 
 const paths = {
   signInPath() {
@@ -9,13 +9,10 @@ const paths = {
       student: '/student/frequency',
       parent: '/parent/student',
       administrator: '/administrator/dashboard',
-      instructor: '/instructor/class',
+      instructor: '/instructor/classroom',
     }
 
     return homePaths[profileSlug]
-  },
-  getEntitiesPath(profileSlug: UserType, entity: EntityType) {
-    return `/${profileSlug}/${entity}`
   },
 }
 
