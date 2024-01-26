@@ -19,11 +19,11 @@ import {
 import { Button } from '@/components/ui/button'
 import React from 'react'
 import Forms from '@/components/forms'
-import Querys from '@/actions/querys'
+import { Requests } from '@/actions/crud/getAll/Requests'
 
 // student, parent
 export default async function RequestPage() {
-  const requests = await Querys.Read.findMany.Requests()
+  const requests = await Requests()
   const profile = await AuthService.getUserProfile()
 
   const isAdmin = profile === 'administrator'

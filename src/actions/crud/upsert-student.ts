@@ -6,7 +6,7 @@ import { studentSchema } from '@/lib/types'
 import paths from '@/paths'
 import { redirect } from 'next/navigation'
 
-export async function Student(
+export async function UpsertStudent(
   formState: StudentFormState,
   formData: FormData,
 ): Promise<StudentFormState> {

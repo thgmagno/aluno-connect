@@ -10,7 +10,9 @@ export async function Students() {
 
   if (!profileAuthorized.includes(profile)) return null
 
-  const students = await prisma.student.findMany()
+  const students = await prisma.student.findMany({
+    orderBy: { name: 'asc' },
+  })
 
   return students
 }

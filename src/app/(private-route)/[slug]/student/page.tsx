@@ -1,13 +1,13 @@
-import Querys from '@/actions/querys'
-import SearchBar from '@/components/common/search-bar'
-import Dialog from '@/components/dialog'
-import RenderStudents from '@/components/common/render-students'
-import AuthService from '@/services/auth-service'
 import React from 'react'
+import SearchBar from '@/components/common/search-bar'
+import AuthService from '@/services/auth-service'
+import { Students } from '@/actions/crud/getAll/Students'
+import { RenderEntity } from '@/components/common/render-entity'
+import { DialogEntity } from '@/components/common/dialog-entity'
 
 // parent, instructor, administrator
 export default async function StudentsPage() {
-  const students = await Querys.Read.findMany.Students()
+  const students = await Students()
   const profile = await AuthService.getUserProfile()
   const isAdmin = profile === 'administrator'
 
@@ -15,12 +15,12 @@ export default async function StudentsPage() {
     <React.Fragment>
       <section className="flex items-center justify-between">
         <h1 className="text-muted md:text-xl">Listar todos os estudantes</h1>
-        {isAdmin && <Dialog.Create.Student>Novo aluno</Dialog.Create.Student>}
+        {isAdmin && <DialogEntity category="student">Novo aluno</DialogEntity>}
       </section>
 
       <SearchBar />
-      {students?.length ? (
-        <RenderStudents data={students} />
+      {students ? (
+        <RenderEntity category="student" data={students} />
       ) : (
         <div className="mt-10 flex items-center justify-center">
           <p className="text-muted-foreground">

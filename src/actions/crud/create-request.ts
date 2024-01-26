@@ -8,7 +8,7 @@ import AuthService from '@/services/auth-service'
 import SendEmail from '@/services/send-email'
 import { redirect } from 'next/navigation'
 
-export async function Request(
+export async function CreateRequest(
   formState: RequestFormState,
   formData: FormData,
 ): Promise<RequestFormState> {

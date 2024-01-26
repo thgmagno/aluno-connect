@@ -1,9 +1,9 @@
-import Querys from '@/actions/querys'
 import React from 'react'
+import { Parents } from '@/actions/crud/getAll/Parents'
 
 // administrator
 export default async function ParentsPage() {
-  const parents = await Querys.Read.findMany.Parents()
+  const parents = await Parents()
 
   return (
     <React.Fragment>

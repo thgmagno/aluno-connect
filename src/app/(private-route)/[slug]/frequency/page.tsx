@@ -1,6 +1,5 @@
-import Querys from '@/actions/querys'
 import FrequencyStatusBadge from '@/components/common/frequency-status-badge'
-import Dialog from '@/components/dialog'
+import { Frequencies } from '@/actions/crud/getAll/Frequencies'
 import {
   Table,
   TableCaption,
@@ -11,10 +10,11 @@ import {
   TableCell,
 } from '@/components/ui/table'
 import React from 'react'
+import { DialogEntity } from '@/components/common/dialog-entity'
 
 // student, parent
 export default async function FrequencyPage() {
-  const frequencies = await Querys.Read.findMany.Frequencies()
+  const frequencies = await Frequencies()
 
   return (
     <React.Fragment>
@@ -44,7 +44,7 @@ export default async function FrequencyPage() {
               <TableCell>
                 {frequency.status === 'ABSENT' && (
                   // TODO: IMPLEMENTAR DIALOG
-                  <Dialog.Create.Request data={frequency} />
+                  <DialogEntity category="request" data={frequency} />
                 )}
               </TableCell>
             </TableRow>
