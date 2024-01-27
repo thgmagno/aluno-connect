@@ -1,5 +1,5 @@
+import NavbarAdministrator from '@/components/navbar/administrator'
 import AuthService from '@/services/auth-service'
-import React from 'react'
 
 export default async function AdministratorLayout({
   children,
@@ -10,6 +10,10 @@ export default async function AdministratorLayout({
 
   if (profile !== 'administrator') return <p>Não autorizado</p>
 
-  // TODO: Create Navbar
-  return <React.Fragment>{children}</React.Fragment>
+  return (
+    <>
+      <NavbarAdministrator />
+      {children}
+    </>
+  )
 }

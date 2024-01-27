@@ -15,13 +15,15 @@ export default function ParentStudentPage() {
   ]
 
   return (
-    <div>
+    <>
       <h1>Renderizar todos os estudantes pelo qual é responsável:</h1>
       {students ? (
-        <Table>
-          <TableHeader>
-            <TableHead>Nome do aluno</TableHead>
-            <TableHead>Ação</TableHead>
+        <Table className="overflow-hidden rounded-lg bg-zinc-400">
+          <TableHeader className="bg-zinc-950/80">
+            <TableRow className="hover:bg-transparent">
+              <TableHead>Nome do aluno</TableHead>
+              <TableHead>Ação</TableHead>
+            </TableRow>
           </TableHeader>
           <TableBody>
             {students.map((student) => (
@@ -35,6 +37,6 @@ export default function ParentStudentPage() {
       ) : (
         <p>Não há nenhum registro de aluno para mostrar.</p>
       )}
-    </div>
+    </>
   )
 }

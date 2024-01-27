@@ -25,14 +25,18 @@ export default function InstructorClassroomPage() {
   ]
 
   return (
-    <div>
-      <h1>Renderizar turmas do instrutor</h1>
+    <>
+      <h1 className="text-lg font-medium text-muted-foreground">
+        Minhas turmas
+      </h1>
       {classrooms ? (
-        <Table>
-          <TableHeader>
-            <TableHead>Nome do curso</TableHead>
-            <TableHead>Qtde. de alunos</TableHead>
-            <TableHead>Ação</TableHead>
+        <Table className="overflow-hidden rounded-lg bg-zinc-400">
+          <TableHeader className="bg-zinc-950/80">
+            <TableRow className="hover:bg-transparent">
+              <TableHead>Nome do curso</TableHead>
+              <TableHead>Qtde. de alunos</TableHead>
+              <TableHead>Ação</TableHead>
+            </TableRow>
           </TableHeader>
           <TableBody>
             {classrooms.map((classroom) => (
@@ -49,6 +53,6 @@ export default function InstructorClassroomPage() {
       ) : (
         <p>Nenhuma turma cadastrada para você nesse momento.</p>
       )}
-    </div>
+    </>
   )
 }
