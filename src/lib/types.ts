@@ -47,15 +47,18 @@ export const validateEmailSchema = z.object({
 
 export const requestSchema = z.object({
   frequencyId: z.string().min(25),
-  studentId: z.string().min(25),
+  studentId: z.string(),
+  courseName: z.string(),
+  studentName: z.string(),
+  frequencyDate: z.string(),
   justification: z.string().min(1, 'O campo justificativa é obrigatório'),
-  media: z
-    .any()
-    .optional()
-    .refine(
-      (file) => file?.size <= 5 * 1024 * 1024,
-      `Tamanho máximo de arquivo é 5MB`,
-    ),
+  // media: z
+  //   .any()
+  //   .optional()
+  //   .refine(
+  //     (file) => file?.size <= 5 * 1024 * 1024,
+  //     `Tamanho máximo de arquivo é 5MB`,
+  //   ),
 })
 
 const ProfileEnum = z.enum(['student', 'instructor', 'administrator', 'parent'])

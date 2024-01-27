@@ -28,30 +28,30 @@ export default function BtnFormSubmit({
 }: BtnFormSubmitProps) {
   const { pending } = useFormStatus()
 
-  const button = () => (
+  if (pending) {
+    return (
+      <Button
+        type="submit"
+        className="w-full"
+        disabled
+        style={{ userSelect: 'none' }}
+        variant={variant ?? 'primary'}
+        size={size ?? 'default'}
+      >
+        <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Aguarde
+      </Button>
+    )
+  }
+
+  return (
     <Button
       type="submit"
-      variant={variant ?? 'primary'}
       className="w-full"
       style={{ userSelect: 'none' }}
+      variant={variant ?? 'primary'}
       size={size ?? 'default'}
     >
       {children}
     </Button>
   )
-
-  const loading = () => (
-    <Button
-      type="submit"
-      variant={variant ?? 'primary'}
-      className="w-full"
-      style={{ userSelect: 'none' }}
-      size={size ?? 'default'}
-      disabled
-    >
-      <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Aguarde
-    </Button>
-  )
-
-  return <>{pending ? loading() : button()}</>
 }

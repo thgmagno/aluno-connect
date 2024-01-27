@@ -16,16 +16,15 @@ import {
 interface EmailProps {
   justification: string
   studentName: string
-  className: string
-  studentEmail: string
-  frequencyDate: string
+  courseName: string
+  date: string
 }
 
 const NewRequestEmail = ({
   justification,
   studentName,
-  className,
-  frequencyDate,
+  courseName,
+  date,
 }: EmailProps) => {
   return (
     <Html>
@@ -43,8 +42,8 @@ const NewRequestEmail = ({
             </Heading>
             <Hr />
             <Text className="flex">Aluno: {studentName}</Text>
-            <Text className="flex">Turma: {className}</Text>
-            <Text className="flex">Data da falta: {frequencyDate}</Text>
+            <Text className="flex">Turma: {courseName}</Text>
+            <Text className="flex">Data da falta: {date}</Text>
             <Text className="flex">Justificativa: {justification}</Text>
             <Hr />
             <Text>
