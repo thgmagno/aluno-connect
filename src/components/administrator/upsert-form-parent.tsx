@@ -20,7 +20,7 @@ interface Props {
 }
 
 export function UpsertFormParent({ data }: Props) {
-  const [formState, action] = useFormState(mutation.updateInsertParent, {
+  const [formState, action] = useFormState(mutation.upsertParent, {
     errors: {},
   })
 
