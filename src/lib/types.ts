@@ -77,6 +77,7 @@ export const registerUserPasswordSchema = z
   })
 
 export type UserType = 'instructor' | 'student' | 'parent' | 'administrator'
+export type CategoryType = 'instructor' | 'student' | 'parent' | 'classroom'
 export type EntityType =
   | 'instructor'
   | 'student'

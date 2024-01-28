@@ -1,4 +1,4 @@
-import NavbarStudent from '@/components/navbar/student'
+import { NavbarStudent } from '@/components/student'
 import AuthService from '@/services/auth-service'
 import { cookies } from 'next/headers'
 

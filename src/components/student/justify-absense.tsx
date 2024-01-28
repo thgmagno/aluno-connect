@@ -15,7 +15,7 @@ interface Props {
   frequencyDate: Date
 }
 
-export default function JustifyAbsense({
+export function JustifyAbsense({
   frequencyId,
   studentId,
   courseName,

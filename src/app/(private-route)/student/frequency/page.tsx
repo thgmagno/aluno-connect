@@ -1,5 +1,5 @@
 import FrequencyStatusBadge from '@/components/common/frequency-status-badge'
-import JustifyAbsense from '@/components/forms/justify-absense'
+import { JustifyAbsense } from '@/components/student'
 import { buttonVariants } from '@/components/ui/button'
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog'
 import { queries } from '@/db/queries'

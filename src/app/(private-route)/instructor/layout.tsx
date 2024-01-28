@@ -1,4 +1,4 @@
-import NavbarInstructor from '@/components/navbar/instructor'
+import { NavbarInstructor } from '@/components/instructor'
 import AuthService from '@/services/auth-service'
 import { cookies } from 'next/headers'
 

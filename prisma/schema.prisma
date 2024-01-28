@@ -30,7 +30,7 @@ model Frequency {
   studentId String
   classId   String
 
-  classID   Classroom @relation(fields: [classId], references: [id])
+  classID   Classroom @relation(fields: [classId], references: [id], onDelete: Cascade)
   studentID Student   @relation(fields: [studentId], references: [id], onDelete: Cascade)
   Request   Request[]
 
@@ -45,8 +45,8 @@ model Request {
   frequencyId   String
   category      String  @default("Nenhuma")
 
-  studentID   Student   @relation(fields: [studentId], references: [id])
-  frequencyID Frequency @relation(fields: [frequencyId], references: [id])
+  studentID   Student   @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  frequencyID Frequency @relation(fields: [frequencyId], references: [id], onDelete: Cascade)
 
   @@map("request")
 }
@@ -97,8 +97,8 @@ model StudentParent {
   studentId String
   parentId  String
 
-  studentID Student @relation(fields: [studentId], references: [id])
-  parentID  Parent  @relation(fields: [parentId], references: [id])
+  studentID Student @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  parentID  Parent  @relation(fields: [parentId], references: [id], onDelete: Cascade)
 
   @@map("student_parent")
 }
@@ -108,8 +108,8 @@ model StudentClass {
   studentId String
   classId   String
 
-  studentID Student   @relation(fields: [studentId], references: [id])
-  classID   Classroom @relation(fields: [classId], references: [id])
+  studentID Student   @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  classID   Classroom @relation(fields: [classId], references: [id], onDelete: Cascade)
 
   @@map("student_class")
 }
@@ -119,8 +119,8 @@ model InstructorClass {
   instructorId String
   classId      String
 
-  instructorID Instructor @relation(fields: [instructorId], references: [id])
-  classID      Classroom  @relation(fields: [classId], references: [id])
+  instructorID Instructor @relation(fields: [instructorId], references: [id], onDelete: Cascade)
+  classID      Classroom  @relation(fields: [classId], references: [id], onDelete: Cascade)
 
   @@map("instructor_class")
 }

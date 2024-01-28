@@ -1,4 +1,4 @@
-import NavbarParent from '@/components/navbar/parent'
+import { NavbarParent } from '@/components/parent'
 import AuthService from '@/services/auth-service'
 import { cookies } from 'next/headers'
 import React from 'react'

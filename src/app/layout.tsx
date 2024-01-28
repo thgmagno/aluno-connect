@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Poppins } from 'next/font/google'
 import './globals.css'
+import { Toaster } from '@/components/ui/sonner'
 
 const montserrat = Poppins({
   subsets: ['latin'],
@@ -23,6 +24,7 @@ export default function RootLayout({
         className={`${montserrat.className} scrollbar-thin scrollbar-track-indigo-950 scrollbar-thumb-neutral-900`}
       >
         {children}
+        <Toaster position="top-right" />
       </body>
     </html>
   )

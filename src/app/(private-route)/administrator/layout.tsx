@@ -1,4 +1,4 @@
-import NavbarAdministrator from '@/components/navbar/administrator'
+import { NavbarAdministrator } from '@/components/administrator'
 import AuthService from '@/services/auth-service'
 
 export default async function AdministratorLayout({
