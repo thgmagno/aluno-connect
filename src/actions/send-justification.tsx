@@ -1,7 +1,7 @@
 'use server'
 
 import NewRequestEmail from '@/components/email-templates/new-request'
-import prisma from '@/lib/prisma'
+import db from '@/db'
 import { RequestFormState } from '@/lib/states'
 import { requestSchema } from '@/lib/types'
 import { revalidatePath } from 'next/cache'
@@ -26,11 +26,11 @@ export default async function SendJustification(
   if (!parsed.success) return { errors: parsed.error.flatten().fieldErrors }
 
   const promises = [
-    prisma.frequency.update({
+    db.frequency.update({
       where: { id: parsed.data.frequencyId },
       data: { status: 'PENDING' },
     }),
-    prisma.request.create({
+    db.request.create({
       data: {
         justification: parsed.data.justification,
         studentId: parsed.data.studentId,

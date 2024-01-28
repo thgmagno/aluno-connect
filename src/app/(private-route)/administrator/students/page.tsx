@@ -1,4 +1,3 @@
-import db from '@/actions/db'
 import {
   Table,
   TableBody,
@@ -7,12 +6,13 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
+import { queries } from '@/db/queries'
 import paths from '@/paths'
 import { ArrowLeft } from 'lucide-react'
 import Link from 'next/link'
 
 export default async function AdministratorStudentsPage() {
-  const students = await db.FindManyStudents()
+  const students = await queries.student.findManyStudents()
 
   return (
     <div className="mt-5">

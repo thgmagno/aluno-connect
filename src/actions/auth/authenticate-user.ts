@@ -1,11 +1,11 @@
 'use server'
 
-import prisma from '@/lib/prisma'
 import { AuthenticateUserFormState } from '@/lib/states'
 import { loginUserSchema } from '@/lib/types'
 import AuthService from '@/services/auth-service'
 import { redirect } from 'next/navigation'
 import * as bcrypt from 'bcrypt'
+import db from '@/db'
 
 interface User {
   id: string
@@ -32,7 +32,7 @@ export async function authenticateUser(
   }
 
   try {
-    const user: User[] | null = await prisma.$queryRaw`
+    const user: User[] | null = await db.$queryRaw`
       SELECT * FROM (
         SELECT 'instructor' as userType, id, name, email, password FROM instructor WHERE email = ${parsed.data.email}
         UNION

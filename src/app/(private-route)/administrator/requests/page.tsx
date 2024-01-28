@@ -1,4 +1,3 @@
-import db from '@/actions/db'
 import FrequencyStatusBadge from '@/components/common/frequency-status-badge'
 import {
   Table,
@@ -8,12 +7,13 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
+import { queries } from '@/db/queries'
 import paths from '@/paths'
 import { ArrowLeft } from 'lucide-react'
 import Link from 'next/link'
 
 export default async function AdministratorRequestsPage() {
-  const requests = await db.FindManyRequests()
+  const requests = await queries.request.findManyRequests()
 
   return (
     <div className="mt-5">

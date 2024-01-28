@@ -1,6 +1,6 @@
 'use server'
 
-import prisma from '@/lib/prisma'
+import db from '@/db'
 import { RegisterUserPassword } from '@/lib/states'
 import { registerUserPasswordSchema } from '@/lib/types'
 import paths from '@/paths'
@@ -26,7 +26,7 @@ export async function registerUserPassword(
 
   try {
     if (parsed.data.profile === 'instructor') {
-      await prisma.instructor.update({
+      await db.instructor.update({
         where: {
           id: parsed.data.id,
         },
@@ -37,7 +37,7 @@ export async function registerUserPassword(
       })
     }
     if (parsed.data.profile === 'student') {
-      await prisma.student.update({
+      await db.student.update({
         where: {
           id: parsed.data.id,
         },
@@ -48,7 +48,7 @@ export async function registerUserPassword(
       })
     }
     if (parsed.data.profile === 'parent') {
-      await prisma.parent.update({
+      await db.parent.update({
         where: {
           id: parsed.data.id,
         },

@@ -1,6 +1,6 @@
 'use server'
 
-import prisma from '@/lib/prisma'
+import db from '@/db'
 import { AuthenticateEmailFormState } from '@/lib/states'
 import { validateEmailSchema } from '@/lib/types'
 import AuthService from '@/services/auth-service'
@@ -27,7 +27,7 @@ export async function authenticateEmail(
   }
 
   try {
-    const user: AuthenticateEmailProps[] = await prisma.$queryRaw`
+    const user: AuthenticateEmailProps[] = await db.$queryRaw`
       SELECT * FROM (
         SELECT 'student' as userType, id, email FROM student WHERE email = ${parsed.data.email}::text AND "firstAccess" = true AND password is null
         UNION
