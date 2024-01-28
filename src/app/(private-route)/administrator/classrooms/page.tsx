@@ -1,4 +1,8 @@
 import {
+  DropdownMenuAdmin,
+  UpsertFormClassroom,
+} from '@/components/administrator'
+import {
   Table,
   TableBody,
   TableCell,
@@ -22,6 +26,8 @@ export default async function AdministratorClassroomsPage() {
         </Link>
         <h1 className="text-lg font-medium">Lista de todas as turmas.</h1>
       </nav>
+
+      <UpsertFormClassroom />
       {classrooms.length ? (
         <Table className="overflow-hidden rounded-lg bg-zinc-400">
           <TableHeader className="bg-zinc-950/80">
@@ -34,7 +40,10 @@ export default async function AdministratorClassroomsPage() {
             {classrooms.map((classroom) => (
               <TableRow key={classroom.id}>
                 <TableCell>{classroom.course_name}</TableCell>
-                <TableCell>Implementar</TableCell>
+                <TableCell>
+                  <UpsertFormClassroom data={classroom} />
+                  <DropdownMenuAdmin id={classroom.id} category="classroom" />
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>

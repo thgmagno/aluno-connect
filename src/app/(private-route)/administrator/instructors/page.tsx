@@ -1,4 +1,8 @@
 import {
+  DropdownMenuAdmin,
+  UpsertFormInstructor,
+} from '@/components/administrator'
+import {
   Table,
   TableBody,
   TableCell,
@@ -22,6 +26,8 @@ export default async function AdministratorInstructorsPage() {
         </Link>
         <h1>Lista de todos os instrutores.</h1>
       </nav>
+
+      <UpsertFormInstructor />
       {instructors.length ? (
         <Table className="overflow-hidden rounded-lg bg-zinc-400">
           <TableHeader className="bg-zinc-950/80">
@@ -36,7 +42,10 @@ export default async function AdministratorInstructorsPage() {
               <TableRow key={instructor.id}>
                 <TableCell>{instructor.name}</TableCell>
                 <TableCell>{instructor.email}</TableCell>
-                <TableCell>Implementar</TableCell>
+                <TableCell>
+                  <UpsertFormInstructor data={instructor} />
+                  <DropdownMenuAdmin id={instructor.id} category="instructor" />
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>

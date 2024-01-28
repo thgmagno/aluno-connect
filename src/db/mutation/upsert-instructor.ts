@@ -1,29 +1,33 @@
 'use server'
 
-import { StudentFormState } from '@/lib/states'
-import { studentSchema } from '@/lib/types'
 import db from '@/db'
+import { InstructorFormState } from '@/lib/states'
+import { instructorSchema } from '@/lib/types'
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 
-export async function createStudent(
-  formState: StudentFormState,
+export async function upsertInstructor(
+  formState: InstructorFormState,
   formData: FormData,
-): Promise<StudentFormState> {
-  const parsed = studentSchema.safeParse({
+): Promise<InstructorFormState> {
+  const parsed = instructorSchema.safeParse({
+    id: formData.get('id'),
     name: formData.get('name'),
     email: formData.get('email'),
-    birthdate: formData.get('birthdate'),
   })
 
   if (!parsed.success) return { errors: parsed.error.flatten().fieldErrors }
 
   try {
-    await db.student.create({
-      data: {
+    await db.instructor.upsert({
+      where: { id: parsed.data.id },
+      update: {
         name: parsed.data.name,
         email: parsed.data.email,
-        birthdate: new Date(parsed.data.birthdate),
+      },
+      create: {
+        name: parsed.data.name,
+        email: parsed.data.email,
       },
     })
   } catch (e) {
@@ -38,6 +42,6 @@ export async function createStudent(
     }
   }
 
-  revalidatePath('/administrator/students')
-  redirect('/administrator/students')
+  revalidatePath('/administrator/instructors')
+  redirect('/administrator/instructors')
 }

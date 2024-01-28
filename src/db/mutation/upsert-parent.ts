@@ -14,7 +14,6 @@ export async function upsertParent(
     id: formData.get('id'),
     name: formData.get('name'),
     email: formData.get('email'),
-    birthdate: formData.get('bithdate'),
   })
 
   if (!parsed.success) return { errors: parsed.error.flatten().fieldErrors }
