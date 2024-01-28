@@ -63,7 +63,9 @@ export default async function StudentFrequencyPage() {
       {frequencyList.length ? (
         <div>{renderedFrequency}</div>
       ) : (
-        <p>Não há registros</p>
+        <p className="text-center text-lg font-medium text-muted-foreground">
+          Não há registros
+        </p>
       )}
     </React.Fragment>
   )

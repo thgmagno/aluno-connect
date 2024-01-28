@@ -42,7 +42,7 @@ export default function LoginForm() {
               type="email"
               name="email"
               placeholder="Digite o seu e-mail"
-              className={`${formState.errors.email && 'bg-red-200'}`}
+              className={`${formState.errors.email && 'border border-red-600'}`}
             />
             {formState.errors.email && (
               <p className="text-sm">{formState.errors.email.join(', ')}</p>
@@ -58,7 +58,9 @@ export default function LoginForm() {
               type={visible ? 'text' : 'password'}
               name="password"
               placeholder="Digite a sua senha"
-              className={`${formState.errors.password && 'bg-red-200'}`}
+              className={`${
+                formState.errors.password && 'border border-red-600'
+              }`}
             />
             {formState.errors.password && (
               <p className="text-sm">{formState.errors.password.join(', ')}</p>

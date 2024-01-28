@@ -39,7 +39,7 @@ export default function FirstAccessForm() {
               name="email"
               type="email"
               placeholder="Digite o seu e-mail"
-              className={`${formState.errors.email && 'bg-red-200'}`}
+              className={`${formState.errors.email && 'border border-red-600'}`}
             />
             {formState.errors.email && (
               <p className="text-sm">{formState.errors.email}</p>

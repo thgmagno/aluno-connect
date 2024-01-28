@@ -56,7 +56,9 @@ export default function SetPasswordForm({
                 type={visible ? 'text' : 'password'}
                 name="password"
                 placeholder="Informe uma senha segura"
-                className={`${formState.errors.password && 'bg-red-200'}`}
+                className={`${
+                  formState.errors.password && 'border border-red-600'
+                }`}
               />
               <Button
                 type="button"
@@ -81,7 +83,9 @@ export default function SetPasswordForm({
               type={visible ? 'text' : 'password'}
               name="confirm"
               placeholder="Confirme a senha"
-              className={`${formState.errors.confirm && 'bg-red-200'}`}
+              className={`${
+                formState.errors.confirm && 'border border-red-600'
+              }`}
             />
             {formState.errors.confirm && (
               <p className="text-sm">{formState.errors.confirm}</p>

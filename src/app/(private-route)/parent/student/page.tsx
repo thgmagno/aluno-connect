@@ -6,13 +6,9 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
-
-export default function ParentStudentPage() {
-  const students = [
-    { id: '1', name: 'Aluno A' },
-    { id: '2', name: 'Aluno B' },
-    { id: '3', name: 'Aluno C' },
-  ]
+import { queries } from '@/db/queries'
+export default async function ParentStudentPage() {
+  const students = await queries.student.findStudentsForParents()
 
   return (
     <>
@@ -35,7 +31,9 @@ export default function ParentStudentPage() {
           </TableBody>
         </Table>
       ) : (
-        <p>Não há nenhum registro de aluno para mostrar.</p>
+        <p className="text-center text-lg font-medium text-muted-foreground">
+          Não há nenhum registro de aluno para mostrar.
+        </p>
       )}
     </>
   )
