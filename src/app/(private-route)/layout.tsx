@@ -12,7 +12,7 @@ export default async function PrivateLayout({
 
   return (
     <main className="flex min-h-screen flex-col">
-      <div className="container flex-1 bg-gradient-to-t from-indigo-950 to-neutral-900 p-4 pb-12">
+      <div className="container flex-1 bg-gradient-to-t from-indigo-950 to-neutral-900 p-4 pb-20">
         {children}
       </div>
     </main>

@@ -26,7 +26,7 @@ export default async function AdministratorInstructorsPage() {
         <Table className="overflow-hidden rounded-lg bg-zinc-400">
           <TableHeader className="bg-zinc-950/80">
             <TableRow className="hover:bg-transparent">
-              <TableHead>Nome</TableHead>
+              <TableHead className="min-w-32">Nome</TableHead>
               <TableHead>E-mail</TableHead>
               <TableHead>Ação</TableHead>
             </TableRow>

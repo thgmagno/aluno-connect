@@ -28,8 +28,8 @@ export default async function AdministratorRequestsPage() {
           <TableHeader className="bg-zinc-950/80">
             <TableRow className="hover:bg-transparent">
               <TableHead>Data</TableHead>
-              <TableHead>Aluno</TableHead>
-              <TableHead>Status</TableHead>
+              <TableHead className="min-w-32">Aluno</TableHead>
+              <TableHead className="min-w-32">Status</TableHead>
               <TableHead>Categoria</TableHead>
               <TableHead>Ação</TableHead>
             </TableRow>
