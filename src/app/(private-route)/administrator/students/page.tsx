@@ -1,7 +1,6 @@
 import {
-  DialogCreateStudent,
-  DialogUpdateStudent,
   DropdownMenuAdmin,
+  UpsertFormStudent,
 } from '@/components/administrator'
 import {
   Table,
@@ -28,7 +27,7 @@ export default async function AdministratorStudentsPage() {
         <h1>Lista de todos os estudantes.</h1>
       </nav>
 
-      <DialogCreateStudent />
+      <UpsertFormStudent />
       {students.length ? (
         <Table className="overflow-hidden rounded-lg bg-zinc-400">
           <TableHeader className="bg-zinc-950/80">
@@ -46,11 +45,7 @@ export default async function AdministratorStudentsPage() {
                 </TableCell>
                 <TableCell>{student.email}</TableCell>
                 <TableCell>
-                  <DialogUpdateStudent
-                    name={student.name}
-                    email={student.email}
-                    birthdate={student.birthdate}
-                  />
+                  <UpsertFormStudent data={student} />
                   <DropdownMenuAdmin id={student.id} category="student" />
                 </TableCell>
               </TableRow>

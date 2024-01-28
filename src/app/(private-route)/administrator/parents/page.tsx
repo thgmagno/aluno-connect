@@ -1,3 +1,4 @@
+import { DropdownMenuAdmin, UpsertFormParent } from '@/components/administrator'
 import {
   Table,
   TableBody,
@@ -22,6 +23,8 @@ export default async function AdministratorParentsPage() {
         </Link>
         <h1>Lista de todos os Responsáveis.</h1>
       </nav>
+
+      <UpsertFormParent />
       {parents.length ? (
         <Table className="overflow-hidden rounded-lg bg-zinc-400">
           <TableHeader className="bg-zinc-950/80">
@@ -36,7 +39,10 @@ export default async function AdministratorParentsPage() {
               <TableRow key={parent.id}>
                 <TableCell>{parent.name}</TableCell>
                 <TableCell>{parent.email}</TableCell>
-                <TableCell>Implementar.</TableCell>
+                <TableCell>
+                  <UpsertFormParent data={parent} />
+                  <DropdownMenuAdmin id={parent.id} category="parent" />
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>

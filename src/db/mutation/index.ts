@@ -1,9 +1,11 @@
-import { createStudent } from './create-student'
+import { upsertStudent } from './upsert-student'
+import { upsertParent } from './upsert-parent'
 import { deleteEntityByIdAndCategory } from './delete-entity'
 import { resetUserPasswordByIdAndProfile } from './reset-user-password'
 
 export const mutation = {
-  createStudent,
+  upsertStudent,
+  upsertParent,
   deleteEntityByIdAndCategory,
   resetUserPasswordByIdAndProfile,
 }
