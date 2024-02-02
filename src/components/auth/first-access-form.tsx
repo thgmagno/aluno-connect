@@ -54,7 +54,7 @@ export default function FirstAccessForm() {
         <CardFooter className="flex flex-col space-y-3">
           <BtnFormSubmit>Avançar</BtnFormSubmit>
           <Link
-            href="entrar"
+            href="login"
             className="w-full text-sm text-sky-600 transition-all duration-300 hover:font-semibold"
           >
             <Button type="button" variant={'outline'} className="w-full">

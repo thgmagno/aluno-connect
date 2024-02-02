@@ -14,18 +14,18 @@ export default async function ParentStudentPage() {
     <>
       <h1>Renderizar todos os estudantes pelo qual é responsável:</h1>
       {students ? (
-        <Table className="overflow-hidden rounded-lg bg-zinc-400">
-          <TableHeader className="bg-zinc-950/80">
+        <Table>
+          <TableHeader>
             <TableRow className="hover:bg-transparent">
               <TableHead>Nome do aluno</TableHead>
-              <TableHead>Ação</TableHead>
+              <TableHead className="text-center">Ação</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {students.map((student) => (
               <TableRow key={student.id}>
                 <TableCell>{student.name}</TableCell>
-                <TableCell>Implementar!</TableCell>
+                <TableCell className="text-center">Implementar!</TableCell>
               </TableRow>
             ))}
           </TableBody>

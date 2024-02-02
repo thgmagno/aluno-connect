@@ -8,30 +8,22 @@ import {
   TableRow,
 } from '@/components/ui/table'
 import { queries } from '@/db/queries'
-import paths from '@/paths'
-import { ArrowLeft } from 'lucide-react'
-import Link from 'next/link'
+import React from 'react'
 
 export default async function AdministratorRequestsPage() {
   const requests = await queries.request.findManyRequests()
 
   return (
-    <div className="mt-5">
-      <nav className="mb-5 flex items-center gap-2 text-muted-foreground">
-        <Link href={paths.homePath('administrator')}>
-          <ArrowLeft />
-        </Link>
-        <h1>Lista de todas as solicitações</h1>
-      </nav>
+    <React.Fragment>
       {requests.length ? (
-        <Table className="overflow-hidden rounded-lg bg-zinc-400">
-          <TableHeader className="bg-zinc-950/80">
+        <Table>
+          <TableHeader>
             <TableRow className="hover:bg-transparent">
               <TableHead>Data</TableHead>
-              <TableHead className="min-w-32">Aluno</TableHead>
-              <TableHead className="min-w-32">Status</TableHead>
+              <TableHead>Aluno</TableHead>
+              <TableHead>Status</TableHead>
               <TableHead>Categoria</TableHead>
-              <TableHead>Ação</TableHead>
+              <TableHead className="text-center">Ação</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -45,16 +37,16 @@ export default async function AdministratorRequestsPage() {
                   <FrequencyStatusBadge status={req.frequencyID.status} />
                 </TableCell>
                 <TableCell>Implementar</TableCell>
-                <TableCell>Implementar</TableCell>
+                <TableCell className="text-center">Implementar</TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
       ) : (
         <p className="text-center text-lg font-medium text-muted-foreground">
-          Não há registros de requisições no momento.
+          Não há registros de solicitações no momento.
         </p>
       )}
-    </div>
+    </React.Fragment>
   )
 }

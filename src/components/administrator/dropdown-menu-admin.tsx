@@ -50,8 +50,8 @@ export function DropdownMenuAdmin({ id, category }: Props) {
           onClick={() =>
             toast.promise(mutation.deleteEntityByIdAndCategory(id, category), {
               loading: 'Aguarde...',
-              success: 'Usuário deletado com sucesso',
-              error: 'Ops! Não foi possível deletar o usuário',
+              success: 'Registro deletado com sucesso',
+              error: 'Ops! Não foi possível deletar o registro',
             })
           }
         >

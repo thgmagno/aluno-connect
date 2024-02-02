@@ -11,30 +11,21 @@ import {
   TableRow,
 } from '@/components/ui/table'
 import { queries } from '@/db/queries'
-import paths from '@/paths'
-import { ArrowLeft } from 'lucide-react'
-import Link from 'next/link'
+import React from 'react'
 
 export default async function AdministratorInstructorsPage() {
   const instructors = await queries.instructor.findManyInstructors()
 
   return (
-    <div className="mt-5">
-      <nav className="mb-5 flex items-center gap-2 text-muted-foreground">
-        <Link href={paths.homePath('administrator')}>
-          <ArrowLeft />
-        </Link>
-        <h1>Lista de todos os instrutores.</h1>
-      </nav>
-
+    <React.Fragment>
       <UpsertFormInstructor />
       {instructors.length ? (
-        <Table className="overflow-hidden rounded-lg bg-zinc-400">
-          <TableHeader className="bg-zinc-950/80">
+        <Table>
+          <TableHeader>
             <TableRow className="hover:bg-transparent">
-              <TableHead className="min-w-32">Nome</TableHead>
+              <TableHead>Nome</TableHead>
               <TableHead>E-mail</TableHead>
-              <TableHead>Ação</TableHead>
+              <TableHead className="text-center">Ação</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -42,7 +33,7 @@ export default async function AdministratorInstructorsPage() {
               <TableRow key={instructor.id}>
                 <TableCell>{instructor.name}</TableCell>
                 <TableCell>{instructor.email}</TableCell>
-                <TableCell>
+                <TableCell className="text-center">
                   <UpsertFormInstructor data={instructor} />
                   <DropdownMenuAdmin id={instructor.id} category="instructor" />
                 </TableCell>
@@ -55,6 +46,6 @@ export default async function AdministratorInstructorsPage() {
           Não há registros de instrutores no momento.
         </p>
       )}
-    </div>
+    </React.Fragment>
   )
 }

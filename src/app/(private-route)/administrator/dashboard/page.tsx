@@ -19,7 +19,7 @@ export default function AdministratorDashboardPage() {
     return (
       <Link
         href={href}
-        className="flex items-center rounded-md bg-zinc-950/40 p-2 py-5 text-muted-foreground shadow sm:flex-col"
+        className="flex items-center rounded-md bg-neutral-950/40 p-2 py-5 text-muted-foreground shadow sm:flex-col"
       >
         {children}
       </Link>
@@ -27,25 +27,25 @@ export default function AdministratorDashboardPage() {
   }
 
   return (
-    <section className="mt-8 grid gap-3 font-medium sm:grid-cols-4">
+    <section className="grid gap-3 font-medium sm:grid-cols-4">
       <CustomLink href="students">
-        <GraduationCap className="mx-4 h-7 w-7 sm:mx-0 sm:mb-2" />
+        <GraduationCap className="icon" />
         Alunos
       </CustomLink>
       <CustomLink href="parents">
-        <ShieldCheckIcon className="mx-4 h-7 w-7 sm:mx-0 sm:mb-2" />
+        <ShieldCheckIcon className="icon" />
         Responsáveis
       </CustomLink>
       <CustomLink href="instructors">
-        <BookMarkedIcon className="mx-4 h-7 w-7 sm:mx-0 sm:mb-2" />
+        <BookMarkedIcon className="icon" />
         Instrutores
       </CustomLink>
       <CustomLink href="classrooms">
-        <Presentation className="mx-4 h-7 w-7 sm:mx-0 sm:mb-2" />
+        <Presentation className="icon" />
         Turmas
       </CustomLink>
       <CustomLink href="requests">
-        <ListTodo className="mx-4 h-7 w-7 sm:mx-0 sm:mb-2" />
+        <ListTodo className="icon" />
         Solicitações
       </CustomLink>
     </section>

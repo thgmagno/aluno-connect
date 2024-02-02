@@ -18,18 +18,18 @@ export default async function InstructorClassroomPage() {
         Minhas turmas
       </h1>
       {classrooms.length ? (
-        <Table className="overflow-hidden rounded-lg bg-zinc-400">
-          <TableHeader className="bg-zinc-950/80">
+        <Table>
+          <TableHeader>
             <TableRow className="hover:bg-transparent">
               <TableHead>Nome do curso</TableHead>
-              <TableHead>Ação</TableHead>
+              <TableHead className="text-center">Ação</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {classrooms.map((classroom) => (
               <TableRow key={classroom.id}>
                 <TableCell>{classroom.course_name}</TableCell>
-                <TableCell>
+                <TableCell className="text-center">
                   <ArrowRightCircle />
                 </TableCell>
               </TableRow>

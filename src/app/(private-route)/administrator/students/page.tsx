@@ -11,30 +11,21 @@ import {
   TableRow,
 } from '@/components/ui/table'
 import { queries } from '@/db/queries'
-import paths from '@/paths'
-import { ArrowLeft } from 'lucide-react'
-import Link from 'next/link'
+import React from 'react'
 
 export default async function AdministratorStudentsPage() {
   const students = await queries.student.findManyStudents()
 
   return (
-    <div className="mt-5">
-      <nav className="mb-5 flex items-center gap-2 text-muted-foreground">
-        <Link href={paths.homePath('administrator')}>
-          <ArrowLeft />
-        </Link>
-        <h1>Lista de todos os estudantes.</h1>
-      </nav>
-
+    <React.Fragment>
       <UpsertFormStudent />
       {students.length ? (
-        <Table className="overflow-hidden rounded-lg bg-zinc-400">
-          <TableHeader className="bg-zinc-950/80">
+        <Table>
+          <TableHeader>
             <TableRow className="hover:bg-transparent">
               <TableHead>Nome</TableHead>
               <TableHead>E-mail</TableHead>
-              <TableHead>Ação</TableHead>
+              <TableHead className="text-center">Ação</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -44,7 +35,7 @@ export default async function AdministratorStudentsPage() {
                   {student.name}
                 </TableCell>
                 <TableCell>{student.email}</TableCell>
-                <TableCell>
+                <TableCell className="text-center">
                   <UpsertFormStudent data={student} />
                   <DropdownMenuAdmin id={student.id} category="student" />
                 </TableCell>
@@ -57,6 +48,6 @@ export default async function AdministratorStudentsPage() {
           Não há registros de alunos no momento
         </p>
       )}
-    </div>
+    </React.Fragment>
   )
 }

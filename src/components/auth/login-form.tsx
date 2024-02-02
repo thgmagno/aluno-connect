@@ -82,7 +82,7 @@ export default function LoginForm() {
         </CardContent>
         <CardFooter className="flex flex-col space-y-3">
           <BtnFormSubmit>Entrar</BtnFormSubmit>
-          <Link href="primeiro-acesso" className="w-full">
+          <Link href="first-access" className="w-full">
             <Button type="button" variant={'outline'} className="w-full">
               Primeiro acesso?
             </Button>

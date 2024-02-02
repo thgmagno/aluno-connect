@@ -2,7 +2,7 @@ import { UserType } from '@/lib/types'
 
 const paths = {
   signInPath() {
-    return '/entrar'
+    return '/login'
   },
   homePath(profileSlug: UserType) {
     const homePaths = {

@@ -23,7 +23,7 @@ export default async function StudentFrequencyPage() {
         className={`my-2 flex items-center justify-between rounded p-2 ${
           freq.status === 'ABSENT'
             ? 'border-2 border-red-500 bg-red-200'
-            : 'bg-zinc-400'
+            : 'bg-neutral-400'
         }`}
       >
         <div>

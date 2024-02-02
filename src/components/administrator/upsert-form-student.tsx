@@ -84,8 +84,9 @@ export function UpsertFormStudent({ data }: Props) {
           >
             <Label htmlFor="birthdate">Data de aniversário</Label>
             <Input
-              name="birthdate"
               type="date"
+              name="birthdate"
+              defaultValue={data?.birthdate.toISOString().slice(0, 10)}
               className={`${
                 formState?.errors.birthdate && 'border border-red-600'
               }`}

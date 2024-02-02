@@ -1,4 +1,3 @@
-import { NavbarAdministrator } from '@/components/administrator'
 import AuthService from '@/services/auth-service'
 
 export default async function AdministratorLayout({
@@ -10,10 +9,5 @@ export default async function AdministratorLayout({
 
   if (profile !== 'administrator') return <p>Não autorizado</p>
 
-  return (
-    <>
-      <NavbarAdministrator />
-      {children}
-    </>
-  )
+  return <>{children}</>
 }

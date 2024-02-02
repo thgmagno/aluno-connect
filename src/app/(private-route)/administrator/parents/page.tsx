@@ -8,30 +8,21 @@ import {
   TableRow,
 } from '@/components/ui/table'
 import { queries } from '@/db/queries'
-import paths from '@/paths'
-import { ArrowLeft } from 'lucide-react'
-import Link from 'next/link'
+import React from 'react'
 
 export default async function AdministratorParentsPage() {
   const parents = await queries.parent.findManyParents()
 
   return (
-    <div className="mt-5">
-      <nav className="mb-5 flex items-center gap-2 text-muted-foreground">
-        <Link href={paths.homePath('administrator')}>
-          <ArrowLeft />
-        </Link>
-        <h1>Lista de todos os Responsáveis.</h1>
-      </nav>
-
+    <React.Fragment>
       <UpsertFormParent />
       {parents.length ? (
-        <Table className="overflow-hidden rounded-lg bg-zinc-400">
-          <TableHeader className="bg-zinc-950/80">
+        <Table>
+          <TableHeader>
             <TableRow className="hover:bg-transparent">
               <TableHead>Nome</TableHead>
               <TableHead>E-mail</TableHead>
-              <TableHead>Ação</TableHead>
+              <TableHead className="text-center">Ação</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -39,7 +30,7 @@ export default async function AdministratorParentsPage() {
               <TableRow key={parent.id}>
                 <TableCell>{parent.name}</TableCell>
                 <TableCell>{parent.email}</TableCell>
-                <TableCell>
+                <TableCell className="text-center">
                   <UpsertFormParent data={parent} />
                   <DropdownMenuAdmin id={parent.id} category="parent" />
                 </TableCell>
@@ -52,6 +43,6 @@ export default async function AdministratorParentsPage() {
           Não há registros de Responsáveis no momento.
         </p>
       )}
-    </div>
+    </React.Fragment>
   )
 }

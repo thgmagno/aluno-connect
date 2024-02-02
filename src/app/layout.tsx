@@ -21,7 +21,10 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <body
-        className={`${montserrat.className} scrollbar-thin scrollbar-track-indigo-950 scrollbar-thumb-neutral-900`}
+        className={`
+          ${montserrat.className} 
+          scrollbar-thin scrollbar-track-indigo-950 scrollbar-thumb-neutral-900
+        `}
       >
         {children}
         <Toaster position="top-right" />

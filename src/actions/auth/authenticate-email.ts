@@ -68,5 +68,5 @@ export async function authenticateEmail(
     }
   }
 
-  redirect('/definir-senha')
+  redirect('/set-password')
 }
