@@ -9,5 +9,5 @@ export default async function AdministratorLayout({
 
   if (profile !== 'administrator') return <p>Não autorizado</p>
 
-  return { children }
+  return <>{children}</>
 }

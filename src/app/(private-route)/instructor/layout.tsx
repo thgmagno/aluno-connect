@@ -12,5 +12,5 @@ export default async function InstructorLayout({
 
   if (profile !== 'instructor') return <p>Não autorizado</p>
 
-  return { children }
+  return <>{children}</>
 }

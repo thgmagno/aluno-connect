@@ -13,5 +13,5 @@ export default async function ParentLayout({
 
   if (profile !== 'parent') return <p>Não autorizado</p>
 
-  return { children }
+  return <>{children}</>
 }

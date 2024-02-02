@@ -12,5 +12,5 @@ export default async function StudentLayout({
 
   if (profile !== 'student') return <p>Não autorizado</p>
 
-  return { children }
+  return <>{children}</>
 }
