@@ -18,8 +18,8 @@ import {
   AlertDialogHeader,
   AlertDialogFooter,
 } from '@/components/ui/alert-dialog'
-import { Button } from '../ui/button'
-import Logotipo from '../common/logotipo'
+import { Button } from '@/components/ui/button'
+import Logotipo from '@/components/common/logotipo'
 import Link from 'next/link'
 
 interface Props {
@@ -42,11 +42,7 @@ export function Navbar({ profile }: Props) {
       { href: '/parent/students', name: 'Alunos' },
       { href: '/parent/students', name: 'Alunos' },
     ],
-    instructor: [
-      { href: '/instructor/classrooms', name: 'Turmas' },
-      { href: '/instructor/classrooms', name: 'Turmas' },
-      { href: '/instructor/classrooms', name: 'Turmas' },
-    ],
+    instructor: [{ href: '/instructor/classroom', name: 'Turmas' }],
     administrator: [
       { href: '/administrator/dashboard', name: 'Início' },
       { href: '/administrator/students', name: 'Alunos' },

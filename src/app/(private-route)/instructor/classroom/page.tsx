@@ -8,15 +8,13 @@ import {
 } from '@/components/ui/table'
 import { queries } from '@/db/queries'
 import { ArrowRightCircle } from 'lucide-react'
+import Link from 'next/link'
 
 export default async function InstructorClassroomPage() {
   const classrooms = await queries.classroom.findClassesForInstructors()
 
   return (
     <>
-      <h1 className="text-lg font-medium text-muted-foreground">
-        Minhas turmas
-      </h1>
       {classrooms.length ? (
         <Table>
           <TableHeader>
@@ -30,7 +28,9 @@ export default async function InstructorClassroomPage() {
               <TableRow key={classroom.id}>
                 <TableCell>{classroom.course_name}</TableCell>
                 <TableCell className="text-center">
-                  <ArrowRightCircle />
+                  <Link href={`classroom/${classroom.id}`}>
+                    <ArrowRightCircle className="mx-auto" />
+                  </Link>
                 </TableCell>
               </TableRow>
             ))}

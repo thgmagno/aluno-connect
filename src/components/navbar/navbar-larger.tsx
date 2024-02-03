@@ -20,7 +20,7 @@ export default function NavbarLarger({ options }: Props) {
           key={op.href}
           href={op.href}
           className={`text-lg ${
-            path === op.href
+            path.includes(op.href)
               ? 'border-b border-neutral-400 text-neutral-200'
               : 'hover:text-neutral-200'
           }`}

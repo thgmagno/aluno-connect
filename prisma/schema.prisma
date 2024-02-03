@@ -94,8 +94,8 @@ model Classroom {
 
 model StudentParent {
   id        Int    @id @default(autoincrement())
-  studentId String
-  parentId  String
+  studentId String @unique
+  parentId  String @unique
 
   studentID Student @relation(fields: [studentId], references: [id], onDelete: Cascade)
   parentID  Parent  @relation(fields: [parentId], references: [id], onDelete: Cascade)
@@ -105,8 +105,8 @@ model StudentParent {
 
 model StudentClass {
   id        Int    @id @default(autoincrement())
-  studentId String
-  classId   String
+  studentId String @unique
+  classId   String @unique
 
   studentID Student   @relation(fields: [studentId], references: [id], onDelete: Cascade)
   classID   Classroom @relation(fields: [classId], references: [id], onDelete: Cascade)
@@ -116,8 +116,8 @@ model StudentClass {
 
 model InstructorClass {
   id           Int    @id @default(autoincrement())
-  instructorId String
-  classId      String
+  instructorId String @unique
+  classId      String @unique
 
   instructorID Instructor @relation(fields: [instructorId], references: [id], onDelete: Cascade)
   classID      Classroom  @relation(fields: [classId], references: [id], onDelete: Cascade)
