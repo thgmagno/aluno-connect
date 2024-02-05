@@ -45,22 +45,6 @@ export const validateEmailSchema = z.object({
   email: z.string().email('Formato de e-mail inválido'),
 })
 
-export const requestSchema = z.object({
-  frequencyId: z.string().min(25),
-  studentId: z.string(),
-  courseName: z.string(),
-  studentName: z.string(),
-  frequencyDate: z.string(),
-  justification: z.string().min(1, 'O campo justificativa é obrigatório'),
-  // media: z
-  //   .any()
-  //   .optional()
-  //   .refine(
-  //     (file) => file?.size <= 5 * 1024 * 1024,
-  //     `Tamanho máximo de arquivo é 5MB`,
-  //   ),
-})
-
 const ProfileEnum = z.enum(['student', 'instructor', 'administrator', 'parent'])
 
 export const registerUserPasswordSchema = z
@@ -86,21 +70,11 @@ export type EntityType =
   | 'frequency'
   | 'request'
 
-export interface RenderRequestsProps {
-  data: {
-    id: string
-    studentId: string
-    date: Date
-    status: 'PENDING' | 'APPROVED' | 'REJECTED'
-    justification: string
-    imageURL: string | null
-    studentID: {
-      id: string
-      name: string
-      email: string
-      password: string | null
-      birthdate: Date
-      firstAccess: boolean
-    }
-  }[]
-}
+export const requestSchema = z.object({
+  frequencyId: z.string().min(25),
+  studentId: z.string(),
+  courseName: z.string(),
+  studentName: z.string(),
+  frequencyDate: z.string(),
+  justification: z.string().min(1, 'O campo justificativa é obrigatório'),
+})

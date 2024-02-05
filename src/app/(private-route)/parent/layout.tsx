@@ -1,3 +1,4 @@
+import Unauthorized from '@/components/common/unauthorized'
 import AuthService from '@/services/auth-service'
 import { cookies } from 'next/headers'
 import React from 'react'
@@ -11,7 +12,7 @@ export default async function ParentLayout({
   if (!token) return
   const { profile } = await AuthService.openSessionToken(token.value)
 
-  if (profile !== 'parent') return <p>Não autorizado</p>
+  if (profile !== 'parent') return <Unauthorized />
 
   return <>{children}</>
 }

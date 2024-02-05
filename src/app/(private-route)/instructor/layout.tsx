@@ -1,3 +1,4 @@
+import Unauthorized from '@/components/common/unauthorized'
 import AuthService from '@/services/auth-service'
 import { cookies } from 'next/headers'
 
@@ -10,7 +11,7 @@ export default async function InstructorLayout({
   if (!token) return
   const { profile } = await AuthService.openSessionToken(token.value)
 
-  if (profile !== 'instructor') return <p>Não autorizado</p>
+  if (profile !== 'instructor') return <Unauthorized />
 
   return <>{children}</>
 }

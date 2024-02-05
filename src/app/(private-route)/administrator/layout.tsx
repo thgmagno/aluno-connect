@@ -1,3 +1,4 @@
+import Unauthorized from '@/components/common/unauthorized'
 import AuthService from '@/services/auth-service'
 
 export default async function AdministratorLayout({
@@ -7,7 +8,7 @@ export default async function AdministratorLayout({
 }) {
   const profile = await AuthService.getUserProfile()
 
-  if (profile !== 'administrator') return <p>Não autorizado</p>
+  if (profile !== 'administrator') return <Unauthorized />
 
   return <>{children}</>
 }

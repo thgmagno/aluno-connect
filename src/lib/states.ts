@@ -30,6 +30,7 @@ export interface ClassFormState {
   }
 }
 
+// TODO: EDITAR
 export interface FrequencyFormState {
   success: boolean
   errors: {
