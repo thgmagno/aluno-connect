@@ -1,4 +1,4 @@
-import { Navbar } from '@/components/navbar'
+import { Navbar } from '@/components/common/navbar'
 import paths from '@/paths'
 import AuthService from '@/services/auth-service'
 import { redirect } from 'next/navigation'

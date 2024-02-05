@@ -1,14 +1,4 @@
-import {
-  AlertDialog,
-  AlertDialogCancel,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-  AlertDialogContent,
-  AlertDialogDescription,
-} from '@/components/ui/alert-dialog'
-import { buttonVariants } from '@/components/ui/button'
+import { FrequencyForm } from '@/components/instructor'
 import { queries } from '@/db/queries'
 import { ChevronLeft } from 'lucide-react'
 import Link from 'next/link'
@@ -30,37 +20,20 @@ export default async function ClassroomFrequency({
   return (
     <React.Fragment>
       <nav className="flex justify-between">
-        <AlertDialog>
-          <AlertDialogTrigger className="flex" asChild>
-            <button className="flex text-muted-foreground">
-              <ChevronLeft />
-              Voltar
-            </button>
-          </AlertDialogTrigger>
-          <AlertDialogContent>
-            <AlertDialogHeader>
-              <AlertDialogTitle>As alterações serão perdidas.</AlertDialogTitle>
-              <AlertDialogDescription>
-                Se deseja salvar as alterações, clique em "Cancelar" e, em
-                seguida, em "Salvar"
-              </AlertDialogDescription>
-            </AlertDialogHeader>
-            <AlertDialogFooter>
-              <AlertDialogCancel>Cancelar</AlertDialogCancel>
-              <Link
-                href={`/instructor/classroom/${params.classId}`}
-                className={buttonVariants()}
-              >
-                Continuar sem salvar
-              </Link>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialog>
+        <Link
+          href={`/instructor/classroom/${params.classId}`}
+          className="flex text-muted-foreground"
+        >
+          <ChevronLeft />
+          Voltar
+        </Link>
       </nav>
 
       <h1 className="my-3 text-center text-lg text-muted-foreground">
         Chamada: {classData.course_name}
       </h1>
+
+      <FrequencyForm classroomId={params.classId} students={students} />
     </React.Fragment>
   )
 }

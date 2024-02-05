@@ -7,6 +7,7 @@ export const findStudentsForClass = cache(
     const students = await db.studentClass.findMany({
       where: { classId },
       select: { studentID: true },
+      orderBy: { studentID: { name: 'asc' } },
     })
 
     const reducedStudents = students.map((student) => student.studentID)

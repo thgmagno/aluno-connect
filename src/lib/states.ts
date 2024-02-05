@@ -32,7 +32,7 @@ export interface ClassFormState {
 
 // TODO: EDITAR
 export interface FrequencyFormState {
-  success: boolean
+  success?: boolean
   errors: {
     _form?: string
   }

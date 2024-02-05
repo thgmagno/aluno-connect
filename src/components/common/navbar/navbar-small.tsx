@@ -10,14 +10,14 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog'
-import { Button } from '../ui/button'
+import { Button } from '../../ui/button'
 import { Menu } from 'lucide-react'
 import Link from 'next/link'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuTrigger,
-} from '../ui/dropdown-menu'
+} from '../../ui/dropdown-menu'
 
 interface Props {
   options: {

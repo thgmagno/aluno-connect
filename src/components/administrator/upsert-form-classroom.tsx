@@ -38,7 +38,7 @@ export function UpsertFormClassroom({ data }: Props) {
         </DialogTrigger>
       )}
       <DialogContent>
-        <form action={action} className="space-y-3">
+        <form action={action} className="space-y-5">
           {/* Metadata */}
           <input type="hidden" name="id" value={data?.id} />
 
@@ -48,7 +48,7 @@ export function UpsertFormClassroom({ data }: Props) {
               formState?.errors.course_name && 'text-red-600'
             }`}
           >
-            <Label htmlFor="courseName">Name</Label>
+            <Label htmlFor="courseName">Nome do curso</Label>
             <Input
               type="text"
               name="courseName"
@@ -60,6 +60,18 @@ export function UpsertFormClassroom({ data }: Props) {
             {formState?.errors.course_name && (
               <p className="text-sm">{formState?.errors.course_name}</p>
             )}
+          </div>
+
+          {/* Alunos */}
+          <div className={`space-y-2`}>
+            <Label htmlFor="students">Alunos</Label>
+            <Input type="text" name="students" />
+          </div>
+
+          {/* Instrutores */}
+          <div className={`space-y-2`}>
+            <Label htmlFor="instrutores">Instrutores</Label>
+            <Input type="text" name="instrutores" />
           </div>
 
           {formState?.errors._form && (
