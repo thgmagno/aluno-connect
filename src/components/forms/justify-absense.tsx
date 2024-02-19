@@ -12,13 +12,13 @@ import {
 import FormSubmit from '../common/form-submit'
 import { useFormState } from 'react-dom'
 import { useSearchParams } from 'next/navigation'
-import { api } from '@/api'
 import Link from 'next/link'
 import { FormatDate } from '@/utils/format-date'
 import DisplayErrorForm from '../common/display-error-form'
+import { actions } from '@/actions'
 
 export default function JustifyAbsenseForm() {
-  const [formState, action] = useFormState(api.create.request, {
+  const [formState, action] = useFormState(actions.student.sendJustification, {
     errors: {},
   })
   const searchParams = useSearchParams()
