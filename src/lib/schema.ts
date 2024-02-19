@@ -24,7 +24,6 @@ export const SetPasswordSchema = z
   })
 
 export const StudentSchema = z.object({
-  id: z.string().optional(),
   name: z
     .string()
     .min(1, 'O nome é obrigatório')
@@ -34,7 +33,6 @@ export const StudentSchema = z.object({
 })
 
 export const ParentSchema = z.object({
-  id: z.string().optional(),
   name: z
     .string()
     .min(1, 'O nome é obrigatório')
@@ -43,7 +41,6 @@ export const ParentSchema = z.object({
 })
 
 export const InstructorSchema = z.object({
-  id: z.string().optional(),
   name: z
     .string()
     .min(1, 'O nome é obrigatório')

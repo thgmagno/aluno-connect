@@ -4,6 +4,7 @@
 
 @layer base {
   body {
-    @apply bg-gradient-to-t from-indigo-950 to-neutral-950 min-h-screen
+    @apply bg-gradient-to-t from-indigo-950 to-neutral-800 min-h-screen
+    /* @apply bg-gradient-to-t from-slate-400 to-neutral-300 min-h-screen */
   }
 }

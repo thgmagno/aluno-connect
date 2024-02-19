@@ -13,8 +13,8 @@ import {
   Card,
   CardActions,
   CardContent,
-  // DeleteClassroomButton,
-  // DeleteUserButton,
+  DeleteClassroomButton,
+  DeleteUserButton,
   EditRecordButton,
   JustifyAbsense,
   ResetPasswordButton,
@@ -81,7 +81,7 @@ export default function RenderList({
                 <>
                   <EditRecordButton user={user} />
                   <ResetPasswordButton id={user.id} />
-                  {/* <DeleteUserButton id={user.id} /> */}
+                  <DeleteUserButton id={user.id} />
                 </>
               )}
             </CardActions>
@@ -123,7 +123,7 @@ export default function RenderList({
               {isAdministrator && (
                 <>
                   <EditRecordButton classroom={classroom} />
-                  {/* <DeleteClassroomButton id={classroom.id} /> */}
+                  <DeleteClassroomButton id={classroom.id} />
                 </>
               )}
             </CardActions>
@@ -213,7 +213,7 @@ export default function RenderList({
   }
 
   return (
-    <p className="p-10 text-center text-lg text-neutral-500">
+    <p className="p-10 text-center text-lg text-neutral-500 md:text-xl">
       Não há registros disponíveis no momento
     </p>
   )

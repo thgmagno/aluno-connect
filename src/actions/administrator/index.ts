@@ -1,10 +1,21 @@
 'use server'
 
-import { StudentFormState } from '@/lib/states'
-import { StudentSchema } from '@/lib/schema'
+import {
+  ClassroomFormState,
+  InstructorFormState,
+  ParentFormState,
+  StudentFormState,
+} from '@/lib/states'
+import {
+  ClassroomSchema,
+  InstructorSchema,
+  ParentSchema,
+  StudentSchema,
+} from '@/lib/schema'
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 import { prisma } from '@/lib/prisma'
+import console from 'console'
 
 export async function getStudents() {
   return prisma.user.findMany({
@@ -40,12 +51,11 @@ export async function getRequests() {
   })
 }
 
-export async function updateStudent(
+export async function upsertStudent(
   formState: StudentFormState,
   formData: FormData,
 ): Promise<StudentFormState> {
   const parsed = StudentSchema.safeParse({
-    id: formData.get('id'),
     name: formData.get('name'),
     email: formData.get('email'),
     birthdate: formData.get('birthdate'),
@@ -61,12 +71,14 @@ export async function updateStudent(
       update: {
         name: parsed.data.name,
         email: parsed.data.email,
-        birthdate: parsed.data.birthdate,
+        birthdate: new Date(parsed.data.birthdate),
+        profile: 'STUDENT',
       },
       create: {
         name: parsed.data.name,
         email: parsed.data.email,
-        birthdate: parsed.data.birthdate,
+        birthdate: new Date(parsed.data.birthdate),
+        profile: 'STUDENT',
       },
     })
   } catch (e) {
@@ -77,9 +89,164 @@ export async function updateStudent(
   redirect('/alunos')
 }
 
+export async function upsertParent(
+  formState: ParentFormState,
+  formData: FormData,
+): Promise<ParentFormState> {
+  const parsed = ParentSchema.safeParse({
+    name: formData.get('name'),
+    email: formData.get('email'),
+  })
+
+  if (!parsed.success) {
+    return { errors: parsed.error.flatten().fieldErrors }
+  }
+
+  try {
+    await prisma.user.upsert({
+      where: { email: parsed.data.email },
+      update: {
+        name: parsed.data.name,
+        email: parsed.data.email,
+        birthdate: null,
+        profile: 'PARENT',
+      },
+      create: {
+        name: parsed.data.name,
+        email: parsed.data.email,
+        birthdate: null,
+        profile: 'PARENT',
+      },
+    })
+  } catch (e) {
+    return { errors: { _form: 'Ocorreu um erro' } }
+  }
+
+  revalidatePath('/responsaveis')
+  redirect('/responsaveis')
+}
+
+export async function upsertInstructor(
+  formState: InstructorFormState,
+  formData: FormData,
+): Promise<InstructorFormState> {
+  const parsed = InstructorSchema.safeParse({
+    name: formData.get('name'),
+    email: formData.get('email'),
+  })
+
+  if (!parsed.success) {
+    return { errors: parsed.error.flatten().fieldErrors }
+  }
+
+  try {
+    await prisma.user.upsert({
+      where: { email: parsed.data.email },
+      update: {
+        name: parsed.data.name,
+        email: parsed.data.email,
+        birthdate: null,
+        profile: 'INSTRUCTOR',
+      },
+      create: {
+        name: parsed.data.name,
+        email: parsed.data.email,
+        birthdate: null,
+        profile: 'INSTRUCTOR',
+      },
+    })
+  } catch (e) {
+    return { errors: { _form: 'Ocorreu um erro' } }
+  }
+
+  revalidatePath('/instrutores')
+  redirect('/instrutores')
+}
+
+export async function upsertClassroom(
+  formState: ClassroomFormState,
+  formData: FormData,
+): Promise<ClassroomFormState> {
+  const parsed = ClassroomSchema.safeParse({
+    id: formData.get('id'),
+    course_name: formData.get('courseName'),
+  })
+
+  if (!parsed.success) {
+    return { errors: parsed.error.flatten().fieldErrors }
+  }
+
+  const id = parseInt(String(parsed.data.id))
+
+  try {
+    await prisma.classroom.upsert({
+      where: { id },
+      update: {
+        course_name: parsed.data.course_name,
+      },
+      create: {
+        course_name: parsed.data.course_name,
+      },
+    })
+  } catch (e) {
+    return { errors: { _form: 'Ocorreu um erro' } }
+  }
+
+  revalidatePath('/turmas')
+  redirect('/turmas')
+}
+
+export async function acceptRequest() {
+  try {
+    console.log('implementar')
+  } catch (e) {
+    return { errors: { _form: 'Ocorreu um erro' } }
+  }
+
+  revalidatePath('/solicitacoes')
+  redirect('/solicitacoes')
+}
+
+export async function rejectRequest() {
+  try {
+    console.log('implementar')
+  } catch (e) {
+    return { errors: { _form: 'Ocorreu um erro' } }
+  }
+
+  revalidatePath('/solicitacoes')
+  redirect('/solicitacoes')
+}
+
 export async function resetPassword(id: number) {
   return prisma.user.update({
     where: { id },
     data: { password: null },
   })
+}
+
+export async function deleteUser(id: number) {
+  return prisma.user
+    .findUniqueOrThrow({
+      where: { id },
+    })
+    .then((user) =>
+      prisma.user.delete({
+        where: { id: user.id },
+      }),
+    )
+    .then(() => revalidatePath('/', 'page'))
+}
+
+export async function deleteClassroom(id: number) {
+  return prisma.classroom
+    .findUniqueOrThrow({
+      where: { id },
+    })
+    .then((classroom) =>
+      prisma.classroom.delete({
+        where: { id: classroom.id },
+      }),
+    )
+    .then(() => revalidatePath('/turmas'))
 }

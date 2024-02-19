@@ -15,7 +15,7 @@ export default async function PrivateLayout({
   return (
     <div>
       <Navbar user={user} />
-      <div className="pb-20">{children}</div>
+      <div className="p-5 pb-20">{children}</div>
     </div>
   )
 }

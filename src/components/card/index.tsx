@@ -1,7 +1,7 @@
 'use client'
 
 import { Classroom, Frequency, PartialUser } from '@/lib/types'
-import { Edit, MessageSquareWarning, RefreshCcw } from 'lucide-react'
+import { Edit, MessageSquareWarning, RefreshCcw, Trash2 } from 'lucide-react'
 import Link from 'next/link'
 import { ReactNode } from 'react'
 import PromiseNotification from '../common/notification'
@@ -15,7 +15,7 @@ interface EditRecordButtonProps {
 
 export function Card({ children }: { children: ReactNode }) {
   return (
-    <div className="m-4 flex flex-col rounded-lg border-2 border-neutral-900/60 bg-gradient-to-b from-neutral-300 to-neutral-200 p-2.5 shadow-md sm:flex-row sm:justify-between">
+    <div className="my-4 flex flex-col rounded-lg border-2 border-neutral-900/60 bg-gradient-to-b from-neutral-300 to-neutral-200 p-2.5 shadow-md sm:flex-row sm:justify-between">
       {children}
     </div>
   )
@@ -49,7 +49,7 @@ export function EditRecordButton({ user, classroom }: EditRecordButtonProps) {
           href={{
             query: {
               modal: 'editar',
-              user: JSON.stringify({
+              usuario: JSON.stringify({
                 id: user.id,
                 name: user.name,
                 email: user.email,
@@ -59,7 +59,7 @@ export function EditRecordButton({ user, classroom }: EditRecordButtonProps) {
           }}
           className={`flex items-center justify-center rounded-lg bg-neutral-900 p-2 px-4 text-neutral-300 hover:bg-opacity-85 sm:flex-col`}
         >
-          <Edit size={20} strokeWidth={2.5} />
+          <Edit size={20} strokeWidth={2.5} className="mr-2 sm:mr-0" />
           <span className="sm:hidden">Editar</span>
         </Link>
       </Tooltip>
@@ -79,36 +79,48 @@ export function EditRecordButton({ user, classroom }: EditRecordButtonProps) {
         }}
         className={`flex items-center justify-center rounded-lg bg-neutral-900 p-2 px-4 text-neutral-300 hover:bg-opacity-85 sm:flex-col`}
       >
-        <Edit size={20} strokeWidth={2.5} />
+        <Edit size={20} strokeWidth={2.5} className="mr-2 sm:mr-0" />
         <span className="sm:hidden">Editar</span>
       </Link>
     )
   }
 }
 
-// export function DeleteUserButton({ id }: { id: number }) {
-//   return (
-//     <button
-//       onClick={async () => await api.deleteRegister.user(id)}
-//       className={`flex items-center justify-center rounded-lg bg-neutral-900 p-2 px-4 text-red-500 hover:bg-opacity-85 sm:flex-col`}
-//     >
-//       <Trash2 size={20} strokeWidth={2.5} />
-//       <span className="sm:hidden">Excluir</span>
-//     </button>
-//   )
-// }
+export function DeleteUserButton({ id }: { id: number }) {
+  return (
+    <button
+      onClick={() =>
+        PromiseNotification({
+          action: actions.administrator.deleteUser(id),
+          error: 'Não foi possível deletar o usuário',
+          success: 'Usuário deletado com sucesso',
+        })
+      }
+      className={`flex items-center justify-center rounded-lg bg-neutral-900 p-2 px-4 text-red-500 hover:bg-opacity-85 sm:flex-col`}
+    >
+      <Trash2 size={20} strokeWidth={2.5} className="mr-2 sm:mr-0" />
+      <span className="sm:hidden">Excluir</span>
+    </button>
+  )
+}
 
-// export function DeleteClassroomButton({ id }: { id: number }) {
-//   return (
-//     <button
-//       onClick={async () => await api.deleteRegister.classroom(id)}
-//       className={`flex items-center justify-center rounded-lg bg-neutral-900 p-2 px-4 text-red-500 hover:bg-opacity-85 sm:flex-col`}
-//     >
-//       <Trash2 size={20} />
-//       <span className="sm:hidden">Excluir</span>
-//     </button>
-//   )
-// }
+export function DeleteClassroomButton({ id }: { id: number }) {
+  return (
+    <button
+      onClick={() =>
+        PromiseNotification({
+          action: actions.administrator.deleteClassroom(id),
+          error: 'Não possível excluir a turma',
+          success: 'Turma excluída com sucesso',
+        })
+      }
+      className={`flex items-center justify-center rounded-lg bg-neutral-900 p-2 px-4 text-red-500 hover:bg-opacity-85 sm:flex-col`}
+    >
+      <Trash2 size={20} />
+      <span className="sm:hidden">Excluir</span>
+    </button>
+  )
+}
 
 export function ResetPasswordButton({ id }: { id: number }) {
   return (
@@ -123,7 +135,7 @@ export function ResetPasswordButton({ id }: { id: number }) {
         }
         className={`flex items-center justify-center rounded-lg bg-neutral-900 p-2 px-4 text-amber-500 hover:bg-opacity-85 sm:flex-col`}
       >
-        <RefreshCcw size={20} strokeWidth={2.5} />
+        <RefreshCcw size={20} strokeWidth={2.5} className="mr-2 sm:mr-0" />
         <span className="sm:hidden">Resetar senha</span>
       </button>
     </Tooltip>

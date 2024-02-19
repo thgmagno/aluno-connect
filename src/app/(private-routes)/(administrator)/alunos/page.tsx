@@ -1,7 +1,8 @@
 import { actions } from '@/actions'
+import ButtonCreateRegister from '@/components/common/button-create-register'
 import { Loading } from '@/components/common/loading'
 import RenderList from '@/components/common/render-list'
-import { UpdateStudentForm } from '@/components/forms/update-student-form'
+import { UpsertStudentForm } from '@/components/forms/upsert-student-form'
 import { PartialUser } from '@/lib/types'
 import { Suspense } from 'react'
 
@@ -9,11 +10,15 @@ export default async function AdminStudentPage() {
   const studentList: PartialUser[] = await actions.administrator.getStudents()
 
   return (
-    <div>
+    <>
       <Suspense fallback={<Loading />}>
+        <ButtonCreateRegister
+          pathname="/alunos"
+          query={{ modal: 'cadastrar' }}
+        />
         <RenderList user={studentList} />
-        <UpdateStudentForm />
+        <UpsertStudentForm />
       </Suspense>
-    </div>
+    </>
   )
 }
