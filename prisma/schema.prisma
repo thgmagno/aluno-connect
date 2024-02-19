@@ -4,133 +4,107 @@ generator client {
 
 datasource db {
   provider  = "postgresql"
-  url       = env("POSTGRES_PRISMA_URL")
-  directUrl = env("POSTGRES_URL_NON_POOLING")
+  url       = env("POSTGRES_PRISMA_URL") // uses connection pooling
+  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
 }
 
-model Student {
-  id            String          @id @default(cuid())
-  name          String
-  email         String          @unique
-  password      String?
-  birthdate     DateTime        @db.Date
-  firstAccess   Boolean         @default(true)
-  Request       Request[]
-  Frequency     Frequency[]
-  StudentParent StudentParent[]
-  StudentClass  StudentClass[]
+model User {
+  id               Int                @id @default(autoincrement())
+  name             String
+  email            String             @unique
+  password         String?
+  profile          UserProfile        @default(STUDENT)
+  birthdate        DateTime?          @db.Date()
+  Request          Request[]
+  StudentFrequency StudentFrequency[]
+  StudentParent    StudentParent[]
+  Frequency        Frequency[]
+}
 
-  @@map("student")
+enum UserProfile {
+  STUDENT
+  PARENT
+  INSTRUCTOR
+  ADMINISTRATOR
 }
 
 model Frequency {
-  id        String   @id @default(cuid())
-  date      DateTime @default(now()) @db.Date
-  status    Status
-  studentId String
-  classId   String
-
-  classID   Classroom @relation(fields: [classId], references: [id], onDelete: Cascade)
-  studentID Student   @relation(fields: [studentId], references: [id], onDelete: Cascade)
-  Request   Request[]
-
-  @@map("frequency")
+  id                 Int                  @id @default(autoincrement())
+  date               DateTime             @db.Date()
+  status             FrequencyStatus      @default(ABSENT)
+  student            User                 @relation(fields: [student_id], references: [id], onDelete: Cascade)
+  student_id         Int
+  classroom          Classroom            @relation(fields: [classroom_id], references: [id], onDelete: Cascade)
+  classroom_id       Int
+  classroom_name     String
+  Request            Request[]
+  StudentFrequency   StudentFrequency[]
+  ClassroomFrequency ClassroomFrequency[]
 }
 
-model Request {
-  id            String  @id @default(cuid())
-  justification String
-  imageURL      String?
-  studentId     String
-  frequencyId   String
-  category      String  @default("Nenhuma")
-
-  studentID   Student   @relation(fields: [studentId], references: [id], onDelete: Cascade)
-  frequencyID Frequency @relation(fields: [frequencyId], references: [id], onDelete: Cascade)
-
-  @@map("request")
-}
-
-model Instructor {
-  id              String            @id @default(cuid())
-  name            String
-  email           String            @unique
-  password        String?
-  firstAccess     Boolean           @default(true)
-  InstructorClass InstructorClass[]
-
-  @@map("instructor")
-}
-
-model Parent {
-  id            String          @id @default(cuid())
-  name          String
-  email         String          @unique
-  password      String?
-  firstAccess   Boolean         @default(true)
-  StudentParent StudentParent[]
-
-  @@map("parent")
-}
-
-model Administrator {
-  id       String @id @default(cuid())
-  name     String
-  email    String @unique
-  password String
-
-  @@map("administrator")
-}
-
-model Classroom {
-  id              String            @id @default(cuid())
-  course_name     String            @unique
-  StudentClass    StudentClass[]
-  InstructorClass InstructorClass[]
-  Frequency       Frequency[]
-
-  @@map("classroom")
-}
-
-model StudentParent {
-  id        Int    @id @default(autoincrement())
-  studentId String
-  parentId  String
-
-  studentID Student @relation(fields: [studentId], references: [id], onDelete: Cascade)
-  parentID  Parent  @relation(fields: [parentId], references: [id], onDelete: Cascade)
-
-  @@map("student_parent")
-}
-
-model StudentClass {
-  id        Int    @id @default(autoincrement())
-  studentId String
-  classId   String
-
-  studentID Student   @relation(fields: [studentId], references: [id], onDelete: Cascade)
-  classID   Classroom @relation(fields: [classId], references: [id], onDelete: Cascade)
-
-  @@map("student_class")
-}
-
-model InstructorClass {
-  id           Int    @id @default(autoincrement())
-  instructorId String
-  classId      String
-
-  instructorID Instructor @relation(fields: [instructorId], references: [id], onDelete: Cascade)
-  classID      Classroom  @relation(fields: [classId], references: [id], onDelete: Cascade)
-
-  @@map("instructor_class")
-}
-
-enum Status {
+enum FrequencyStatus {
+  PRESENT
+  ABSENT
   PENDING
   APPROVED
   REJECTED
-  PRESENT
-  ABSENT
+}
 
-  @@map("status_request")
+model Classroom {
+  id                  Int                   @id @default(autoincrement())
+  course_name         String                @unique
+  StudentClassroom    StudentClassroom[]
+  InstructorClassroom InstructorClassroom[]
+  ClassroomFrequency  ClassroomFrequency[]
+  Frequency           Frequency[]
+}
+
+model Request {
+  id            Int       @id @default(autoincrement())
+  student       User      @relation(fields: [student_id], references: [id], onDelete: Cascade)
+  student_id    Int
+  student_name  String
+  parent_id     Int?
+  frequency     Frequency @relation(fields: [frequency_id], references: [id], onDelete: Cascade)
+  frequency_id  Int
+  course_name   String
+  justification String
+  imageUrl      String?
+}
+
+model StudentFrequency {
+  id           Int       @id @default(autoincrement())
+  student      User      @relation(fields: [student_id], references: [id], onDelete: Cascade)
+  student_id   Int
+  frequency    Frequency @relation(fields: [frequency_id], references: [id], onDelete: Cascade)
+  frequency_id Int
+}
+
+model StudentParent {
+  id          Int   @id @default(autoincrement())
+  parent      User  @relation(fields: [parent_id], references: [id], onDelete: Cascade)
+  parent_id   Int   @unique
+  students_id Int[]
+}
+
+model StudentClassroom {
+  id           Int       @id @default(autoincrement())
+  students_id  Int[]
+  classroom    Classroom @relation(fields: [classroom_id], references: [id], onDelete: Cascade)
+  classroom_id Int       @unique
+}
+
+model InstructorClassroom {
+  id             Int       @id @default(autoincrement())
+  instructors_id Int[]
+  classroom      Classroom @relation(fields: [classroom_id], references: [id], onDelete: Cascade)
+  classroom_id   Int       @unique
+}
+
+model ClassroomFrequency {
+  id           Int       @id @default(autoincrement())
+  classroom    Classroom @relation(fields: [classroom_id], references: [id], onDelete: Cascade)
+  classroom_id Int
+  frequency    Frequency @relation(fields: [frequency_id], references: [id], onDelete: Cascade)
+  frequency_id Int
 }

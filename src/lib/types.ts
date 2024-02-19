@@ -1,80 +1,73 @@
-import { z } from 'zod'
+export type EnumProfile = 'STUDENT' | 'PARENT' | 'INSTRUCTOR' | 'ADMINISTRATOR'
 
-export const instructorSchema = z.object({
-  id: z.string().optional(),
-  name: z
-    .string()
-    .min(1, 'O nome é obrigatório')
-    .max(40, 'Ultrapassou limite de 40 caracteres'),
-  email: z.string().email('Formato de e-mail inválido'),
-})
+export type EnumStatus =
+  | 'PRESENT'
+  | 'ABSENT'
+  | 'PENDING'
+  | 'APPROVED'
+  | 'REJECTED'
 
-export const parentSchema = z.object({
-  id: z.string().optional(),
-  name: z
-    .string()
-    .min(1, 'O nome é obrigatório')
-    .max(40, 'Ultrapassou limite de 40 caracteres'),
-  email: z.string().email('Formato de e-mail inválido'),
-})
+export type User = {
+  id: number
+  name: string
+  email: string
+  password: string | null
+  profile: EnumProfile
+  birthdate: Date | null
+}
 
-export const studentSchema = z.object({
-  id: z.string().optional(),
-  name: z
-    .string()
-    .min(1, 'O nome é obrigatório')
-    .max(40, 'Ultrapassou limite de 40 caracteres'),
-  email: z.string().email('O e-mail é inválido'),
-  birthdate: z.string().min(1, 'A data de nascimento é obrigatória'),
-})
+export type PartialUser = {
+  id: number
+  name: string
+  email: string
+  profile: EnumProfile
+  birthdate?: Date | null
+}
 
-export const classSchema = z.object({
-  id: z.string().optional(),
-  course_name: z
-    .string()
-    .min(1, 'O nome do curso é obrigatório')
-    .max(60, 'Ultrapassou limite de 60 caracteres'),
-})
+export type Classroom = {
+  id: number
+  course_name: string
+}
 
-export const loginUserSchema = z.object({
-  email: z.string().email('Formato de e-mail inválido'),
-  password: z.string().min(1, 'A senha é obrigatória'),
-})
+export type Request = {
+  id: number
+  student_id: number
+  student_name: string
+  parent_id: number | null
+  frequency_id: number
+  course_name: string
+  justification: string
+  imageUrl: string | null
+  frequency: {
+    id: number
+    status: EnumStatus
+    date: Date
+  }
+}
 
-export const validateEmailSchema = z.object({
-  email: z.string().email('Formato de e-mail inválido'),
-})
+export type Frequency = {
+  id: number
+  date: Date
+  status: EnumStatus
+  student_id: number
+  classroom_id: number
+  classroom_name: string
+}
 
-const ProfileEnum = z.enum(['student', 'instructor', 'administrator', 'parent'])
+export type FrequencyGrouped = {
+  date: string
+  students: {
+    name: string
+    status: EnumStatus
+  }[]
+}
 
-export const registerUserPasswordSchema = z
-  .object({
-    id: z.string(),
-    email: z.string().email('Formato de e-mail inválido'),
-    profile: ProfileEnum,
-    password: z.string().min(4, 'A senha precisa ter pelo menos 4 caracteres'),
-    confirm: z.string(),
-  })
-  .refine((data) => data.password === data.confirm, {
-    message: 'As senhas não coincidem',
-    path: ['confirm'],
-  })
-
-export type UserType = 'instructor' | 'student' | 'parent' | 'administrator'
-export type CategoryType = 'instructor' | 'student' | 'parent' | 'classroom'
-export type EntityType =
-  | 'instructor'
-  | 'student'
-  | 'parent'
-  | 'classroom'
-  | 'frequency'
-  | 'request'
-
-export const requestSchema = z.object({
-  frequencyId: z.string().min(25),
-  studentId: z.string(),
-  courseName: z.string(),
-  studentName: z.string(),
-  frequencyDate: z.string(),
-  justification: z.string().min(1, 'O campo justificativa é obrigatório'),
-})
+export type PayloadType = {
+  payload: {
+    sub: string
+    name: string
+    email: string
+    profile: string
+    birthdate: string | null
+  }
+}

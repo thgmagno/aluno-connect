@@ -1,5 +1,0 @@
-export { DropdownMenuAdmin } from './dropdown-menu-admin'
-export { UpsertFormStudent } from './upsert-form-student'
-export { UpsertFormParent } from './upsert-form-parent'
-export { UpsertFormInstructor } from './upsert-form-instructor'
-export { UpsertFormClassroom } from './upsert-form-classroom'
