@@ -2,7 +2,7 @@ import { actions } from '@/actions'
 import ButtonCreateRegister from '@/components/common/button-create-register'
 import { Loading } from '@/components/common/loading'
 import RenderList from '@/components/common/render-list'
-import { UpsertClassroomForm } from '@/components/forms/upsert-classroom-from'
+import { UpsertClassroomForm } from '@/components/forms/upsert-classroom-form'
 import { Suspense } from 'react'
 
 export default async function AdminClassroomPage() {

@@ -9,6 +9,7 @@ import { ReactNode, useState } from 'react'
 import { useFormState } from 'react-dom'
 import DisplayErrorForm from '../common/display-error-form'
 import { actions } from '@/actions'
+import FormSubmit from '../common/form-submit'
 
 export function CardAuth({ children }: { children: ReactNode }) {
   return (
@@ -62,9 +63,7 @@ export function CardAuthLogin() {
         <DisplayErrorForm error={formState.errors._form} />
       )}
       <footer className="flex flex-col space-y-6">
-        <Button type="submit" color="primary">
-          Entrar
-        </Button>
+        <FormSubmit title="Entrar" />
         <Link href="/primeiro-acesso">
           <Button className="w-full">Primeiro acesso?</Button>
         </Link>

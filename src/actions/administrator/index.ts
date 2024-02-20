@@ -16,6 +16,7 @@ import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 import { prisma } from '@/lib/prisma'
 import console from 'console'
+import { ParseInt } from '@/utils/parse-int'
 
 export async function getStudents() {
   return prisma.user.findMany({
@@ -176,11 +177,9 @@ export async function upsertClassroom(
     return { errors: parsed.error.flatten().fieldErrors }
   }
 
-  const id = parseInt(String(parsed.data.id))
-
   try {
     await prisma.classroom.upsert({
-      where: { id },
+      where: { id: Number(parsed.data.id) },
       update: {
         course_name: parsed.data.course_name,
       },
@@ -189,7 +188,12 @@ export async function upsertClassroom(
       },
     })
   } catch (e) {
-    return { errors: { _form: 'Ocorreu um erro' } }
+    if (e instanceof Error)
+      return {
+        errors: {
+          _form: 'Ocorreu um erro',
+        },
+      }
   }
 
   revalidatePath('/turmas')
