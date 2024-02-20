@@ -59,7 +59,7 @@ function NavbarMobile({ user }: { user: PartialUser }) {
           <Link
             href={item.href}
             key={item.href}
-            className={`transition-all duration-500 ${pathname === item.href ? 'border-b-2 border-neutral-400' : 'border-b-transparent'}`}
+            className={`transition-all duration-500 ${pathname.includes(item.href) ? 'border-b-2 border-neutral-400' : 'border-b-transparent'}`}
           >
             {item.name}
           </Link>
