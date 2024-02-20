@@ -88,37 +88,41 @@ export function EditRecordButton({ user, classroom }: EditRecordButtonProps) {
 
 export function DeleteUserButton({ id }: { id: number }) {
   return (
-    <button
-      onClick={() =>
-        PromiseNotification({
-          action: actions.administrator.deleteUser(id),
-          error: 'Não foi possível deletar o usuário',
-          success: 'Usuário deletado com sucesso',
-        })
-      }
-      className={`flex items-center justify-center rounded-lg bg-neutral-900 p-2 px-4 text-red-500 hover:bg-opacity-85 sm:flex-col`}
-    >
-      <Trash2 size={20} strokeWidth={2.5} className="mr-2 sm:mr-0" />
-      <span className="sm:hidden">Excluir</span>
-    </button>
+    <Tooltip content="Excluir">
+      <button
+        onClick={() =>
+          PromiseNotification({
+            action: actions.administrator.deleteUser(id),
+            error: 'Não foi possível deletar o usuário',
+            success: 'Usuário deletado com sucesso',
+          })
+        }
+        className={`flex items-center justify-center rounded-lg bg-neutral-900 p-2 px-4 text-red-500 hover:bg-opacity-85 sm:flex-col`}
+      >
+        <Trash2 size={20} strokeWidth={2.5} className="mr-2 sm:mr-0" />
+        <span className="sm:hidden">Excluir</span>
+      </button>
+    </Tooltip>
   )
 }
 
 export function DeleteClassroomButton({ id }: { id: number }) {
   return (
-    <button
-      onClick={() =>
-        PromiseNotification({
-          action: actions.administrator.deleteClassroom(id),
-          error: 'Não possível excluir a turma',
-          success: 'Turma excluída com sucesso',
-        })
-      }
-      className={`flex items-center justify-center rounded-lg bg-neutral-900 p-2 px-4 text-red-500 hover:bg-opacity-85 sm:flex-col`}
-    >
-      <Trash2 size={20} />
-      <span className="sm:hidden">Excluir</span>
-    </button>
+    <Tooltip content="Excluir">
+      <button
+        onClick={() =>
+          PromiseNotification({
+            action: actions.administrator.deleteClassroom(id),
+            error: 'Não possível excluir a turma',
+            success: 'Turma excluída com sucesso',
+          })
+        }
+        className={`flex items-center justify-center rounded-lg bg-neutral-900 p-2 px-4 text-red-500 hover:bg-opacity-85 sm:flex-col`}
+      >
+        <Trash2 size={20} />
+        <span className="sm:hidden">Excluir</span>
+      </button>
+    </Tooltip>
   )
 }
 
@@ -168,18 +172,20 @@ export function ResetPasswordButton({ id }: { id: number }) {
 
 export function JustifyAbsense({ frequency }: { frequency: Frequency }) {
   return (
-    <Link
-      href={{
-        query: {
-          modal: 'justificar',
-          id: frequency.id,
-          data: JSON.stringify(frequency.date),
-        },
-      }}
-      className={`flex items-center justify-center rounded bg-amber-300 p-2 px-4 hover:bg-opacity-85 sm:flex-col`}
-    >
-      <MessageSquareWarning size={20} />
-      <span className="sm:hidden">Justificar</span>
-    </Link>
+    <Tooltip content="Justificar">
+      <Link
+        href={{
+          query: {
+            modal: 'justificar',
+            id: frequency.id,
+            data: JSON.stringify(frequency.date),
+          },
+        }}
+        className={`flex items-center justify-center rounded bg-amber-300 p-2 px-4 hover:bg-opacity-85 sm:flex-col`}
+      >
+        <MessageSquareWarning size={20} />
+        <span className="sm:hidden">Justificar</span>
+      </Link>
+    </Tooltip>
   )
 }
