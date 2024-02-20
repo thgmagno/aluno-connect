@@ -12,6 +12,7 @@
     "@nextui-org/button": "^2.0.26",
     "@nextui-org/react": "^2.2.9",
     "@prisma/client": "^5.9.1",
+    "@react-email/components": "0.0.14",
     "@types/bcrypt": "^5.0.2",
     "bcrypt": "^5.1.1",
     "framer-motion": "^11.0.3",

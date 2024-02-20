@@ -108,7 +108,11 @@ function NavbarDesktop({ user }: { user: PartialUser }) {
 
 export function GoBack({ href, as }: GoBackProps) {
   return (
-    <Link href={href} as={as} className="flex max-w-32 items-center px-2 py-5">
+    <Link
+      href={href}
+      as={as}
+      className="flex max-w-32 items-center px-2 py-5 text-neutral-200"
+    >
       <ChevronLeft className="mr-1 h-6 w-6" /> Voltar
     </Link>
   )

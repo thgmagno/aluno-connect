@@ -1,6 +1,5 @@
 'use client'
 
-import { Button } from '@nextui-org/button'
 import {
   Modal,
   ModalContent,
@@ -8,24 +7,31 @@ import {
   ModalBody,
   ModalFooter,
   Input,
+  Textarea,
+  Button,
 } from '@nextui-org/react'
 import FormSubmit from '../common/form-submit'
 import { useFormState } from 'react-dom'
-import { useSearchParams } from 'next/navigation'
+import { usePathname, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import { FormatDate } from '@/utils/format-date'
 import DisplayErrorForm from '../common/display-error-form'
 import { actions } from '@/actions'
+import { userStore } from '@/store/user'
+import { Frequency } from '@/lib/types'
 
 export default function JustifyAbsenseForm() {
   const [formState, action] = useFormState(actions.student.sendJustification, {
     errors: {},
   })
   const searchParams = useSearchParams()
+  const pathname = usePathname()
+
   const modal = searchParams.get('modal')
-  const id = searchParams.get('id') as string
-  const date = searchParams.get('data') as string
-  const parsedDate = JSON.parse(date)
+  const data = searchParams.get('dados') as string
+  const parsedData: Frequency = JSON.parse(data)
+
+  const { user } = userStore()
 
   return (
     <Modal
@@ -36,23 +42,30 @@ export default function JustifyAbsenseForm() {
     >
       <ModalContent>
         <ModalHeader className="flex flex-col gap-1">
-          <h1>Justificar falta de {FormatDate(parsedDate)}</h1>
+          <h1>Justificar falta de {FormatDate(parsedData?.date)}</h1>
         </ModalHeader>
         <form action={action}>
           <ModalBody>
-            {/* TODO: IMPLEMENTAR */}
-
-            {/* Pegar da Sessão */}
-            <input type="hidden" name="student_id" value={1} />
+            <input type="hidden" name="student_id" value={user?.id} />
             <input type="hidden" name="parent_id" value={''} />
-            <input type="hidden" name="student_name" value={'Implementar'} />
+            <input type="hidden" name="student_name" value={user?.name} />
+            <input
+              type="hidden"
+              name="course_name"
+              value={parsedData?.classroom_name}
+            />
+            <input
+              type="hidden"
+              name="dateOfAbsense"
+              value={String(parsedData.date)}
+            />
 
-            <input type="hidden" name="frequency_id" value={id} />
-            <Input
+            <input type="hidden" name="frequency_id" value={parsedData?.id} />
+            <Textarea
               autoFocus
               name="justification"
-              label="Justificativa"
               variant="faded"
+              placeholder="Escreva uma justificativa para ajudarmos a entender melhor a situação"
               isInvalid={!!formState?.errors.justification}
               errorMessage={formState?.errors.justification}
             />
@@ -68,10 +81,10 @@ export default function JustifyAbsenseForm() {
             )}
           </ModalBody>
           <ModalFooter>
-            <Link href="/frequencia">
-              <Button color="default">Cancelar</Button>
+            <Link href={pathname}>
+              <Button>Cancelar</Button>
             </Link>
-            <FormSubmit title="Salvar" />
+            <FormSubmit title="Enviar" />
           </ModalFooter>
         </form>
       </ModalContent>

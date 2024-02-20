@@ -4,6 +4,7 @@ import { prisma } from '@/lib/prisma'
 import { RequestFormState } from '@/lib/states'
 import { RequestSchema } from '@/lib/schema'
 import { resend } from '@/lib/resend'
+import { Email } from '@/templates/email'
 
 export async function getClassroom(id: number) {
   const promises = await prisma.studentClassroom
@@ -34,12 +35,13 @@ export async function sendJustification(
   formData: FormData,
 ): Promise<RequestFormState> {
   const parsed = RequestSchema.safeParse({
-    student_id: formData.get(''),
-    student_name: formData.get(''),
-    parent_id: formData.get(''),
-    frequency_id: formData.get(''),
-    justification: formData.get(''),
-    course_name: formData.get(''),
+    student_id: formData.get('student_id'),
+    student_name: formData.get('student_name'),
+    parent_id: formData.get('parent_id'),
+    frequency_id: formData.get('frequency_id'),
+    justification: formData.get('justification'),
+    course_name: formData.get('course_name'),
+    dateOfAbsense: formData.get('dateOfAbsense'),
   })
 
   if (!parsed.success) {
@@ -52,12 +54,20 @@ export async function sendJustification(
       data: { status: 'PENDING' },
     })
 
-    // TODO: Corrigir o nome da turma...
     const sendEmail = resend.emails.send({
       from: 'onboarding@resend.dev',
       to: 'secretaria.alunoconnect@gmail.com',
-      subject: 'Justificativa de falta - Aluno Connect',
-      html: `<body style="margin: auto; text-align: center; max-width: 600px; padding: 20px; border: 1px solid #000;"><div style="font-size: 18px; font-weight: bold;">Olá, secretaria da escola.</div><h1>Uma nova justificativa de falta foi devidamente registrada na plataforma Aluno Connect</h1><hr><p style="display: flex;">Aluno: <span>${parsed.data.student_name}</span></p><p style="display: flex;">Turma: <span>${parsed.data.student_id}</span></p><p style="display: flex;">Data da falta: <span>_</span></p><p style="display: flex;">Justificativa: <span>${parsed.data.justification}</span></p><hr><p>Para aceitar ou recusar a solicitação, clique no botão abaixo:</p><div style="text-align: center; margin: 30px 0;"><a href="https://aluno-connect.vercel.app/" style="text-decoration: none; background-color: #4B5563; color: #FFFFFF; padding: 8px 16px; border-radius: 4px; font-size: 16px; font-weight: bold; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">Aluno Connect</a></div><p style="font-weight: bold;">Não é necessário responder a este e-mail</p></body>`,
+      subject: `Justificativa de falta de ${parsed.data.student_name} - Aluno Connect`,
+      react: Email({
+        studentName: parsed.data.student_name,
+        parentName: 'Não informado',
+        courseName: parsed.data.course_name,
+        justification: parsed.data.justification,
+        dateOfAbsense: new Date(parsed.data.dateOfAbsense).toLocaleDateString(
+          'pt-br',
+          { dateStyle: 'long' },
+        ),
+      }),
     })
 
     await Promise.all([updateFrequency, sendEmail])

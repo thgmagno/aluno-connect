@@ -177,13 +177,12 @@ export function JustifyAbsense({ frequency }: { frequency: Frequency }) {
         href={{
           query: {
             modal: 'justificar',
-            id: frequency.id,
-            data: JSON.stringify(frequency.date),
+            dados: JSON.stringify(frequency),
           },
         }}
         className={`flex items-center justify-center rounded bg-amber-300 p-2 px-4 hover:bg-opacity-85 sm:flex-col`}
       >
-        <MessageSquareWarning size={20} />
+        <MessageSquareWarning size={20} className="mr-2 sm:mr-0" />
         <span className="sm:hidden">Justificar</span>
       </Link>
     </Tooltip>

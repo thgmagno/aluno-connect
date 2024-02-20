@@ -31,7 +31,9 @@ export function FrequencyStatus({ status }: { status: EnumStatus }) {
       break
   }
   return (
-    <span className={`rounded-md p-1 px-2 text-xs font-medium ${textColor}`}>
+    <span
+      className={`rounded-full bg-neutral-950/70 p-1 px-2 text-xs font-medium ${textColor}`}
+    >
       {text}
     </span>
   )
