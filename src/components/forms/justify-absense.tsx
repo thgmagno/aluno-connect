@@ -57,7 +57,12 @@ export default function JustifyAbsenseForm() {
             <input
               type="hidden"
               name="dateOfAbsense"
-              value={String(parsedData.date)}
+              value={String(parsedData?.date)}
+            />
+            <input
+              type="hidden"
+              name="classroom_id"
+              value={parsedData?.classroom_id}
             />
 
             <input type="hidden" name="frequency_id" value={parsedData?.id} />

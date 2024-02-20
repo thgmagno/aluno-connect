@@ -1,6 +1,4 @@
-import { Button } from '@nextui-org/button'
-import { Tailwind } from '@react-email/components'
-import Link from 'next/link'
+import { Tailwind, Button, Container } from '@react-email/components'
 
 interface Props {
   studentName: string
@@ -19,40 +17,46 @@ export const Email = ({
 }: Props) => {
   return (
     <Tailwind>
-      <span>Olá, secretaria da escola.</span>
-      <h1>
-        Uma nova justificativa de falta foi devidamente registrada na plataforma
-        Aluno Connect
-      </h1>
-      <hr />
-      <p>
-        <span className="font-medium">Aluno</span>: {studentName}
-      </p>
-      <p>
-        <span className="font-medium">Responsável</span>: {parentName}
-      </p>
-      <p>
-        <span className="font-medium">Turma</span>: {courseName}
-      </p>
-      <p>
-        <span className="font-medium">Data da falta</span>: {dateOfAbsense}
-      </p>
-      <p>
-        <span className="font-medium">Justificativa</span>: {justification}
-      </p>
+      <Container className="flex max-w-sm flex-col">
+        <span>Olá, secretaria da escola.</span>
+        <h1>
+          Uma nova justificativa de falta foi devidamente registrada na
+          plataforma Aluno Connect
+        </h1>
 
-      <p>
-        Para aceitar ou recusar a solicitação, acesse a plataforma clicando no
-        botão abaixo:
-      </p>
+        <hr />
+        <p>
+          <span className="font-bold">Aluno</span>: {studentName}
+        </p>
+        <p>
+          <span className="font-bold">Responsável</span>: {parentName}
+        </p>
+        <p>
+          <span className="font-bold">Turma</span>: {courseName}
+        </p>
+        <p>
+          <span className="font-bold">Data da falta</span>: {dateOfAbsense}
+        </p>
+        <p>
+          <span className="font-bold">Justificativa</span>: {justification}
+        </p>
+        <hr />
 
-      <Link href={'https://aluno-connect.vercel.app/'}>
-        <Button color="primary" className="mx-auto">
-          Aluno Connect
-        </Button>
-      </Link>
+        <h3>
+          Para aceitar ou recusar a solicitação, acesse a plataforma clicando no
+          link abaixo:
+        </h3>
 
-      <p className="font-bold">Não é necessário responder a este e-mail</p>
+        <div className="flex items-center justify-center">
+          <Button
+            href={'https://aluno-connect.vercel.app/'}
+            className="my-5 rounded-full bg-indigo-900 p-2 px-4 text-xl text-neutral-100"
+          >
+            Aluno Connect
+          </Button>
+        </div>
+        <p className="font-bold">Não é necessário responder a este e-mail</p>
+      </Container>
     </Tailwind>
   )
 }

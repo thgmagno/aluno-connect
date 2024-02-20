@@ -66,6 +66,7 @@ export const RequestSchema = z.object({
     .min(10, 'A justificativa precisa ter pelo menos 10 caracteres')
     .max(140, 'A justificativa ultrapassa o limite de 140 caracteres'),
   course_name: z.string(),
+  classroom_id: z.string(),
   dateOfAbsense: z.string(),
 
   // TODO: Corrigir o tipo arquivo

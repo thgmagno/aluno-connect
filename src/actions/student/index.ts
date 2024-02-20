@@ -5,6 +5,8 @@ import { RequestFormState } from '@/lib/states'
 import { RequestSchema } from '@/lib/schema'
 import { resend } from '@/lib/resend'
 import { Email } from '@/templates/email'
+import { redirect } from 'next/navigation'
+import { revalidatePath } from 'next/cache'
 
 export async function getClassroom(id: number) {
   const promises = await prisma.studentClassroom
@@ -41,6 +43,7 @@ export async function sendJustification(
     frequency_id: formData.get('frequency_id'),
     justification: formData.get('justification'),
     course_name: formData.get('course_name'),
+    classroom_id: formData.get('classroom_id'),
     dateOfAbsense: formData.get('dateOfAbsense'),
   })
 
@@ -70,22 +73,25 @@ export async function sendJustification(
       }),
     })
 
-    await Promise.all([updateFrequency, sendEmail])
+    const createRequest = prisma.request.create({
+      data: {
+        course_name: parsed.data.course_name,
+        justification: parsed.data.justification,
+        student_name: parsed.data.student_name,
+        imageUrl: '',
+        student_id: Number(parsed.data.student_id),
+        parent_id: Number(parsed.data.parent_id),
+        frequency_id: Number(parsed.data.frequency_id),
+      },
+    })
+
+    await Promise.all([updateFrequency, sendEmail, createRequest])
   } catch (e) {
-    return { errors: { _form: 'Falha ao enviar' } }
+    if (e instanceof Error) {
+      return { errors: { _form: 'Falha na requisição' } }
+    }
   }
 
-  await prisma.request.create({
-    data: {
-      course_name: '',
-      justification: '',
-      student_name: '',
-      imageUrl: '',
-      student_id: Number(parsed.data.student_id),
-      parent_id: Number(parsed.data.parent_id),
-      frequency_id: Number(parsed.data.frequency_id),
-    },
-  })
-
-  return { errors: {} }
+  revalidatePath('/minhas-turmas', 'page')
+  redirect(`/minhas-turmas/${parsed.data.classroom_id}`)
 }
