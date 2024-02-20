@@ -72,9 +72,13 @@ export function CardAuthLogin() {
   )
 }
 
-export function CardAuthRecognizeEmail() {
+export function CardAuthActivateEmail() {
+  const [formState, action] = useFormState(actions.auth.activateEmail, {
+    errors: {},
+  })
+
   return (
-    <form action="" className="space-y-6">
+    <form action={action} className="space-y-6">
       <header className="ml-1 space-y-2">
         <h1 className="text-xl font-medium md:text-2xl">Aluno Connect</h1>
         <h2 className="text-default-foreground">
@@ -87,9 +91,14 @@ export function CardAuthRecognizeEmail() {
         placeholder="E-mail"
         endContent={<Mail />}
         variant="faded"
+        isInvalid={!!formState?.errors.email}
+        errorMessage={formState?.errors.email}
       />
+      {formState?.errors._form && (
+        <DisplayErrorForm error={formState.errors._form} />
+      )}
       <footer className="flex flex-col space-y-6">
-        <Button color="primary">Avançar</Button>
+        <FormSubmit title="Avançar" />
         <Link href="/entrar">
           <Button className="w-full">Cancelar</Button>
         </Link>
@@ -99,13 +108,17 @@ export function CardAuthRecognizeEmail() {
 }
 
 export function CardAuthSetPassword() {
+  const [formState, action] = useFormState(actions.auth.setPassword, {
+    errors: {},
+  })
+
   const searchParams = useSearchParams()
   const email = searchParams.get('email')
 
   const [visible, setVisible] = useState(false)
 
   return (
-    <form action="" className="flex flex-col space-y-6">
+    <form action={action} className="flex flex-col space-y-6">
       <header className="ml-1 space-y-2">
         <h1 className="text-xl font-medium md:text-2xl">Aluno Connect</h1>
         <h2 className="text-default-foreground">Informe uma senha segura</h2>
@@ -118,6 +131,8 @@ export function CardAuthSetPassword() {
         placeholder="Senha"
         endContent={<LockKeyhole />}
         variant="faded"
+        isInvalid={!!formState?.errors.password}
+        errorMessage={formState?.errors.password}
       />
       <Input
         name="confirm"
@@ -125,6 +140,8 @@ export function CardAuthSetPassword() {
         placeholder="Confirme a senha"
         endContent={<LockKeyhole />}
         variant="faded"
+        isInvalid={!!formState?.errors.confirm}
+        errorMessage={formState?.errors.confirm}
       />
       <button
         onClick={() => setVisible(!visible)}
@@ -133,8 +150,11 @@ export function CardAuthSetPassword() {
       >
         {visible ? 'ocultar senha' : 'mostrar senha'}
       </button>
+      {formState?.errors._form && (
+        <DisplayErrorForm error={formState.errors._form} />
+      )}
       <footer className="flex flex-col space-y-6">
-        <Button color="primary">Avançar</Button>
+        <FormSubmit title="Avançar" />
         <Link href="/entrar">
           <Button className="w-full">Cancelar</Button>
         </Link>

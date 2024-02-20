@@ -6,7 +6,7 @@ export interface LoginFormState {
   }
 }
 
-export interface RecognizeEmailFormState {
+export interface ActivateEmailFormState {
   errors: {
     email?: string[]
     _form?: string

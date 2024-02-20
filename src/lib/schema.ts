@@ -5,7 +5,7 @@ export const LoginSchema = z.object({
   password: z.string().min(1, 'A senha é obrigatória'),
 })
 
-export const ReconizeSchema = z.object({
+export const ActivateEmailSchema = z.object({
   email: z.string().email('O e-mail é inválido'),
 })
 
