@@ -29,7 +29,7 @@ export function Card({ children }: { children: ReactNode }) {
 }
 
 export function CardContent({ children }: { children: ReactNode }) {
-  return <div>{children}</div>
+  return <div className="space-y-2">{children}</div>
 }
 
 export function CardActions({
