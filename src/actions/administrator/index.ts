@@ -3,6 +3,8 @@
 import {
   ClassroomFormState,
   InstructorFormState,
+  LinkInstructorClassroomFormState,
+  LinkStudentClassroomFormState,
   ParentFormState,
   StudentFormState,
 } from '@/lib/states'
@@ -15,6 +17,7 @@ import {
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 import { prisma } from '@/lib/prisma'
+import { ParseInt } from '@/utils/parse-int'
 
 export async function getStudents() {
   return prisma.user.findMany({
@@ -273,4 +276,51 @@ export async function deleteClassroom(id: number) {
       }),
     )
     .then(() => revalidatePath('/turmas'))
+}
+
+export async function linkStudentClassroom(
+  formState: LinkStudentClassroomFormState,
+  formData: FormData,
+): Promise<LinkStudentClassroomFormState> {
+  try {
+    const classroomId = ParseInt(formData.get('classroomId') as string)
+    const studentIDs = Array.from(formData.getAll('studentList'), (student) =>
+      Number(student),
+    )
+
+    await prisma.studentClassroom.upsert({
+      where: { classroom_id: classroomId },
+      update: { students_id: studentIDs },
+      create: { classroom_id: classroomId, students_id: studentIDs },
+    })
+  } catch (e) {
+    return { errors: { _form: 'Erro ao vincular dados' } }
+  }
+
+  revalidatePath('/turmas')
+  redirect('/turmas')
+}
+
+export async function linkInstructorClassroom(
+  formState: LinkInstructorClassroomFormState,
+  formData: FormData,
+): Promise<LinkInstructorClassroomFormState> {
+  try {
+    const classroomId = ParseInt(formData.get('classroomId') as string)
+    const instructorIDs = Array.from(
+      formData.getAll('instructorList'),
+      (instructor) => Number(instructor),
+    )
+
+    await prisma.instructorClassroom.upsert({
+      where: { classroom_id: classroomId },
+      update: { instructors_id: instructorIDs },
+      create: { classroom_id: classroomId, instructors_id: instructorIDs },
+    })
+  } catch (e) {
+    return { errors: { _form: 'Erro ao vincular dados' } }
+  }
+
+  revalidatePath('/turmas')
+  redirect('/turmas')
 }

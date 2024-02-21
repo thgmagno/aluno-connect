@@ -8,7 +8,11 @@ import { UpsertClassroomForm } from '@/components/forms/upsert-classroom-form'
 import { Suspense } from 'react'
 
 export default async function AdminClassroomPage() {
-  const classroomList = await actions.administrator.getClassrooms()
+  const [classroomList, studentList, instructorList] = await Promise.all([
+    actions.administrator.getClassrooms(),
+    actions.administrator.getStudents(),
+    actions.administrator.getInstructors(),
+  ])
 
   return (
     <div>
@@ -19,8 +23,8 @@ export default async function AdminClassroomPage() {
         />
         <RenderList classroom={classroomList} />
         <UpsertClassroomForm />
-        <LinkStudentForm />
-        <LinkInstructorForm />
+        <LinkStudentForm studentList={studentList} />
+        <LinkInstructorForm instructorList={instructorList} />
       </Suspense>
     </div>
   )

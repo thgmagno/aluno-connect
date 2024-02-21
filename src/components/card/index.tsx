@@ -137,11 +137,11 @@ export function DeleteClassroomButton({ id }: { id: number }) {
   )
 }
 
-export function LinkStudentsToClassroom() {
+export function LinkStudentsClassroomButton({ id }: { id: number }) {
   return (
     <Tooltip content="Vincular aluno">
       <Link
-        href={{ query: { vincular: 'alunos' } }}
+        href={{ query: { id: `${id}`, vincular: 'alunos' } }}
         className={`flex items-center justify-center rounded-lg bg-indigo-900 p-2 px-4 text-neutral-100 hover:bg-opacity-85 sm:flex-col`}
       >
         <GraduationCap size={20} className="mr-2 sm:mr-0" />
@@ -151,11 +151,11 @@ export function LinkStudentsToClassroom() {
   )
 }
 
-export function LinkInstructorsToClassroom() {
+export function LinkInstructorsClassroomButton({ id }: { id: number }) {
   return (
     <Tooltip content="Vincular instrutor">
       <Link
-        href={{ query: { vincular: 'instrutores' } }}
+        href={{ query: { id: `${id}`, vincular: 'instrutores' } }}
         className={`flex items-center justify-center rounded-lg bg-emerald-900 p-2 px-4 text-neutral-100 hover:bg-opacity-85 sm:flex-col`}
       >
         <BookMarked size={20} className="mr-2 sm:mr-0" />

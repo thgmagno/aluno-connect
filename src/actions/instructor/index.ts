@@ -110,7 +110,7 @@ export async function createClassroomFrequency(
 
     if (!students || frequency) {
       return {
-        erros: {
+        errors: {
           _form: 'A turma já possui um registro de frequência para essa data',
         },
       }
@@ -143,7 +143,7 @@ export async function createClassroomFrequency(
       },
     })
   } catch (error) {
-    return { erros: { _form: 'Erro ao inserir tabela de frequencia' } }
+    return { errors: { _form: 'Erro ao inserir tabela de frequencia' } }
   }
 
   redirect(`/turma/${classroomId}`)

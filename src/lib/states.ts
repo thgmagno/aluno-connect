@@ -62,7 +62,19 @@ export interface RequestFormState {
 }
 
 export interface CreateFrequencyFormState {
-  erros: {
+  errors: {
+    _form?: string
+  }
+}
+
+export interface LinkStudentClassroomFormState {
+  errors: {
+    _form?: string
+  }
+}
+
+export interface LinkInstructorClassroomFormState {
+  errors: {
     _form?: string
   }
 }
