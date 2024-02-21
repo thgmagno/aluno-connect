@@ -1,7 +1,14 @@
 'use client'
 
 import { Classroom, Frequency, PartialUser } from '@/lib/types'
-import { Edit, MessageSquareWarning, RefreshCcw, Trash2 } from 'lucide-react'
+import {
+  Check,
+  Edit,
+  MessageSquareWarning,
+  RefreshCcw,
+  Trash2,
+  X,
+} from 'lucide-react'
 import Link from 'next/link'
 import { ReactNode } from 'react'
 import PromiseNotification from '../common/notification'
@@ -146,29 +153,45 @@ export function ResetPasswordButton({ id }: { id: number }) {
   )
 }
 
-// export function AcceptRequest({ id }: { id: number }) {
-//   return (
-//     <button
-//       onClick={async () => await api.update.request({ id, reply: 'APPROVED' })}
-//       className={`flex items-center justify-center rounded-lg bg-neutral-900 p-2 px-4 text-emerald-600 hover:bg-opacity-85 sm:flex-col`}
-//     >
-//       <Check size={20} />
-//       <span className="sm:hidden">Aceitar</span>
-//     </button>
-//   )
-// }
+export function AcceptRequest({ id }: { id: number }) {
+  return (
+    <Tooltip content="Aceitar">
+      <button
+        onClick={async () =>
+          PromiseNotification({
+            action: actions.administrator.acceptRequest(id),
+            error: 'Não foi possível gravar a solicitação',
+            success: 'Alterações gravadas com sucesso',
+          })
+        }
+        className={`flex items-center justify-center rounded-lg bg-emerald-900 p-2 px-4 text-white hover:bg-opacity-85 sm:flex-col`}
+      >
+        <Check size={20} strokeWidth={3} />
+        <span className="sm:hidden">Aceitar</span>
+      </button>
+    </Tooltip>
+  )
+}
 
-// export function RejectRequest({ id }: { id: number }) {
-//   return (
-//     <button
-//       onClick={async () => await api.update.request({ id, reply: 'REJECTED' })}
-//       className={`flex items-center justify-center rounded-lg bg-neutral-900 p-2 px-4 text-red-600 hover:bg-opacity-85 sm:flex-col`}
-//     >
-//       <X size={20} />
-//       <span className="sm:hidden">Rejeitar</span>
-//     </button>
-//   )
-// }
+export function RejectRequest({ id }: { id: number }) {
+  return (
+    <Tooltip content="Rejeitar">
+      <button
+        onClick={async () =>
+          PromiseNotification({
+            action: actions.administrator.rejectRequest(id),
+            error: 'Não foi possível gravar a solicitação',
+            success: 'Alterações gravadas com sucesso',
+          })
+        }
+        className={`flex items-center justify-center rounded-lg bg-orange-800 p-2 px-4 text-white hover:bg-opacity-85 sm:flex-col`}
+      >
+        <X size={20} strokeWidth={3} />
+        <span className="sm:hidden">Rejeitar</span>
+      </button>
+    </Tooltip>
+  )
+}
 
 export function JustifyAbsense({ frequency }: { frequency: Frequency }) {
   return (

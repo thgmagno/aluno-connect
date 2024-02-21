@@ -9,7 +9,7 @@ import {
 } from '@/lib/types'
 import React from 'react'
 import {
-  // AcceptRequest,
+  AcceptRequest,
   Card,
   CardActions,
   CardContent,
@@ -18,7 +18,7 @@ import {
   EditRecordButton,
   JustifyAbsense,
   ResetPasswordButton,
-  // RejectRequest,
+  RejectRequest,
 } from '@/components/card'
 import { FormatDate } from '@/utils/format-date'
 import { FrequencyStatus } from './frequency-status'
@@ -32,6 +32,7 @@ interface Props {
   request?: Request[]
   frequency?: Frequency[]
   frequencyGrouped?: FrequencyGrouped[]
+  createFrequency?: PartialUser[]
 }
 
 export default function RenderList({
@@ -40,6 +41,7 @@ export default function RenderList({
   request,
   frequency,
   frequencyGrouped,
+  createFrequency,
 }: Props) {
   const studentId = useSearchParams().get('aluno')
   const { user: userLogged } = userStore()
@@ -118,7 +120,7 @@ export default function RenderList({
                 </Link>
               )}
               {isInstructor && (
-                <Link href={`/turmas/${classroom.id}`}>Abrir</Link>
+                <Link href={{ pathname: `/turma/${classroom.id}` }}>Abrir</Link>
               )}
               {isAdministrator && (
                 <>
@@ -150,12 +152,12 @@ export default function RenderList({
                 Anexo: <span className="text-red-500">implementar</span>
               </p>
             </CardContent>
-            {/* {request.frequency.status === 'PENDING' && (
+            {request.frequency.status === 'PENDING' && (
               <CardActions reverse>
                 <AcceptRequest id={request.id} />
                 <RejectRequest id={request.id} />
               </CardActions>
-            )} */}
+            )}
           </Card>
         ))}
       </React.Fragment>
@@ -191,14 +193,14 @@ export default function RenderList({
         {frequencyGrouped.map((freq) => (
           <div
             key={freq.date}
-            className="mx-auto mb-5 max-w-lg rounded-lg border p-2 shadow"
+            className="mx-auto mb-5 max-w-lg rounded-lg border-2 border-neutral-600 bg-neutral-900/75 p-2 text-neutral-200 shadow"
           >
-            <h1 className="mb-3 text-center text-lg font-medium text-foreground-500">
+            <h1 className="mb-3 text-center text-lg font-medium text-foreground-300">
               {freq.date}
             </h1>
             {freq.students.map((student, index) => (
               <div key={index}>
-                <div className="mb-3 flex items-center justify-between border-b">
+                <div className="mb-3 flex items-center justify-between border-b border-neutral-600 pb-1">
                   <span className="max-w-80 truncate">{student.name}</span>
                   <span>
                     <FrequencyStatus status={student.status} />
@@ -206,6 +208,27 @@ export default function RenderList({
                 </div>
               </div>
             ))}
+          </div>
+        ))}
+      </React.Fragment>
+    )
+  }
+
+  if (createFrequency?.length) {
+    return (
+      <React.Fragment>
+        {createFrequency.map((student) => (
+          <div
+            key={student.id}
+            className="mb-3 flex justify-between border-b-2 pb-2"
+          >
+            <p>{student.name}</p>
+            <input
+              type="checkbox"
+              name={'student'}
+              value={student.id}
+              className="w-6"
+            />
           </div>
         ))}
       </React.Fragment>

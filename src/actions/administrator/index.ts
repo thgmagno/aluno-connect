@@ -15,8 +15,6 @@ import {
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 import { prisma } from '@/lib/prisma'
-import console from 'console'
-import { ParseInt } from '@/utils/parse-int'
 
 export async function getStudents() {
   return prisma.user.findMany({
@@ -200,22 +198,44 @@ export async function upsertClassroom(
   redirect('/turmas')
 }
 
-export async function acceptRequest() {
+export async function acceptRequest(id: number) {
   try {
-    console.log('implementar')
+    await prisma.request
+      .findFirst({
+        where: { id },
+        select: { frequency_id: true },
+      })
+      .then(
+        async (request) =>
+          await prisma.frequency.update({
+            where: { id: request?.frequency_id, status: 'PENDING' },
+            data: { status: 'APPROVED' },
+          }),
+      )
   } catch (e) {
-    return { errors: { _form: 'Ocorreu um erro' } }
+    return { errors: { _form: 'Erro ao atualizar dados' } }
   }
 
   revalidatePath('/solicitacoes')
   redirect('/solicitacoes')
 }
 
-export async function rejectRequest() {
+export async function rejectRequest(id: number) {
   try {
-    console.log('implementar')
+    await prisma.request
+      .findFirst({
+        where: { id },
+        select: { frequency_id: true },
+      })
+      .then(
+        async (request) =>
+          await prisma.frequency.update({
+            where: { id: request?.frequency_id, status: 'PENDING' },
+            data: { status: 'REJECTED' },
+          }),
+      )
   } catch (e) {
-    return { errors: { _form: 'Ocorreu um erro' } }
+    return { errors: { _form: 'Erro ao atualizar dados' } }
   }
 
   revalidatePath('/solicitacoes')

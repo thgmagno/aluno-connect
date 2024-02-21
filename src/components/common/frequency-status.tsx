@@ -15,7 +15,7 @@ export function FrequencyStatus({ status }: { status: EnumStatus }) {
       text = 'JUSTIFICADO'
       break
     case 'PENDING':
-      textColor = 'text-yellow-500'
+      textColor = 'text-neutral-100'
       text = 'PENDENTE'
       break
     case 'PRESENT':

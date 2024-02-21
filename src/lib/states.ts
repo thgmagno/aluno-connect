@@ -60,3 +60,9 @@ export interface RequestFormState {
     _form?: string
   }
 }
+
+export interface CreateFrequencyFormState {
+  erros: {
+    _form?: string
+  }
+}
