@@ -2,8 +2,10 @@
 
 import { Classroom, Frequency, PartialUser } from '@/lib/types'
 import {
+  BookMarked,
   Check,
   Edit,
+  GraduationCap,
   MessageSquareWarning,
   RefreshCcw,
   Trash2,
@@ -74,21 +76,23 @@ export function EditRecordButton({ user, classroom }: EditRecordButtonProps) {
   }
   if (classroom) {
     return (
-      <Link
-        href={{
-          query: {
-            modal: 'editar',
-            turma: JSON.stringify({
-              id: classroom.id,
-              course_name: classroom.course_name,
-            }),
-          },
-        }}
-        className={`flex items-center justify-center rounded-lg bg-neutral-900 p-2 px-4 text-neutral-300 hover:bg-opacity-85 sm:flex-col`}
-      >
-        <Edit size={20} strokeWidth={2.5} className="mr-2 sm:mr-0" />
-        <span className="sm:hidden">Editar</span>
-      </Link>
+      <Tooltip content="Editar">
+        <Link
+          href={{
+            query: {
+              modal: 'editar',
+              turma: JSON.stringify({
+                id: classroom.id,
+                course_name: classroom.course_name,
+              }),
+            },
+          }}
+          className={`flex items-center justify-center rounded-lg bg-neutral-900 p-2 px-4 text-neutral-300 hover:bg-opacity-85 sm:flex-col`}
+        >
+          <Edit size={20} strokeWidth={2.5} className="mr-2 sm:mr-0" />
+          <span className="sm:hidden">Editar</span>
+        </Link>
+      </Tooltip>
     )
   }
 }
@@ -129,6 +133,34 @@ export function DeleteClassroomButton({ id }: { id: number }) {
         <Trash2 size={20} />
         <span className="sm:hidden">Excluir</span>
       </button>
+    </Tooltip>
+  )
+}
+
+export function LinkStudentsToClassroom() {
+  return (
+    <Tooltip content="Vincular aluno">
+      <Link
+        href={{ query: { vincular: 'alunos' } }}
+        className={`flex items-center justify-center rounded-lg bg-indigo-900 p-2 px-4 text-neutral-100 hover:bg-opacity-85 sm:flex-col`}
+      >
+        <GraduationCap size={20} className="mr-2 sm:mr-0" />
+        <span className="sm:hidden">Vincular aluno</span>
+      </Link>
+    </Tooltip>
+  )
+}
+
+export function LinkInstructorsToClassroom() {
+  return (
+    <Tooltip content="Vincular instrutor">
+      <Link
+        href={{ query: { vincular: 'instrutores' } }}
+        className={`flex items-center justify-center rounded-lg bg-emerald-900 p-2 px-4 text-neutral-100 hover:bg-opacity-85 sm:flex-col`}
+      >
+        <BookMarked size={20} className="mr-2 sm:mr-0" />
+        <span className="sm:hidden">Vincular instrutor</span>
+      </Link>
     </Tooltip>
   )
 }

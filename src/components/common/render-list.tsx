@@ -19,6 +19,8 @@ import {
   JustifyAbsense,
   ResetPasswordButton,
   RejectRequest,
+  LinkStudentsToClassroom,
+  LinkInstructorsToClassroom,
 } from '@/components/card'
 import { FormatDate } from '@/utils/format-date'
 import { FrequencyStatus } from './frequency-status'
@@ -124,6 +126,8 @@ export default function RenderList({
               )}
               {isAdministrator && (
                 <>
+                  <LinkStudentsToClassroom />
+                  <LinkInstructorsToClassroom />
                   <EditRecordButton classroom={classroom} />
                   <DeleteClassroomButton id={classroom.id} />
                 </>
