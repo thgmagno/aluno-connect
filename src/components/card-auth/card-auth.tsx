@@ -40,7 +40,6 @@ export function CardAuthLogin() {
         variant="faded"
         isInvalid={!!formState?.errors.email}
         errorMessage={formState?.errors.email}
-        defaultValue="@email.com"
       />
       <Input
         name="password"
@@ -50,7 +49,6 @@ export function CardAuthLogin() {
         variant="faded"
         isInvalid={!!formState?.errors.password}
         errorMessage={formState?.errors.password}
-        defaultValue="123123"
       />
       <button
         onClick={() => setVisible(!visible)}

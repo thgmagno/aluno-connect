@@ -55,8 +55,8 @@ export default function CreateFrequencyForm({
               value={classroom?.course_name}
             />
             <RenderList createFrequency={studentList} />
-            {formState.errors._form && (
-              <DisplayErrorForm error={formState.errors._form} />
+            {formState?.errors._form && (
+              <DisplayErrorForm error={formState?.errors._form} />
             )}
           </ModalBody>
           <ModalFooter>

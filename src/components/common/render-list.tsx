@@ -118,7 +118,7 @@ export default function RenderList({
               {isParent && (
                 <ShowFrequency
                   pathname={`/aluno/turmas/${classroom.id}`}
-                  query={`${studentId}`}
+                  studentId={`${studentId}`}
                 />
               )}
               {isInstructor && (

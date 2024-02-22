@@ -262,14 +262,14 @@ export function JustifyAbsense({ frequency }: { frequency: Frequency }) {
 
 export function ShowFrequency({
   pathname,
-  query,
+  studentId,
 }: {
   pathname: string
-  query?: string
+  studentId?: string
 }) {
   return (
     <Link
-      href={{ pathname, query }}
+      href={{ pathname, query: { aluno: studentId } }}
       className={`flex items-center justify-center rounded border-2 bg-neutral-200 p-2 px-4 shadow hover:bg-opacity-85`}
     >
       <span>Visualizar frequência</span>
