@@ -33,6 +33,9 @@ export default function JustifyAbsenseForm() {
 
   const { user } = userStore()
 
+  const isStudent = user?.profile === 'STUDENT'
+  const isParent = user?.profile === 'PARENT'
+
   return (
     <Modal
       isOpen={modal === 'justificar'}
@@ -46,9 +49,21 @@ export default function JustifyAbsenseForm() {
         </ModalHeader>
         <form action={action}>
           <ModalBody>
-            <input type="hidden" name="student_id" value={user?.id} />
-            <input type="hidden" name="parent_id" value={''} />
-            <input type="hidden" name="student_name" value={user?.name} />
+            <input
+              type="hidden"
+              name="student_id"
+              value={parsedData?.student_id}
+            />
+            <input
+              type="hidden"
+              name="parent_id"
+              value={isParent ? user.id : ''}
+            />
+            <input
+              type="hidden"
+              name="student_name"
+              value={isStudent ? user?.name : ''}
+            />
             <input
               type="hidden"
               name="course_name"
@@ -86,9 +101,18 @@ export default function JustifyAbsenseForm() {
             )}
           </ModalBody>
           <ModalFooter>
-            <Link href={pathname}>
-              <Button>Cancelar</Button>
-            </Link>
+            {isStudent && (
+              <Link href={pathname}>
+                <Button>Cancelar</Button>
+              </Link>
+            )}
+            {isParent && (
+              <Link
+                href={{ pathname, query: { aluno: parsedData?.student_id } }}
+              >
+                <Button>Cancelar</Button>
+              </Link>
+            )}
             <FormSubmit title="Enviar" />
           </ModalFooter>
         </form>

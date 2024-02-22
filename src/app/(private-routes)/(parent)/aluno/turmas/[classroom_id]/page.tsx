@@ -2,6 +2,7 @@ import { actions } from '@/actions'
 import { Loading } from '@/components/common/loading'
 import { GoBack } from '@/components/common/navbar'
 import RenderList from '@/components/common/render-list'
+import JustifyAbsenseForm from '@/components/forms/justify-absense'
 import { Frequency } from '@/lib/types'
 import { ParseInt } from '@/utils/parse-int'
 import { Suspense } from 'react'
@@ -29,6 +30,7 @@ export default async function ParentClassroomFrequencyPage({
       <Suspense fallback={<Loading />}>
         <RenderList frequency={data} />
       </Suspense>
+      <JustifyAbsenseForm />
     </div>
   )
 }

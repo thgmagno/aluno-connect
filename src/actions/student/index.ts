@@ -7,6 +7,7 @@ import { resend } from '@/lib/resend'
 import { Email } from '@/templates/email'
 import { redirect } from 'next/navigation'
 import { revalidatePath } from 'next/cache'
+import { ParseInt } from '@/utils/parse-int'
 
 export async function getClassroom(id: number) {
   const promises = await prisma.studentClassroom
@@ -57,13 +58,31 @@ export async function sendJustification(
       data: { status: 'PENDING' },
     })
 
+    let parent: { name: string } | null = null
+
+    if (parsed.data.parent_id) {
+      parent = await prisma.user.findFirst({
+        where: { id: ParseInt(parsed.data.parent_id) },
+        select: { name: true },
+      })
+    }
+
+    let student: { name: string } | null = null
+
+    if (!parsed.data.student_name) {
+      student = await prisma.user.findFirst({
+        where: { id: ParseInt(parsed.data.student_id) },
+        select: { name: true },
+      })
+    }
+
     const sendEmail = resend.emails.send({
       from: 'onboarding@resend.dev',
       to: 'secretaria.alunoconnect@gmail.com',
       subject: `Justificativa de falta de ${parsed.data.student_name} - Aluno Connect`,
       react: Email({
-        studentName: parsed.data.student_name,
-        parentName: 'Não informado',
+        studentName: student?.name || parsed.data.student_name,
+        parentName: parent?.name || 'Não informado',
         courseName: parsed.data.course_name,
         justification: parsed.data.justification,
         dateOfAbsense: new Date(parsed.data.dateOfAbsense).toLocaleDateString(
@@ -77,7 +96,7 @@ export async function sendJustification(
       data: {
         course_name: parsed.data.course_name,
         justification: parsed.data.justification,
-        student_name: parsed.data.student_name,
+        student_name: student?.name || parsed.data.student_name,
         imageUrl: '',
         student_id: Number(parsed.data.student_id),
         parent_id: Number(parsed.data.parent_id),

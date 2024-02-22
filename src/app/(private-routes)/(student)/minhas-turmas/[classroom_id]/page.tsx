@@ -1,5 +1,4 @@
 import { actions } from '@/actions'
-import { JustifyAbsense } from '@/components/card'
 import { Loading } from '@/components/common/loading'
 import { GoBack } from '@/components/common/navbar'
 import RenderList from '@/components/common/render-list'
@@ -26,8 +25,8 @@ export default async function StudentClassroomFrequencyPage({
 
       <Suspense fallback={<Loading />}>
         <RenderList frequency={data} />
-        <JustifyAbsenseForm />
       </Suspense>
+      <JustifyAbsenseForm />
     </div>
   )
 }

@@ -165,6 +165,20 @@ export function LinkInstructorsClassroomButton({ id }: { id: number }) {
   )
 }
 
+export function LinkStudentsParentButton({ parentId }: { parentId: number }) {
+  return (
+    <Tooltip content="Vincular aluno">
+      <Link
+        href={{ query: { id: `${parentId}`, vincular: 'alunos' } }}
+        className={`flex items-center justify-center rounded-lg bg-indigo-900 p-2 px-4 text-neutral-100 hover:bg-opacity-85 sm:flex-col`}
+      >
+        <GraduationCap size={20} className="mr-2 sm:mr-0" />
+        <span className="sm:hidden">Vincular aluno</span>
+      </Link>
+    </Tooltip>
+  )
+}
+
 export function ResetPasswordButton({ id }: { id: number }) {
   return (
     <Tooltip content="Resetar senha">
@@ -231,6 +245,7 @@ export function JustifyAbsense({ frequency }: { frequency: Frequency }) {
       <Link
         href={{
           query: {
+            aluno: `${frequency.student_id}`,
             modal: 'justificar',
             dados: JSON.stringify(frequency),
           },

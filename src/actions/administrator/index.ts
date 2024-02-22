@@ -5,6 +5,7 @@ import {
   InstructorFormState,
   LinkInstructorClassroomFormState,
   LinkStudentClassroomFormState,
+  LinkStudentParentFormState,
   ParentFormState,
   StudentFormState,
 } from '@/lib/states'
@@ -323,4 +324,27 @@ export async function linkInstructorClassroom(
 
   revalidatePath('/turmas')
   redirect('/turmas')
+}
+
+export async function linkStudentParent(
+  formState: LinkStudentParentFormState,
+  formData: FormData,
+): Promise<LinkStudentParentFormState> {
+  try {
+    const parentId = ParseInt(formData.get('parentId') as string)
+    const studentIDs = Array.from(formData.getAll('studentList'), (student) =>
+      Number(student),
+    )
+
+    await prisma.studentParent.upsert({
+      where: { parent_id: parentId },
+      update: { students_id: studentIDs },
+      create: { parent_id: parentId, students_id: studentIDs },
+    })
+  } catch (e) {
+    return { errors: { _form: 'Erro ao vincular dados' } }
+  }
+
+  revalidatePath('/responsaveis')
+  redirect('/responsaveis')
 }

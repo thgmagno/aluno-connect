@@ -18,7 +18,6 @@ export const Email = ({
   return (
     <Tailwind>
       <Container className="flex max-w-sm flex-col">
-        <span>Olá, secretaria da escola.</span>
         <h1>
           Uma nova justificativa de falta foi devidamente registrada na
           plataforma Aluno Connect

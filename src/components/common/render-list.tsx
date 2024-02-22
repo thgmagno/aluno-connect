@@ -21,12 +21,14 @@ import {
   RejectRequest,
   LinkStudentsClassroomButton,
   LinkInstructorsClassroomButton,
+  LinkStudentsParentButton,
 } from '@/components/card'
 import { FormatDate } from '@/utils/format-date'
 import { FrequencyStatus } from './frequency-status'
 import Link from 'next/link'
-import { useSearchParams } from 'next/navigation'
+import { usePathname, useSearchParams } from 'next/navigation'
 import { userStore } from '@/store/user'
+import { CheckAgeStudent } from '@/utils/check-age-student'
 
 interface Props {
   user?: PartialUser[]
@@ -45,6 +47,7 @@ export default function RenderList({
   frequencyGrouped,
   createFrequency,
 }: Props) {
+  const pathname = usePathname()
   const studentId = useSearchParams().get('aluno')
   const { user: userLogged } = userStore()
 
@@ -83,6 +86,9 @@ export default function RenderList({
               {/* Admin Options */}
               {isAdministrator && (
                 <>
+                  {pathname.includes('responsaveis') && (
+                    <LinkStudentsParentButton parentId={user.id} />
+                  )}
                   <EditRecordButton user={user} />
                   <ResetPasswordButton id={user.id} />
                   <DeleteUserButton id={user.id} />
@@ -169,6 +175,8 @@ export default function RenderList({
   }
 
   if (frequency?.length) {
+    const isAdult = CheckAgeStudent(userLogged?.birthdate)
+
     return (
       <React.Fragment>
         {frequency.map((freq) => (
@@ -180,7 +188,12 @@ export default function RenderList({
                 Situação: <FrequencyStatus status={freq.status} />
               </p>
             </CardContent>
-            {freq.status === 'ABSENT' && (
+            {isStudent && freq.status === 'ABSENT' && isAdult && (
+              <CardActions reverse>
+                <JustifyAbsense frequency={freq} />
+              </CardActions>
+            )}
+            {isParent && freq.status === 'ABSENT' && (
               <CardActions reverse>
                 <JustifyAbsense frequency={freq} />
               </CardActions>

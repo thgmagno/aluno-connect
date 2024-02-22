@@ -78,3 +78,9 @@ export interface LinkInstructorClassroomFormState {
     _form?: string
   }
 }
+
+export interface LinkStudentParentFormState {
+  errors: {
+    _form?: string
+  }
+}
