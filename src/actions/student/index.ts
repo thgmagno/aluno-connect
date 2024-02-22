@@ -79,7 +79,7 @@ export async function sendJustification(
     const sendEmail = resend.emails.send({
       from: 'onboarding@resend.dev',
       to: 'secretaria.alunoconnect@gmail.com',
-      subject: `Justificativa de falta de ${parsed.data.student_name} - Aluno Connect`,
+      subject: `Justificativa de falta de ${student?.name || parsed.data.student_name} - Aluno Connect`,
       react: Email({
         studentName: student?.name || parsed.data.student_name,
         parentName: parent?.name || 'Não informado',
