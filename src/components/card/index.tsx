@@ -3,6 +3,7 @@
 import { Classroom, Frequency, PartialUser } from '@/lib/types'
 import {
   BookMarked,
+  ArrowRightCircle,
   Check,
   Edit,
   GraduationCap,
@@ -66,7 +67,7 @@ export function EditRecordButton({ user, classroom }: EditRecordButtonProps) {
               }),
             },
           }}
-          className={`flex items-center justify-center rounded-lg bg-neutral-900 p-2 px-4 text-neutral-300 hover:bg-opacity-85 sm:flex-col`}
+          className={`flex items-center justify-center rounded-lg bg-neutral-900 p-2 px-4 text-neutral-300 shadow hover:bg-opacity-85 sm:flex-col`}
         >
           <Edit size={20} strokeWidth={2.5} className="mr-2 sm:mr-0" />
           <span className="sm:hidden">Editar</span>
@@ -87,7 +88,7 @@ export function EditRecordButton({ user, classroom }: EditRecordButtonProps) {
               }),
             },
           }}
-          className={`flex items-center justify-center rounded-lg bg-neutral-900 p-2 px-4 text-neutral-300 hover:bg-opacity-85 sm:flex-col`}
+          className={`flex items-center justify-center rounded-lg bg-neutral-900 p-2 px-4 text-neutral-300 shadow hover:bg-opacity-85 sm:flex-col`}
         >
           <Edit size={20} strokeWidth={2.5} className="mr-2 sm:mr-0" />
           <span className="sm:hidden">Editar</span>
@@ -108,7 +109,7 @@ export function DeleteUserButton({ id }: { id: number }) {
             success: 'Usuário deletado com sucesso',
           })
         }
-        className={`flex items-center justify-center rounded-lg bg-neutral-900 p-2 px-4 text-red-500 hover:bg-opacity-85 sm:flex-col`}
+        className={`flex items-center justify-center rounded-lg bg-neutral-900 p-2 px-4 text-red-500 shadow hover:bg-opacity-85 sm:flex-col`}
       >
         <Trash2 size={20} strokeWidth={2.5} className="mr-2 sm:mr-0" />
         <span className="sm:hidden">Excluir</span>
@@ -128,7 +129,7 @@ export function DeleteClassroomButton({ id }: { id: number }) {
             success: 'Turma excluída com sucesso',
           })
         }
-        className={`flex items-center justify-center rounded-lg bg-neutral-900 p-2 px-4 text-red-500 hover:bg-opacity-85 sm:flex-col`}
+        className={`flex items-center justify-center rounded-lg bg-neutral-900 p-2 px-4 text-red-500 shadow hover:bg-opacity-85 sm:flex-col`}
       >
         <Trash2 size={20} />
         <span className="sm:hidden">Excluir</span>
@@ -142,7 +143,7 @@ export function LinkStudentsClassroomButton({ id }: { id: number }) {
     <Tooltip content="Vincular aluno">
       <Link
         href={{ query: { id: `${id}`, vincular: 'alunos' } }}
-        className={`flex items-center justify-center rounded-lg bg-indigo-900 p-2 px-4 text-neutral-100 hover:bg-opacity-85 sm:flex-col`}
+        className={`flex items-center justify-center rounded-lg bg-indigo-900 p-2 px-4 text-neutral-100 shadow hover:bg-opacity-85 sm:flex-col`}
       >
         <GraduationCap size={20} className="mr-2 sm:mr-0" />
         <span className="sm:hidden">Vincular aluno</span>
@@ -156,7 +157,7 @@ export function LinkInstructorsClassroomButton({ id }: { id: number }) {
     <Tooltip content="Vincular instrutor">
       <Link
         href={{ query: { id: `${id}`, vincular: 'instrutores' } }}
-        className={`flex items-center justify-center rounded-lg bg-emerald-900 p-2 px-4 text-neutral-100 hover:bg-opacity-85 sm:flex-col`}
+        className={`flex items-center justify-center rounded-lg bg-emerald-900 p-2 px-4 text-neutral-100 shadow hover:bg-opacity-85 sm:flex-col`}
       >
         <BookMarked size={20} className="mr-2 sm:mr-0" />
         <span className="sm:hidden">Vincular instrutor</span>
@@ -170,7 +171,7 @@ export function LinkStudentsParentButton({ parentId }: { parentId: number }) {
     <Tooltip content="Vincular aluno">
       <Link
         href={{ query: { id: `${parentId}`, vincular: 'alunos' } }}
-        className={`flex items-center justify-center rounded-lg bg-indigo-900 p-2 px-4 text-neutral-100 hover:bg-opacity-85 sm:flex-col`}
+        className={`flex items-center justify-center rounded-lg bg-indigo-900 p-2 px-4 text-neutral-100 shadow hover:bg-opacity-85 sm:flex-col`}
       >
         <GraduationCap size={20} className="mr-2 sm:mr-0" />
         <span className="sm:hidden">Vincular aluno</span>
@@ -190,7 +191,7 @@ export function ResetPasswordButton({ id }: { id: number }) {
             success: 'Senha resetada com sucesso',
           })
         }
-        className={`flex items-center justify-center rounded-lg bg-neutral-900 p-2 px-4 text-amber-500 hover:bg-opacity-85 sm:flex-col`}
+        className={`flex items-center justify-center rounded-lg bg-neutral-900 p-2 px-4 text-amber-500 shadow hover:bg-opacity-85 sm:flex-col`}
       >
         <RefreshCcw size={20} strokeWidth={2.5} className="mr-2 sm:mr-0" />
         <span className="sm:hidden">Resetar senha</span>
@@ -210,7 +211,7 @@ export function AcceptRequest({ id }: { id: number }) {
             success: 'Alterações gravadas com sucesso',
           })
         }
-        className={`flex items-center justify-center rounded-lg bg-emerald-900 p-2 px-4 text-white hover:bg-opacity-85 sm:flex-col`}
+        className={`flex items-center justify-center rounded-lg bg-emerald-900 p-2 px-4 text-white shadow hover:bg-opacity-85 sm:flex-col`}
       >
         <Check size={20} strokeWidth={3} />
         <span className="sm:hidden">Aceitar</span>
@@ -230,7 +231,7 @@ export function RejectRequest({ id }: { id: number }) {
             success: 'Alterações gravadas com sucesso',
           })
         }
-        className={`flex items-center justify-center rounded-lg bg-orange-800 p-2 px-4 text-white hover:bg-opacity-85 sm:flex-col`}
+        className={`flex items-center justify-center rounded-lg bg-orange-800 p-2 px-4 text-white shadow hover:bg-opacity-85 sm:flex-col`}
       >
         <X size={20} strokeWidth={3} />
         <span className="sm:hidden">Rejeitar</span>
@@ -250,11 +251,29 @@ export function JustifyAbsense({ frequency }: { frequency: Frequency }) {
             dados: JSON.stringify(frequency),
           },
         }}
-        className={`flex items-center justify-center rounded bg-amber-300 p-2 px-4 hover:bg-opacity-85 sm:flex-col`}
+        className={`flex items-center justify-center rounded bg-amber-300 p-2 px-4 shadow hover:bg-opacity-85 sm:flex-col`}
       >
         <MessageSquareWarning size={20} className="mr-2 sm:mr-0" />
         <span className="sm:hidden">Justificar</span>
       </Link>
     </Tooltip>
+  )
+}
+
+export function ShowFrequency({
+  pathname,
+  query,
+}: {
+  pathname: string
+  query?: string
+}) {
+  return (
+    <Link
+      href={{ pathname, query }}
+      className={`flex items-center justify-center rounded border-2 bg-neutral-200 p-2 px-4 shadow hover:bg-opacity-85`}
+    >
+      <span>Visualizar frequência</span>
+      <ArrowRightCircle className="ml-2" />
+    </Link>
   )
 }

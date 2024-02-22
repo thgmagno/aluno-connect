@@ -22,6 +22,7 @@ import {
   LinkStudentsClassroomButton,
   LinkInstructorsClassroomButton,
   LinkStudentsParentButton,
+  ShowFrequency,
 } from '@/components/card'
 import { FormatDate } from '@/utils/format-date'
 import { FrequencyStatus } from './frequency-status'
@@ -29,6 +30,7 @@ import Link from 'next/link'
 import { usePathname, useSearchParams } from 'next/navigation'
 import { userStore } from '@/store/user'
 import { CheckAgeStudent } from '@/utils/check-age-student'
+import { ArrowRightCircle } from 'lucide-react'
 
 interface Props {
   user?: PartialUser[]
@@ -111,24 +113,22 @@ export default function RenderList({
             </CardContent>
             <CardActions>
               {isStudent && (
-                <Link href={`/minhas-turmas/${classroom.id}`}>
-                  Mostrar frequência
-                </Link>
+                <ShowFrequency pathname={`/minhas-turmas/${classroom.id}`} />
               )}
               {isParent && (
-                <Link
-                  href={{
-                    pathname: `/aluno/turmas/${classroom.id}`,
-                    query: {
-                      aluno: `${studentId}`,
-                    },
-                  }}
-                >
-                  Mostrar frequência
-                </Link>
+                <ShowFrequency
+                  pathname={`/aluno/turmas/${classroom.id}`}
+                  query={`${studentId}`}
+                />
               )}
               {isInstructor && (
-                <Link href={{ pathname: `/turma/${classroom.id}` }}>Abrir</Link>
+                <Link
+                  href={{ pathname: `/turma/${classroom.id}` }}
+                  className={`flex items-center justify-center rounded border-2 bg-neutral-200 p-2 px-4 shadow hover:bg-opacity-85`}
+                >
+                  <span>Visualizar turma</span>
+                  <ArrowRightCircle className="ml-2" />
+                </Link>
               )}
               {isAdministrator && (
                 <>
