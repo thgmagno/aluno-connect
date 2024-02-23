@@ -11,6 +11,7 @@ import {
   RefreshCcw,
   Trash2,
   X,
+  Tag,
 } from 'lucide-react'
 import Link from 'next/link'
 import { ReactNode } from 'react'
@@ -274,6 +275,18 @@ export function ShowFrequency({
     >
       <span>Visualizar frequência</span>
       <ArrowRightCircle className="ml-2" />
+    </Link>
+  )
+}
+
+export function SetCategory({ id }: { id: number }) {
+  return (
+    <Link
+      href={{ query: { modal: 'categoria', id: `${id}` } }}
+      className={`flex items-center justify-center rounded border-2 bg-neutral-200 p-2 px-4 shadow hover:bg-opacity-85`}
+    >
+      <Tag className="mr-2" size={20} />
+      <span>Incluir categoria</span>
     </Link>
   )
 }

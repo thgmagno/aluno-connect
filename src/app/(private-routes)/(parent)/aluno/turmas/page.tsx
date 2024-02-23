@@ -1,5 +1,6 @@
 import { actions } from '@/actions'
 import { Loading } from '@/components/common/loading'
+import { GoBack } from '@/components/common/navbar'
 import RenderList from '@/components/common/render-list'
 import { Classroom } from '@/lib/types'
 import { ParseInt } from '@/utils/parse-int'
@@ -16,6 +17,7 @@ export default async function ParentClassroomPage({
 
   return (
     <div>
+      <GoBack href={'/aluno'} />
       <Suspense fallback={<Loading />}>
         <RenderList classroom={classroomList} />
       </Suspense>

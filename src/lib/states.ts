@@ -84,3 +84,9 @@ export interface LinkStudentParentFormState {
     _form?: string
   }
 }
+
+export interface SetCategoryFormState {
+  errors: {
+    _form?: string
+  }
+}

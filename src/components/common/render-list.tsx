@@ -23,6 +23,7 @@ import {
   LinkInstructorsClassroomButton,
   LinkStudentsParentButton,
   ShowFrequency,
+  SetCategory,
 } from '@/components/card'
 import { FormatDate } from '@/utils/format-date'
 import { FrequencyStatus } from './frequency-status'
@@ -30,7 +31,7 @@ import Link from 'next/link'
 import { usePathname, useSearchParams } from 'next/navigation'
 import { userStore } from '@/store/user'
 import { CheckAgeStudent } from '@/utils/check-age-student'
-import { ArrowRightCircle } from 'lucide-react'
+import { ArrowRightCircle, Presentation } from 'lucide-react'
 
 interface Props {
   user?: PartialUser[]
@@ -76,11 +77,13 @@ export default function RenderList({
                 <>
                   <Link
                     href={{
-                      pathname: 'aluno/turmas',
+                      pathname: '/aluno/turmas',
                       query: { aluno: String(user.id) },
                     }}
+                    className={`flex items-center justify-center rounded border-2 bg-neutral-200 p-2 px-4 shadow hover:bg-opacity-85`}
                   >
-                    Turmas
+                    <span>Turmas</span>
+                    <Presentation className="ml-2" />
                   </Link>
                 </>
               )}
@@ -158,6 +161,7 @@ export default function RenderList({
                 Situação: <FrequencyStatus status={request.frequency.status} />
               </p>
               <p>Justificativa do aluno: {request.justification}</p>
+              <p>Categoria: {request.category ?? 'pendente'}</p>
               <p>
                 Anexo: <span className="text-red-500">implementar</span>
               </p>
@@ -166,6 +170,12 @@ export default function RenderList({
               <CardActions reverse>
                 <AcceptRequest id={request.id} />
                 <RejectRequest id={request.id} />
+              </CardActions>
+            )}
+            {(request.frequency.status === 'APPROVED' ||
+              request.frequency.status === 'REJECTED') && (
+              <CardActions>
+                <SetCategory id={request.id} />
               </CardActions>
             )}
           </Card>

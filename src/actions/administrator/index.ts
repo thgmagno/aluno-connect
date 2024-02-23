@@ -7,6 +7,7 @@ import {
   LinkStudentClassroomFormState,
   LinkStudentParentFormState,
   ParentFormState,
+  SetCategoryFormState,
   StudentFormState,
 } from '@/lib/states'
 import {
@@ -19,6 +20,7 @@ import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 import { prisma } from '@/lib/prisma'
 import { ParseInt } from '@/utils/parse-int'
+import { mockCategories } from '@/lib/mock'
 
 export async function getStudents() {
   return prisma.user.findMany({
@@ -347,4 +349,30 @@ export async function linkStudentParent(
 
   revalidatePath('/responsaveis')
   redirect('/responsaveis')
+}
+
+export async function setCategory(
+  formState: SetCategoryFormState,
+  formData: FormData,
+): Promise<SetCategoryFormState> {
+  try {
+    const id = ParseInt(formData.get('id') as string)
+    const categoryId = ParseInt(formData.get('category') as string)
+
+    const category = mockCategories.find(
+      (category) => category.value === categoryId,
+    )
+
+    if (category?.label) {
+      await prisma.request.update({
+        where: { id },
+        data: { category: category.label },
+      })
+    }
+  } catch (error) {
+    return { errors: { _form: 'Não foi possível incluir a categoria' } }
+  }
+
+  revalidatePath('/solicitacoes')
+  redirect('/solicitacoes')
 }

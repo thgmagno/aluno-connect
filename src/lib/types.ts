@@ -38,6 +38,7 @@ export type Request = {
   course_name: string
   justification: string
   imageUrl: string | null
+  category: string | null
   frequency: {
     id: number
     status: EnumStatus

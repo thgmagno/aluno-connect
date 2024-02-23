@@ -70,6 +70,7 @@ model Request {
   course_name   String
   justification String
   imageUrl      String?
+  category      String?
 }
 
 model StudentFrequency {
